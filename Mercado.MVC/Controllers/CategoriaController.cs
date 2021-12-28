@@ -1,25 +1,26 @@
 ﻿using Mercado.MVC.Data;
+using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Mercado.MVC.Controllers
 {
-    public class CategoriaController : Controller
+    public class CategoriaController : ControllerPai
     {
         private readonly MercadoMVCContext _context;
+        private readonly ICategoriaService _service;
 
-        public CategoriaController(MercadoMVCContext context)
+        public CategoriaController(MercadoMVCContext context, ICategoriaService service)
         {
             _context = context;
+            _service = service;
         }
 
         // GET: Categoria
         public async Task<IActionResult> Index()
         {
-            return View(await _context.CategoriaModel.ToListAsync());
+            return View(await _service.GetAll());
         }
 
         // GET: Categoria/Details/5
@@ -30,8 +31,7 @@ namespace Mercado.MVC.Controllers
                 return NotFound();
             }
 
-            var categoriaModel = await _context.CategoriaModel
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var categoriaModel = await _service.GetOneById(id);
             if (categoriaModel == null)
             {
                 return NotFound();
@@ -51,15 +51,13 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descricao")] CategoriaModel categoriaModel)
+        public async Task<IActionResult> Create(CategoriaModel categoriaModel)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(categoriaModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(categoriaModel);
+                var response = await _service.CreateCategory(categoriaModel);
+            if(response.IsValid)
+                return RedirectToAction("Index", "Categoria");
+
+            return View(MostrarErros(response, categoriaModel));
         }
 
         // GET: Categoria/Edit/5
@@ -70,7 +68,7 @@ namespace Mercado.MVC.Controllers
                 return NotFound();
             }
 
-            var categoriaModel = await _context.CategoriaModel.FindAsync(id);
+            var categoriaModel = await _service.GetOneById(id);
             if (categoriaModel == null)
             {
                 return NotFound();
@@ -83,34 +81,13 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Descricao")] CategoriaModel categoriaModel)
+        public async Task<IActionResult> Edit(int id, CategoriaModel categoriaModel)
         {
-            if (id != categoriaModel.Id)
-            {
-                return NotFound();
-            }
+            var response = await _service.PutCategory(categoriaModel);
+            if (response.IsValid)
+                return RedirectToAction("Index", "Categoria");
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(categoriaModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoriaModelExists(categoriaModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(categoriaModel);
+            return View(MostrarErros(response, categoriaModel));
         }
 
         // GET: Categoria/Delete/5
@@ -121,13 +98,11 @@ namespace Mercado.MVC.Controllers
                 return NotFound();
             }
 
-            var categoriaModel = await _context.CategoriaModel
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var categoriaModel = await _service.GetOneById(id);
             if (categoriaModel == null)
             {
                 return NotFound();
             }
-
             return View(categoriaModel);
         }
 
@@ -136,15 +111,12 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var categoriaModel = await _context.CategoriaModel.FindAsync(id);
-            _context.CategoriaModel.Remove(categoriaModel);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            var categoriaModel = await _service.Delet(id);
+            if(categoriaModel)
+            return RedirectToAction("Index", "Categoria");
 
-        private bool CategoriaModelExists(int id)
-        {
-            return _context.CategoriaModel.Any(e => e.Id == id);
+            ViewBag.ErroExcluir = "Não foi possivel excluir essa Categoria, verifique se ha produtos relacionados a ela";
+            return View(_service.GetOneById(id));
         }
     }
 }
