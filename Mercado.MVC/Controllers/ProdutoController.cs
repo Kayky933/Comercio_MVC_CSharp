@@ -1,28 +1,28 @@
-﻿using Mercado.MVC.Data;
+﻿using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Mercado.MVC.Controllers
 {
-    public class ProdutoController : Controller
+    public class ProdutoController : ControllerPai
     {
-        private readonly MercadoMVCContext _context;
+        private readonly IProdutoService _service;
+        private readonly ICategoriaService _categoriaService;
 
-        public ProdutoController(MercadoMVCContext context)
+        public ProdutoController(IProdutoService service, ICategoriaService categoriaService)
         {
-            _context = context;
+            _service = service;
+            _categoriaService = categoriaService;
         }
 
         // GET: Produto
         public async Task<IActionResult> Index()
         {
-            var mercadoMVCContext = _context.ProdutoModel.Include(p => p.Categoria);
-            return View(await mercadoMVCContext.ToListAsync());
+            //var mercadoMVCContext = _context.ProdutoModel.Include(p => p.Categoria);
+            return View(await _service.GetAll());
         }
 
         // GET: Produto/Details/5
@@ -33,9 +33,7 @@ namespace Mercado.MVC.Controllers
                 return NotFound();
             }
 
-            var produtoModel = await _context.ProdutoModel
-                .Include(p => p.Categoria)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var produtoModel = await _service.GetOneById(id);
             if (produtoModel == null)
             {
                 return NotFound();
@@ -47,7 +45,7 @@ namespace Mercado.MVC.Controllers
         // GET: Produto/Create
         public IActionResult Create()
         {
-            ViewData["IdCategoria"] = new SelectList(_context.CategoriaModel, "Id", "Descricao");
+            ViewData["IdCategoria"] = new SelectList(_categoriaService.GetContext(), "Id", "Descricao");
             ViewData["UnidaDeMedida"] = new SelectList(Enum.GetValues(typeof(UnidadeMedidaEnum)));
             return View();
         }
@@ -57,16 +55,15 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Descricao,PrecoUnidade,UnidadeDeMedida,IdCategoria")] ProdutoModel produtoModel)
+        public async Task<IActionResult> Create(ProdutoModel produtoModel)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(produtoModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdCategoria"] = new SelectList(_context.CategoriaModel, "Id", "Descricao", produtoModel.IdCategoria);
-            return View(produtoModel);
+            var response = await _service.CreateProduct(produtoModel);
+            if (response.IsValid)
+                return RedirectToAction("Index", "Produto");
+
+            ViewData["IdCategoria"] = new SelectList(_categoriaService.GetContext(), "Id", "Descricao");
+            ViewData["UnidaDeMedida"] = new SelectList(Enum.GetValues(typeof(UnidadeMedidaEnum)));
+            return View(MostrarErros(response, produtoModel));
         }
 
         // GET: Produto/Edit/5
@@ -77,12 +74,13 @@ namespace Mercado.MVC.Controllers
                 return NotFound();
             }
 
-            var produtoModel = await _context.ProdutoModel.FindAsync(id);
+            var produtoModel = await _service.GetOneById(id);
             if (produtoModel == null)
             {
                 return NotFound();
             }
-            ViewData["IdCategoria"] = new SelectList(_context.CategoriaModel, "Id", "Descricao", produtoModel.IdCategoria);
+            ViewData["UnidaDeMedida"] = new SelectList(Enum.GetValues(typeof(UnidadeMedidaEnum)));
+            ViewData["IdCategoria"] = new SelectList(_categoriaService.GetContext(), "Id", "Descricao", produtoModel.IdCategoria);
             return View(produtoModel);
         }
 
@@ -91,35 +89,19 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Descricao,PrecoUnidade,UnidadeDeMedida,IdCategoria")] ProdutoModel produtoModel)
+        public async Task<IActionResult> Edit(int id, ProdutoModel produtoModel)
         {
             if (id != produtoModel.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(produtoModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProdutoModelExists(produtoModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdCategoria"] = new SelectList(_context.CategoriaModel, "Id", "Descricao", produtoModel.IdCategoria);
-            return View(produtoModel);
+            var response = await _service.PutProduct(produtoModel);
+            if (!response.IsValid)
+                return View(MostrarErros(response, produtoModel));
+            ViewData["UnidaDeMedida"] = new SelectList(Enum.GetValues(typeof(UnidadeMedidaEnum)));
+            ViewData["IdCategoria"] = new SelectList(_categoriaService.GetContext(), "Id", "Descricao", produtoModel.IdCategoria);
+            return RedirectToAction("Index", "Produto");
         }
 
         // GET: Produto/Delete/5
@@ -130,15 +112,12 @@ namespace Mercado.MVC.Controllers
                 return NotFound();
             }
 
-            var produtoModel = await _context.ProdutoModel
-                .Include(p => p.Categoria)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (produtoModel == null)
+            var produto = await _service.GetOneById(id);
+            if (produto == null)
             {
                 return NotFound();
             }
-
-            return View(produtoModel);
+            return View(produto);
         }
 
         // POST: Produto/Delete/5
@@ -146,15 +125,12 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var produtoModel = await _context.ProdutoModel.FindAsync(id);
-            _context.ProdutoModel.Remove(produtoModel);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            var categoriaModel = await _service.Delet(id);
+            if (categoriaModel)
+                return RedirectToAction("Index", "Produto");
 
-        private bool ProdutoModelExists(int id)
-        {
-            return _context.ProdutoModel.Any(e => e.Id == id);
+            ViewBag.ErroExcluir = "Não foi possivel excluir esse Produto!";
+            return View(_service.GetOneById(id));
         }
     }
 }
