@@ -3,6 +3,7 @@ using Mercado.MVC.Interfaces.Repository;
 using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
 using Mercado.MVC.Validation.ValidateModels;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -15,13 +16,13 @@ namespace Mercado.MVC.Service
         {
             _repository = repository;
         }
-        public async Task<ValidationResult> CreateCategory(CategoriaModel produto)
+        public async Task<ValidationResult> CreateCategory(CategoriaModel categoria)
         {
-            var validation = await new CategoriaValidation().ValidateAsync(produto);
+            var validation = await new CategoriaValidation().ValidateAsync(categoria);
             if (!validation.IsValid)
                 return validation;
 
-            _repository.Create(produto);
+            _repository.Create(categoria);
             return validation;
         }
 
@@ -39,18 +40,23 @@ namespace Mercado.MVC.Service
             return await _repository.GetAll();
         }
 
+        public DbSet<CategoriaModel> GetContext()
+        {
+            return _repository.GetContext();
+        }
+
         public async Task<CategoriaModel> GetOneById(int? id)
         {
             return await _repository.GetOneById(id);
         }
 
-        public async Task<ValidationResult> PutCategory(CategoriaModel produto)
+        public async Task<ValidationResult> PutCategory(CategoriaModel categoria)
         {
-            var validation = await new CategoriaValidation().ValidateAsync(produto);
+            var validation = await new CategoriaValidation().ValidateAsync(categoria);
             if (!validation.IsValid)
                 return validation;
 
-            _repository.Update(produto);
+            _repository.Update(categoria);
             return validation;
 
         }

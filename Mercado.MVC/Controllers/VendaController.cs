@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Mercado.MVC.Controllers
 {
-    public class VendaController : Controller
+    public class VendaController : ControllerPai
     {
         private readonly MercadoMVCContext _context;
 

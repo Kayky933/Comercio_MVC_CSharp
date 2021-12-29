@@ -29,6 +29,9 @@ namespace Mercado.MVC
             services.AddScoped<ICategoriaService, CaregoriaService>();
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 
+            services.AddScoped<IProdutoService, ProdutoService>();
+            services.AddScoped<IProdutoRepository, ProdutoRepository>();
+
             services.AddDbContext<MercadoMVCContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MercadoMVCContext")));
         }

@@ -30,7 +30,7 @@ namespace Mercado.MVC.Repository
 
         public void Update(CategoriaModel entity)
         {
-            _context.Update(entity).State = EntityState.Modified;
+            _context.CategoriaModel.Update(entity).State = EntityState.Modified;
             SaveChangesDb();
         }
 
@@ -47,6 +47,11 @@ namespace Mercado.MVC.Repository
         public void SaveChangesDb()
         {
             _context.SaveChanges();
+        }
+
+        public DbSet<CategoriaModel> GetContext()
+        {
+            return _context.Set<CategoriaModel>();
         }
     }
 }
