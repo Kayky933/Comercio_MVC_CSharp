@@ -3,7 +3,6 @@ using Mercado.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
-using System.Threading.Tasks;
 
 namespace Mercado.MVC.Controllers
 {
@@ -19,21 +18,21 @@ namespace Mercado.MVC.Controllers
         }
 
         // GET: Produto
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             //var mercadoMVCContext = _context.ProdutoModel.Include(p => p.Categoria);
-            return View(await _service.GetAll());
+            return View(_service.GetAll());
         }
 
         // GET: Produto/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var produtoModel = await _service.GetOneById(id);
+            var produtoModel = _service.GetOneById(id);
             if (produtoModel == null)
             {
                 return NotFound();
@@ -55,9 +54,11 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(ProdutoModel produtoModel)
+        public IActionResult Create(ProdutoModel produtoModel)
         {
-            var response = await _service.CreateProduct(produtoModel);
+            var categoria = _categoriaService.GetOneById(produtoModel.IdCategoria);
+            produtoModel.DescricaoCategoria = categoria.Descricao;
+            var response = _service.CreateProduct(produtoModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "Produto");
 
@@ -67,18 +68,19 @@ namespace Mercado.MVC.Controllers
         }
 
         // GET: Produto/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var produtoModel = await _service.GetOneById(id);
+            var produtoModel = _service.GetOneById(id);
             if (produtoModel == null)
             {
                 return NotFound();
             }
+            produtoModel.QuantidadeProduto = produtoModel.QuantidadeProduto;
             ViewData["UnidaDeMedida"] = new SelectList(Enum.GetValues(typeof(UnidadeMedidaEnum)));
             ViewData["IdCategoria"] = new SelectList(_categoriaService.GetContext(), "Id", "Descricao", produtoModel.IdCategoria);
             return View(produtoModel);
@@ -89,14 +91,15 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, ProdutoModel produtoModel)
+        public IActionResult Edit(int id, ProdutoModel produtoModel)
         {
             if (id != produtoModel.Id)
             {
                 return NotFound();
             }
-
-            var response = await _service.PutProduct(produtoModel);
+            var categoria = _categoriaService.GetOneById(produtoModel.IdCategoria);
+            produtoModel.DescricaoCategoria = categoria.Descricao;
+            var response = _service.PutProduct(produtoModel);
             if (!response.IsValid)
                 return View(MostrarErros(response, produtoModel));
             ViewData["UnidaDeMedida"] = new SelectList(Enum.GetValues(typeof(UnidadeMedidaEnum)));
@@ -105,14 +108,14 @@ namespace Mercado.MVC.Controllers
         }
 
         // GET: Produto/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var produto = await _service.GetOneById(id);
+            var produto = _service.GetOneById(id);
             if (produto == null)
             {
                 return NotFound();
@@ -123,9 +126,9 @@ namespace Mercado.MVC.Controllers
         // POST: Produto/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var categoriaModel = await _service.Delet(id);
+            var categoriaModel = _service.Delet(id);
             if (categoriaModel)
                 return RedirectToAction("Index", "Produto");
 

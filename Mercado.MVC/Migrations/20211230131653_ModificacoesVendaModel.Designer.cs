@@ -3,14 +3,16 @@ using Mercado.MVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mercado.MVC.Migrations
 {
     [DbContext(typeof(MercadoMVCContext))]
-    partial class MercadoMVCContextModelSnapshot : ModelSnapshot
+    [Migration("20211230131653_ModificacoesVendaModel")]
+    partial class ModificacoesVendaModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

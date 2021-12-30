@@ -4,7 +4,6 @@ using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
 using Mercado.MVC.Validation.ValidateModels;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Mercado.MVC.Service
 {
@@ -17,9 +16,9 @@ namespace Mercado.MVC.Service
             _repository = repository;
             _categoryRepository = categoryRepository;
         }
-        public async Task<ValidationResult> CreateProduct(ProdutoModel produto)
+        public ValidationResult CreateProduct(ProdutoModel produto)
         {
-            var validation = await new ProdutoValidation(_categoryRepository, false).ValidateAsync(produto);
+            var validation = new ProdutoValidation(_categoryRepository, false).Validate(produto);
             if (!validation.IsValid)
                 return validation;
 
@@ -27,28 +26,28 @@ namespace Mercado.MVC.Service
             return validation;
         }
 
-        public async Task<bool> Delet(int id)
+        public bool Delet(int id)
         {
-            var produto = await _repository.GetOneById(id);
+            var produto = _repository.GetOneById(id);
             if (produto == null)
                 return false;
             _repository.Delete(produto);
             return true;
         }
 
-        public async Task<IEnumerable<ProdutoModel>> GetAll()
+        public IEnumerable<ProdutoModel> GetAll()
         {
-            return await _repository.GetAll();
+            return _repository.GetAll();
         }
 
-        public async Task<ProdutoModel> GetOneById(int? id)
+        public ProdutoModel GetOneById(int? id)
         {
-            return await _repository.GetOneById(id);
+            return _repository.GetOneById(id);
         }
 
-        public async Task<ValidationResult> PutProduct(ProdutoModel produto)
+        public ValidationResult PutProduct(ProdutoModel produto)
         {
-            var validation = await new ProdutoValidation(_categoryRepository, true).ValidateAsync(produto);
+            var validation = new ProdutoValidation(_categoryRepository, true).Validate(produto);
             if (!validation.IsValid)
                 return validation;
 

@@ -3,14 +3,16 @@ using Mercado.MVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mercado.MVC.Migrations
 {
     [DbContext(typeof(MercadoMVCContext))]
-    partial class MercadoMVCContextModelSnapshot : ModelSnapshot
+    [Migration("20211230125840_ModificacoesProdutoModelAddDescricaoCategoria")]
+    partial class ModificacoesProdutoModelAddDescricaoCategoria
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,19 +80,11 @@ namespace Mercado.MVC.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("DescricaoProduto")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<int>("IdProduto")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantidade")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("ValorVenda")
-                        .HasColumnType("decimal(12,2)");
 
                     b.HasKey("Id");
 

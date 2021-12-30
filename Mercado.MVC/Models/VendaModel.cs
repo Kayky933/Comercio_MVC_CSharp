@@ -14,10 +14,15 @@ namespace Mercado.MVC.Models
         [ForeignKey("Produto")]
         public int IdProduto { get; set; }
         public ProdutoModel Produto { get; set; }
+        [Required]
+        [MaxLength(100)]
+        public string DescricaoProduto { get; set; }
+        [Required]
+        [Column(TypeName = "decimal(12,2)")]
+        public decimal ValorVenda { get; set; }
         public decimal Valor()
         {
-            var valor = 0m;
-            return valor += Produto.PrecoUnidade * Quantidade;
+            return this.ValorVenda += Produto.PrecoUnidade * Quantidade;
         }
     }
 }

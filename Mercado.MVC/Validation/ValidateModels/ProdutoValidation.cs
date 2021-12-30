@@ -17,7 +17,7 @@ namespace Mercado.MVC.Validation.ValidateModels
             RuleFor(x => x.PrecoUnidade).NotEmpty().WithMessage(ProdutoErrorMessages.PrecoNulo)
                 .NotNull().WithMessage(ProdutoErrorMessages.PrecoNulo)
                 .GreaterThanOrEqualTo(0.99M).WithMessage(ProdutoErrorMessages.PrecoMinimo)
-                .Must(x => x.GetType() == typeof(decimal)).WithMessage(ProdutoErrorMessages.PrecoFormatoInvalido);           
+                .Must(x => x.GetType() == typeof(decimal)).WithMessage(ProdutoErrorMessages.PrecoFormatoInvalido);
 
             RuleFor(x => x.IdCategoria).NotEmpty().WithMessage(ProdutoErrorMessages.IdCategoriaNulo)
                 .NotNull().WithMessage(ProdutoErrorMessages.IdCategoriaNulo)

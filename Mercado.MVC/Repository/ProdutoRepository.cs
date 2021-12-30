@@ -3,8 +3,8 @@ using Mercado.MVC.Interfaces.Repository;
 using Mercado.MVC.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Mercado.MVC.Repository
 {
@@ -35,15 +35,14 @@ namespace Mercado.MVC.Repository
             SaveChangesDb();
         }
 
-
-        public async Task<IEnumerable<ProdutoModel>> GetAll()
+        public IEnumerable<ProdutoModel> GetAll()
         {
-            return await _context.ProdutoModel.ToListAsync();
+            return _context.ProdutoModel.ToList();
         }
 
-        public async Task<ProdutoModel> GetOneById(int? id)
+        public ProdutoModel GetOneById(int? id)
         {
-            return await _context.ProdutoModel.Where(x => x.Id == id).FirstOrDefaultAsync();
+            return _context.ProdutoModel.Where(x => x.Id == id).FirstOrDefault();
         }
         public void SaveChangesDb()
         {
