@@ -37,7 +37,7 @@ namespace Mercado.MVC.Repository
 
         public IEnumerable<ProdutoModel> GetAll()
         {
-            return _context.ProdutoModel.ToList();
+            return _context.ProdutoModel.Include(x => x.Categoria).ToList();
         }
 
         public ProdutoModel GetOneById(int? id)

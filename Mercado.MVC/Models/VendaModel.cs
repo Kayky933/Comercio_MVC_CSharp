@@ -15,9 +15,6 @@ namespace Mercado.MVC.Models
         public int IdProduto { get; set; }
         public ProdutoModel Produto { get; set; }
         [Required]
-        [MaxLength(100)]
-        public string DescricaoProduto { get; set; }
-        [Required]
         [Column(TypeName = "decimal(12,2)")]
         public decimal ValorVenda { get; set; }
         public decimal Valor()

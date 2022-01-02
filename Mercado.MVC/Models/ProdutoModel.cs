@@ -23,9 +23,6 @@ namespace Mercado.MVC.Models
         [ForeignKey("Categoria")]
         public int IdCategoria { get; set; }
         public CategoriaModel Categoria { get; set; }
-        [Required]
-        [MaxLength(100)]
-        public string DescricaoCategoria { get; set; }
         public ICollection<VendaModel> Vendas { get; set; }
     }
 }

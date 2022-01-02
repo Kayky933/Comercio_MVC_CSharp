@@ -20,7 +20,6 @@ namespace Mercado.MVC.Controllers
         // GET: Produto
         public IActionResult Index()
         {
-            //var mercadoMVCContext = _context.ProdutoModel.Include(p => p.Categoria);
             return View(_service.GetAll());
         }
 
@@ -56,8 +55,6 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(ProdutoModel produtoModel)
         {
-            var categoria = _categoriaService.GetOneById(produtoModel.IdCategoria);
-            produtoModel.DescricaoCategoria = categoria.Descricao;
             var response = _service.CreateProduct(produtoModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "Produto");
@@ -80,7 +77,6 @@ namespace Mercado.MVC.Controllers
             {
                 return NotFound();
             }
-            produtoModel.QuantidadeProduto = produtoModel.QuantidadeProduto;
             ViewData["UnidaDeMedida"] = new SelectList(Enum.GetValues(typeof(UnidadeMedidaEnum)));
             ViewData["IdCategoria"] = new SelectList(_categoriaService.GetContext(), "Id", "Descricao", produtoModel.IdCategoria);
             return View(produtoModel);
@@ -91,17 +87,17 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, ProdutoModel produtoModel)
+        public IActionResult Edit(int id, [Bind("Id,Descricao,PrecoUnidade,UnidadeDeMedida,IdCategoria")] ProdutoModel produtoModel)
         {
             if (id != produtoModel.Id)
             {
                 return NotFound();
             }
-            var categoria = _categoriaService.GetOneById(produtoModel.IdCategoria);
-            produtoModel.DescricaoCategoria = categoria.Descricao;
+
             var response = _service.PutProduct(produtoModel);
             if (!response.IsValid)
                 return View(MostrarErros(response, produtoModel));
+
             ViewData["UnidaDeMedida"] = new SelectList(Enum.GetValues(typeof(UnidadeMedidaEnum)));
             ViewData["IdCategoria"] = new SelectList(_categoriaService.GetContext(), "Id", "Descricao", produtoModel.IdCategoria);
             return RedirectToAction("Index", "Produto");
