@@ -30,7 +30,7 @@ namespace Mercado.MVC.Repository
         public IEnumerable<VendaModel> GetAll()
         {
             return _context.VendaModel
-                .Include(x => x.Quantidade).ToList();
+                .Include(x => x.Produto).ToList();
         }
 
         public VendaModel GetOneById(int? id)

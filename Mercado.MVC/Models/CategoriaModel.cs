@@ -11,7 +11,7 @@ namespace Mercado.MVC.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage ="O Campo é obrigatório!")]
         [MaxLength(100)]
         public string Descricao { get; set; }
         public ICollection<ProdutoModel> Produtos { get; set; }

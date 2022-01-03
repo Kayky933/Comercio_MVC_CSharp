@@ -8,18 +8,14 @@ namespace Mercado.MVC.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "O Campo é obrigatório!")]
         public int Quantidade { get; set; }
-        [Required]
+        [Required(ErrorMessage = "O Campo é obrigatório!")]
         [ForeignKey("Produto")]
         public int IdProduto { get; set; }
         public ProdutoModel Produto { get; set; }
-        [Required]
+        [Required(ErrorMessage = "O Campo é obrigatório!")]
         [Column(TypeName = "decimal(12,2)")]
-        public decimal ValorVenda { get; set; }
-        public decimal Valor()
-        {
-            return this.ValorVenda += Produto.PrecoUnidade * Quantidade;
-        }
+        public decimal ValorVenda { get; set; } 
     }
 }

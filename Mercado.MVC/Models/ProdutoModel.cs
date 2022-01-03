@@ -9,17 +9,17 @@ namespace Mercado.MVC.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "O Campo é obrigatório!")]
         [MaxLength(100)]
         public string Descricao { get; set; }
-        [Required]
+        [Required(ErrorMessage = "O Campo é obrigatório!")]
         [Column(TypeName = "decimal(12,2)")]
         public decimal PrecoUnidade { get; set; }
-        [Required]
+        [Required(ErrorMessage = "O Campo é obrigatório!")]
         public double QuantidadeProduto { get; set; }
-        [Required]
+        [Required(ErrorMessage = "O Campo é obrigatório!")]
         public UnidadeMedidaEnum UnidadeDeMedida { get; set; }
-        [Required]
+        [Required(ErrorMessage = "O Campo é obrigatório!")]
         [ForeignKey("Categoria")]
         public int IdCategoria { get; set; }
         public CategoriaModel Categoria { get; set; }

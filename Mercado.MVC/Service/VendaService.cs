@@ -18,10 +18,14 @@ namespace Mercado.MVC.Service
         }
         public ValidationResult CreateVenda(VendaModel categoria)
         {
-            var validation = new VendaValidation(_prodRepository).Validate(categoria);
+            var validation = new VendaValidation(_prodRepository, _repository,categoria.IdProduto).Validate(categoria);
             if (!validation.IsValid)
                 return validation;
 
+            var prod = _prodRepository.GetOneById(categoria.IdProduto);
+           prod.QuantidadeProduto -= categoria.Quantidade;
+            _prodRepository.Update(prod);
+            categoria.ValorVenda = prod.PrecoUnidade * categoria.Quantidade;
             _repository.Create(categoria);
             return validation;
         }
