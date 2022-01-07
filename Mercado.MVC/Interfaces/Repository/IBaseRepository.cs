@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Mercado.MVC.Interfaces.Repository
 {
     public interface IBaseRepository<T> where T : class
     {
         void Create(T entity);
-        void Update(T entity);
         void Delete(T entity);
         void SaveChangesDb();
-        Task<T> GetOneById(int? id);
-        Task<IEnumerable<T>> GetAll();
+        public T GetOneById(int? id);
+        public IEnumerable<T> GetAll();
+        public DbSet<T> GetContext();
     }
 }

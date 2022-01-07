@@ -1,7 +1,6 @@
 ﻿using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Mercado.MVC.Controllers
 {
@@ -15,20 +14,20 @@ namespace Mercado.MVC.Controllers
         }
 
         // GET: Categoria
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _service.GetAll());
+            return View(_service.GetAll());
         }
 
         // GET: Categoria/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var categoriaModel = await _service.GetOneById(id);
+            var categoriaModel = _service.GetOneById(id);
             if (categoriaModel == null)
             {
                 return NotFound();
@@ -48,9 +47,9 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CategoriaModel categoriaModel)
+        public IActionResult Create(CategoriaModel categoriaModel)
         {
-            var response = await _service.CreateCategory(categoriaModel);
+            var response = _service.CreateCategory(categoriaModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "Categoria");
 
@@ -58,14 +57,14 @@ namespace Mercado.MVC.Controllers
         }
 
         // GET: Categoria/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var categoriaModel = await _service.GetOneById(id);
+            var categoriaModel = _service.GetOneById(id);
             if (categoriaModel == null)
             {
                 return NotFound();
@@ -78,14 +77,14 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, CategoriaModel categoriaModel)
+        public IActionResult Edit(int id, CategoriaModel categoriaModel)
         {
             if (id != categoriaModel.Id)
             {
                 return NotFound();
             }
 
-            var response = await _service.PutCategory(categoriaModel);
+            var response = _service.PutCategory(categoriaModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "Categoria");
 
@@ -93,14 +92,14 @@ namespace Mercado.MVC.Controllers
         }
 
         // GET: Categoria/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var categoriaModel = await _service.GetOneById(id);
+            var categoriaModel = _service.GetOneById(id);
             if (categoriaModel == null)
             {
                 return NotFound();
@@ -111,9 +110,9 @@ namespace Mercado.MVC.Controllers
         // POST: Categoria/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var categoriaModel = await _service.Delet(id);
+            var categoriaModel = _service.Delet(id);
             if (categoriaModel)
                 return RedirectToAction("Index", "Categoria");
 

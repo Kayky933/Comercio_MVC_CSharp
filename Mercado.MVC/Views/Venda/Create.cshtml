@@ -9,6 +9,7 @@
 <h4>Venda</h4>
 <hr />
 <div class="row">
+    @ViewBag.ErroExcluir
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -19,7 +20,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="IdProduto" class="control-label"></label>
-                <select asp-for="IdProduto" class ="form-control" asp-items="ViewBag.IdProduto"></select>
+                <select asp-for="IdProduto" class="form-control" asp-items="ViewBag.IdProduto"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Criar" class="btn btn-primary" />

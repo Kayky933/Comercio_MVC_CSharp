@@ -2,7 +2,7 @@
 {
     public static class ProdutoErrorMessages
     {
-        public static string DescircaoProdutoNula = "A campo escrição não pode ser nula!"!;
+        public static string DescircaoProdutoNula = "A campo Descrição não pode ser nula!"!;
         public static string TamanhoMaximoDescricao = "A campo Descrição não pode ter mais que 100 caracteres!"!;
         public static string TamanhiMinimoDescricao = "A campo Descrição deve ter no mínimo 3 caracteres!"!;
 

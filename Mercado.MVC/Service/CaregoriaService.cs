@@ -5,7 +5,6 @@ using Mercado.MVC.Models;
 using Mercado.MVC.Validation.ValidateModels;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Mercado.MVC.Service
 {
@@ -16,9 +15,9 @@ namespace Mercado.MVC.Service
         {
             _repository = repository;
         }
-        public async Task<ValidationResult> CreateCategory(CategoriaModel categoria)
+        public ValidationResult CreateCategory(CategoriaModel categoria)
         {
-            var validation = await new CategoriaValidation().ValidateAsync(categoria);
+            var validation = new CategoriaValidation().Validate(categoria);
             if (!validation.IsValid)
                 return validation;
 
@@ -26,18 +25,18 @@ namespace Mercado.MVC.Service
             return validation;
         }
 
-        public async Task<bool> Delet(int id)
+        public bool Delet(int id)
         {
-            var categoria = await _repository.GetOneById(id);
+            var categoria = _repository.GetOneById(id);
             if (categoria == null)
                 return false;
             _repository.Delete(categoria);
             return true;
         }
 
-        public async Task<IEnumerable<CategoriaModel>> GetAll()
+        public IEnumerable<CategoriaModel> GetAll()
         {
-            return await _repository.GetAll();
+            return _repository.GetAll();
         }
 
         public DbSet<CategoriaModel> GetContext()
@@ -45,14 +44,14 @@ namespace Mercado.MVC.Service
             return _repository.GetContext();
         }
 
-        public async Task<CategoriaModel> GetOneById(int? id)
+        public CategoriaModel GetOneById(int? id)
         {
-            return await _repository.GetOneById(id);
+            return _repository.GetOneById(id);
         }
 
-        public async Task<ValidationResult> PutCategory(CategoriaModel categoria)
+        public ValidationResult PutCategory(CategoriaModel categoria)
         {
-            var validation = await new CategoriaValidation().ValidateAsync(categoria);
+            var validation = new CategoriaValidation().Validate(categoria);
             if (!validation.IsValid)
                 return validation;
 

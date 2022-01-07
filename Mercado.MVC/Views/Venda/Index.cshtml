@@ -19,7 +19,10 @@
                 @Html.DisplayNameFor(model => model.Produto)
             </th>
             <th>
-               Valor
+                Valor
+            </th>
+            <th>
+                Ultima Modificação
             </th>
             <th></th>
         </tr>
@@ -34,10 +37,12 @@
                 @Html.DisplayFor(modelItem => item.Produto.Descricao)
             </td>
             <td>
-               @item.Valor()
+                @Html.DisplayFor(modelItem => item.ValorVenda)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>
+                @Html.DisplayFor(modelItem => item.DataVenda)
+            </td>
+            <td>
                 <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a>
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
             </td>

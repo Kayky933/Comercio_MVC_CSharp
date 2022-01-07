@@ -25,7 +25,10 @@
                 @Html.DisplayNameFor(model => model.UnidadeDeMedida)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Categoria)
+                Descrição Categoria
+            </th>
+            <th>
+                Ultima Modificação
             </th>
             <th></th>
         </tr>
@@ -47,6 +50,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Categoria.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataAddProduto)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Editar</a>

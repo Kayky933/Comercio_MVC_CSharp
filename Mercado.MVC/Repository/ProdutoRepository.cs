@@ -1,20 +1,25 @@
 ﻿using Mercado.MVC.Data;
 using Mercado.MVC.Interfaces.Repository;
 using Mercado.MVC.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
+using System;
 
 namespace Mercado.MVC.Repository
 {
     public class ProdutoRepository : IProdutoRepository
     {
         private readonly MercadoMVCContext _context;
+        private readonly IConfiguration _configuration;
 
-        public ProdutoRepository(MercadoMVCContext context)
+        public ProdutoRepository(MercadoMVCContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         public void Create(ProdutoModel entity)
@@ -31,23 +36,50 @@ namespace Mercado.MVC.Repository
 
         public void Update(ProdutoModel entity)
         {
-            _context.ProdutoModel.Update(entity).State = EntityState.Modified;
-            SaveChangesDb();
+            string connectionString = _configuration.GetConnectionString("MercadoMVCContext");
+
+            using (SqlConnection connection = new(connectionString))
+            using (SqlCommand command = connection.CreateCommand())
+            {
+
+                command.CommandText = "UPDATE Produtos " +
+                    "SET Descricao = @Desc," +
+                    " PrecoUnidade = @PrecoUni ," +
+                    " UnidadeDeMedida = @UnidMed," +
+                    " IdCategoria = @IdCat, " +
+                    "DataAddProduto = @DataEdit Where Id = " + entity.Id;
+
+                command.Parameters.AddWithValue("@Desc", entity.Descricao);
+                command.Parameters.AddWithValue("@PrecoUni", entity.PrecoUnidade);
+                command.Parameters.AddWithValue("@UnidMed", entity.UnidadeDeMedida);
+                command.Parameters.AddWithValue("@IdCat", entity.IdCategoria);
+                command.Parameters.AddWithValue("@DataEdit", entity.DataAddProduto);
+
+                connection.Open();
+
+                command.ExecuteNonQuery();
+
+                connection.Close();
+            }
         }
 
-
-        public async Task<IEnumerable<ProdutoModel>> GetAll()
+        public IEnumerable<ProdutoModel> GetAll()
         {
-            return await _context.ProdutoModel.ToListAsync();
+            return _context.ProdutoModel.Include(x => x.Categoria).ToList();
         }
 
-        public async Task<ProdutoModel> GetOneById(int? id)
+        public ProdutoModel GetOneById(int? id)
         {
-            return await _context.ProdutoModel.Where(x => x.Id == id).FirstOrDefaultAsync();
+            return _context.ProdutoModel.Where(x => x.Id == id).FirstOrDefault();
         }
         public void SaveChangesDb()
         {
             _context.SaveChanges();
+        }
+
+        public DbSet<ProdutoModel> GetContext()
+        {
+            return _context.Set<ProdutoModel>();
         }
     }
 }

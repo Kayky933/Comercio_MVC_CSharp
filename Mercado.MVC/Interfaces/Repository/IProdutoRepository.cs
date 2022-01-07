@@ -4,5 +4,7 @@ namespace Mercado.MVC.Interfaces.Repository
 {
     public interface IProdutoRepository : IBaseRepository<ProdutoModel>
     {
+
+        void Update(ProdutoModel entity);
     }
 }

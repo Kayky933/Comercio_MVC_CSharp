@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mercado.MVC.Models
@@ -8,16 +9,15 @@ namespace Mercado.MVC.Models
     {
         [Key]
         public int Id { get; set; }
-        [Required]
+        [Required(ErrorMessage = "O Campo é obrigatório!")]
         public int Quantidade { get; set; }
-        [Required]
+        [Required(ErrorMessage = "O Campo é obrigatório!")]
         [ForeignKey("Produto")]
         public int IdProduto { get; set; }
         public ProdutoModel Produto { get; set; }
-        public decimal Valor()
-        {
-            var valor = 0m;
-            return valor += Produto.PrecoUnidade * Quantidade;
-        }
+        [Required(ErrorMessage = "O Campo é obrigatório!")]
+        [Column(TypeName = "decimal(12,2)")]
+        public decimal ValorVenda { get; set; }
+        public DateTime DataVenda { get; set; } = DateTime.UtcNow;
     }
 }
