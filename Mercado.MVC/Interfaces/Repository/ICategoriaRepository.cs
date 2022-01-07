@@ -6,7 +6,6 @@ namespace Mercado.MVC.Interfaces.Repository
     public interface ICategoriaRepository : IBaseRepository<CategoriaModel>
     {
 
-        void Update(CategoriaModel entity);
-        public DbSet<CategoriaModel> GetContext();
+        void Update(CategoriaModel entity);       
     }
 }

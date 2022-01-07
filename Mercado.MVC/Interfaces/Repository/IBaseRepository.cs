@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Mercado.MVC.Interfaces.Repository
 {
@@ -9,5 +10,6 @@ namespace Mercado.MVC.Interfaces.Repository
         void SaveChangesDb();
         public T GetOneById(int? id);
         public IEnumerable<T> GetAll();
+        public DbSet<T> GetContext();
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -24,5 +25,6 @@ namespace Mercado.MVC.Models
         public int IdCategoria { get; set; }
         public CategoriaModel Categoria { get; set; }
         public ICollection<VendaModel> Vendas { get; set; }
+        public DateTime DataAddProduto { get; set; } = DateTime.UtcNow;
     }
 }

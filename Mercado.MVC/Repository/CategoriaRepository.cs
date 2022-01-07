@@ -4,6 +4,7 @@ using Mercado.MVC.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace Mercado.MVC.Repository
 {
@@ -29,6 +30,7 @@ namespace Mercado.MVC.Repository
 
         public void Update(CategoriaModel entity)
         {
+            entity.DataAddCategoria = DateTime.UtcNow;
             _context.CategoriaModel.Update(entity).State = EntityState.Modified;
             SaveChangesDb();
         }

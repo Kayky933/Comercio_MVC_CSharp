@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System;
 
 namespace Mercado.MVC.Repository
 {
@@ -40,17 +41,19 @@ namespace Mercado.MVC.Repository
             using (SqlConnection connection = new(connectionString))
             using (SqlCommand command = connection.CreateCommand())
             {
+
                 command.CommandText = "UPDATE Produtos " +
                     "SET Descricao = @Desc," +
                     " PrecoUnidade = @PrecoUni ," +
                     " UnidadeDeMedida = @UnidMed," +
-                    " IdCategoria = @IdCat " +
-                    "WHERE Id = " + entity.Id;
+                    " IdCategoria = @IdCat, " +
+                    "DataAddProduto = @DataEdit Where Id = " + entity.Id;
 
                 command.Parameters.AddWithValue("@Desc", entity.Descricao);
                 command.Parameters.AddWithValue("@PrecoUni", entity.PrecoUnidade);
                 command.Parameters.AddWithValue("@UnidMed", entity.UnidadeDeMedida);
                 command.Parameters.AddWithValue("@IdCat", entity.IdCategoria);
+                command.Parameters.AddWithValue("@DataEdit", entity.DataAddProduto);
 
                 connection.Open();
 
@@ -72,6 +75,11 @@ namespace Mercado.MVC.Repository
         public void SaveChangesDb()
         {
             _context.SaveChanges();
+        }
+
+        public DbSet<ProdutoModel> GetContext()
+        {
+            return _context.Set<ProdutoModel>();
         }
     }
 }

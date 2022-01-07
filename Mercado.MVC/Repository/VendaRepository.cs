@@ -33,10 +33,15 @@ namespace Mercado.MVC.Repository
                 .Include(x => x.Produto).ToList();
         }
 
+        public DbSet<VendaModel> GetContext()
+        {
+            return _context.Set<VendaModel>();
+        }
+
         public VendaModel GetOneById(int? id)
         {
             return _context.VendaModel.Where(x => x.Id == id)
-                .Include(x => x.Quantidade).FirstOrDefault();
+                .Include(x => x.Produto).FirstOrDefault();
         }
 
         public void SaveChangesDb()

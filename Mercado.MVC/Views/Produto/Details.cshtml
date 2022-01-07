@@ -35,10 +35,17 @@
             @Html.DisplayFor(model => model.UnidadeDeMedida)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Categoria)
+            Descrição Categoria 
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Categoria.Descricao)
+        </dd>
+
+        <dt class="col-sm-2">
+           Ultima Modificação
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.DataAddProduto)
         </dd>
     </dl>
 </div>

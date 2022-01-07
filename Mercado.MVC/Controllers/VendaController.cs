@@ -3,21 +3,19 @@ using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Mercado.MVC.Controllers
 {
     public class VendaController : ControllerPai
     {
-        private readonly MercadoMVCContext _context;
         private readonly IVendaService _service;
+        private readonly IProdutoService _serviceProd;
 
-        public VendaController(IVendaService service, MercadoMVCContext context)
+        public VendaController(IVendaService service, IProdutoService serviceProd)
         {
-            _context = context;
             _service = service;
+            _serviceProd = serviceProd;
         }
 
         // GET: Venda
@@ -46,7 +44,7 @@ namespace Mercado.MVC.Controllers
         // GET: Venda/Create
         public IActionResult Create()
         {
-            ViewData["IdProduto"] = new SelectList(_context.ProdutoModel, "Id", "Descricao");
+            ViewData["IdProduto"] = new SelectList(_serviceProd.GetContext(), "Id", "Descricao");
             return View();
         }
 
@@ -55,12 +53,12 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create( VendaModel vendaModel)
+        public IActionResult Create(VendaModel vendaModel)
         {
-            var response = _service.CreateVenda(vendaModel);            
-            if (response.IsValid )
+            var response = _service.CreateVenda(vendaModel);
+            if (response.IsValid)
                 return RedirectToAction("Index", "Venda");
-            ViewData["IdProduto"] = new SelectList(_context.ProdutoModel, "Id", "Descricao");
+            ViewData["IdProduto"] = new SelectList(_serviceProd.GetContext(), "Id", "Descricao");
 
             return View(MostrarErros(response, vendaModel));
         }
@@ -94,11 +92,6 @@ namespace Mercado.MVC.Controllers
 
             ViewBag.ErroExcluir = "Não foi possivel excluir essa Venda!";
             return View(_service.GetOneById(id));
-        }
-
-        private bool VendaModelExists(int id)
-        {
-            return _context.VendaModel.Any(e => e.Id == id);
-        }
+        }       
     }
 }

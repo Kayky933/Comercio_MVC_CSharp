@@ -3,6 +3,7 @@ using Mercado.MVC.Interfaces.Repository;
 using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
 using Mercado.MVC.Validation.ValidateModels;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace Mercado.MVC.Service
@@ -18,12 +19,12 @@ namespace Mercado.MVC.Service
         }
         public ValidationResult CreateVenda(VendaModel categoria)
         {
-            var validation = new VendaValidation(_prodRepository, _repository,categoria.IdProduto).Validate(categoria);
+            var validation = new VendaValidation(_prodRepository, _repository, categoria.IdProduto).Validate(categoria);
             if (!validation.IsValid)
                 return validation;
 
             var prod = _prodRepository.GetOneById(categoria.IdProduto);
-           prod.QuantidadeProduto -= categoria.Quantidade;
+            prod.QuantidadeProduto -= categoria.Quantidade;
             _prodRepository.Update(prod);
             categoria.ValorVenda = prod.PrecoUnidade * categoria.Quantidade;
             _repository.Create(categoria);
@@ -43,6 +44,11 @@ namespace Mercado.MVC.Service
         public IEnumerable<VendaModel> GetAll()
         {
             return _repository.GetAll();
+        }
+
+        public DbSet<VendaModel> GetContext()
+        {
+            return _repository.GetContext();
         }
 
         public VendaModel GetOneById(int? id)

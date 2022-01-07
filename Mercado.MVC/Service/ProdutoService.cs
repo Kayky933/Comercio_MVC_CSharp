@@ -3,7 +3,9 @@ using Mercado.MVC.Interfaces.Repository;
 using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
 using Mercado.MVC.Validation.ValidateModels;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System;
 
 namespace Mercado.MVC.Service
 {
@@ -38,6 +40,11 @@ namespace Mercado.MVC.Service
         public IEnumerable<ProdutoModel> GetAll()
         {
             return _repository.GetAll();
+        }
+
+        public DbSet<ProdutoModel> GetContext()
+        {
+            return _repository.GetContext();
         }
 
         public ProdutoModel GetOneById(int? id)

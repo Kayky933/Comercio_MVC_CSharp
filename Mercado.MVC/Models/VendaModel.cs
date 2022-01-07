@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mercado.MVC.Models
@@ -16,6 +17,7 @@ namespace Mercado.MVC.Models
         public ProdutoModel Produto { get; set; }
         [Required(ErrorMessage = "O Campo é obrigatório!")]
         [Column(TypeName = "decimal(12,2)")]
-        public decimal ValorVenda { get; set; } 
+        public decimal ValorVenda { get; set; }
+        public DateTime DataVenda { get; set; } = DateTime.UtcNow;
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Mercado.MVC.Interfaces.Service
 {
@@ -7,5 +8,6 @@ namespace Mercado.MVC.Interfaces.Service
         public IEnumerable<T> GetAll();
         public T GetOneById(int? id);
         public bool Delet(int id);
+        public DbSet<T> GetContext();
     }
 }

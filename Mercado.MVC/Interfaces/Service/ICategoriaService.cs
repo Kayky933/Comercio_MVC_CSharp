@@ -8,6 +8,5 @@ namespace Mercado.MVC.Interfaces.Service
     {
         public ValidationResult CreateCategory(CategoriaModel categoria);
         public ValidationResult PutCategory(CategoriaModel categoria);
-        public DbSet<CategoriaModel> GetContext();
     }
 }
