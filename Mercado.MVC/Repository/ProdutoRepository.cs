@@ -7,7 +7,6 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System;
 
 namespace Mercado.MVC.Repository
 {

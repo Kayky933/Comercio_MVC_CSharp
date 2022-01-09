@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Mercado.MVC.Models;
 
 namespace Mercado.MVC.Data
 {
@@ -14,5 +15,7 @@ namespace Mercado.MVC.Data
         public DbSet<Mercado.MVC.Models.ProdutoModel> ProdutoModel { get; set; }
 
         public DbSet<Mercado.MVC.Models.VendaModel> VendaModel { get; set; }
+
+        public DbSet<Mercado.MVC.Models.ClienteModel> ClienteModel { get; set; }
     }
 }

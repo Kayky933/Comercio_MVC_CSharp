@@ -1,9 +1,7 @@
-﻿using Mercado.MVC.Data;
-using Mercado.MVC.Interfaces.Service;
+﻿using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Linq;
 
 namespace Mercado.MVC.Controllers
 {
@@ -92,6 +90,6 @@ namespace Mercado.MVC.Controllers
 
             ViewBag.ErroExcluir = "Não foi possivel excluir essa Venda!";
             return View(_service.GetOneById(id));
-        }       
+        }
     }
 }
