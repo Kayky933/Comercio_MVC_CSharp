@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Mercado.MVC.Data;
+using Mercado.MVC.Models;
+using Mercado.MVC.Models.Enum;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Mercado.MVC.Data;
-using Mercado.MVC.Models;
-using Mercado.MVC.Models.Enum;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Mercado.MVC.Controllers
 {
@@ -57,7 +56,7 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( ClienteModel clienteModel)
+        public async Task<IActionResult> Create(ClienteModel clienteModel)
         {
             if (ModelState.IsValid)
             {
