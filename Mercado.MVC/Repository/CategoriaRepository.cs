@@ -2,9 +2,9 @@
 using Mercado.MVC.Interfaces.Repository;
 using Mercado.MVC.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace Mercado.MVC.Repository
 {

@@ -4,14 +4,16 @@ using Mercado.MVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mercado.MVC.Migrations
 {
     [DbContext(typeof(MercadoMVCContext))]
-    partial class MercadoMVCContextModelSnapshot : ModelSnapshot
+    [Migration("20220109163541_ClienteAddNumeroEComplemento")]
+    partial class ClienteAddNumeroEComplemento
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,9 +115,6 @@ namespace Mercado.MVC.Migrations
                     b.Property<string>("Telefone")
                         .HasMaxLength(14)
                         .HasColumnType("nvarchar(14)");
-
-                    b.Property<int>("Uf")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("UltimaModificacao")
                         .HasColumnType("datetime2");

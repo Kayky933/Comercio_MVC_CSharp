@@ -1,6 +1,5 @@
 ﻿using FluentValidation.Results;
 using Mercado.MVC.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Mercado.MVC.Interfaces.Service
 {

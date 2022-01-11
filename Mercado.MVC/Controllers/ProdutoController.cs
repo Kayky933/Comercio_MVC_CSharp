@@ -1,5 +1,6 @@
 ﻿using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
+using Mercado.MVC.Models.Enum;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;

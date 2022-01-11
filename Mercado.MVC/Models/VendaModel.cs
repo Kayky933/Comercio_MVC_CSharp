@@ -18,6 +18,10 @@ namespace Mercado.MVC.Models
         [Required(ErrorMessage = "O Campo é obrigatório!")]
         [Column(TypeName = "decimal(12,2)")]
         public decimal ValorVenda { get; set; }
+        [Required(ErrorMessage = "O Campo é obrigatório!")]
+        [ForeignKey("Cliente")]
+        public int IdCliente { get; set; }
+        public ClienteModel Cliente { get; set; }
         public DateTime DataVenda { get; set; } = DateTime.UtcNow;
     }
 }

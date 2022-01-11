@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Mercado.MVC.Interfaces.Repository;
 using Mercado.MVC.Models;
+using Mercado.MVC.Models.Enum;
 using Mercado.MVC.Validation.ErrorMessage;
 
 namespace Mercado.MVC.Validation.ValidateModels

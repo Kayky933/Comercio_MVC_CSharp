@@ -4,14 +4,16 @@ using Mercado.MVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mercado.MVC.Migrations
 {
     [DbContext(typeof(MercadoMVCContext))]
-    partial class MercadoMVCContextModelSnapshot : ModelSnapshot
+    [Migration("20220109152950_AdicionandoCliente")]
+    partial class AdicionandoCliente
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,11 +56,6 @@ namespace Mercado.MVC.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("CEP")
-                        .IsRequired()
-                        .HasMaxLength(9)
-                        .HasColumnType("nvarchar(9)");
-
                     b.Property<string>("CPF")
                         .IsRequired()
                         .HasMaxLength(14)
@@ -68,10 +65,6 @@ namespace Mercado.MVC.Migrations
                         .IsRequired()
                         .HasMaxLength(14)
                         .HasColumnType("nvarchar(14)");
-
-                    b.Property<string>("Complemento")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("DataCadastro")
                         .HasColumnType("datetime2");
@@ -94,9 +87,6 @@ namespace Mercado.MVC.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("NumeroCasa")
-                        .HasColumnType("int");
-
                     b.Property<string>("RG")
                         .IsRequired()
                         .HasMaxLength(13)
@@ -113,9 +103,6 @@ namespace Mercado.MVC.Migrations
                     b.Property<string>("Telefone")
                         .HasMaxLength(14)
                         .HasColumnType("nvarchar(14)");
-
-                    b.Property<int>("Uf")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("UltimaModificacao")
                         .HasColumnType("datetime2");

@@ -5,7 +5,6 @@ using Mercado.MVC.Models;
 using Mercado.MVC.Validation.ValidateModels;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System;
 
 namespace Mercado.MVC.Service
 {

@@ -26,7 +26,6 @@ namespace Mercado.MVC
         {
             services.AddControllersWithViews();
 
-
             services.AddScoped<ICategoriaService, CaregoriaService>();
             services.AddScoped<ICategoriaRepository, CategoriaRepository>();
 

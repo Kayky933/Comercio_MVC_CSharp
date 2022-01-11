@@ -1,4 +1,4 @@
-﻿namespace Mercado.MVC.Models
+﻿namespace Mercado.MVC.Models.Enum
 {
     public enum UnidadeMedidaEnum
     {
