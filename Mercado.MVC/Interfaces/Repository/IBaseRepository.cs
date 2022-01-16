@@ -7,7 +7,7 @@ namespace Mercado.MVC.Interfaces.Repository
     {
         void Create(T entity);
         void Delete(T entity);
-        void SaveChangesDb();
+        void SaveDb();
         public T GetOneById(int? id);
         public IEnumerable<T> GetAll();
         public DbSet<T> GetContext();

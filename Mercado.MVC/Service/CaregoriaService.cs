@@ -46,7 +46,11 @@ namespace Mercado.MVC.Service
 
         public CategoriaModel GetOneById(int? id)
         {
-            return _repository.GetOneById(id);
+            var categoria = _repository.GetOneById(id);
+            if (categoria == null)
+                return null;
+
+            return categoria;
         }
 
         public ValidationResult PutCategory(CategoriaModel categoria)

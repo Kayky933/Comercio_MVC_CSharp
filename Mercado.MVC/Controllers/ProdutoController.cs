@@ -1,9 +1,6 @@
 ﻿using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
-using Mercado.MVC.Models.Enum;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 
 namespace Mercado.MVC.Controllers
 {
@@ -11,11 +8,13 @@ namespace Mercado.MVC.Controllers
     {
         private readonly IProdutoService _service;
         private readonly ICategoriaService _categoriaService;
+        private readonly ISelectListService _selectListService;
 
-        public ProdutoController(IProdutoService service, ICategoriaService categoriaService)
+        public ProdutoController(IProdutoService service, ICategoriaService categoriaService, ISelectListService selectListService)
         {
             _service = service;
             _categoriaService = categoriaService;
+            _selectListService = selectListService;
         }
 
         // GET: Produto
@@ -44,8 +43,8 @@ namespace Mercado.MVC.Controllers
         // GET: Produto/Create
         public IActionResult Create()
         {
-            ViewData["IdCategoria"] = new SelectList(_categoriaService.GetContext(), "Id", "Descricao");
-            ViewData["UnidaDeMedida"] = new SelectList(Enum.GetValues(typeof(UnidadeMedidaEnum)));
+            ViewData["IdCategoria"] = _selectListService.SelectCategoriaModel("Id", "Descricao");
+            ViewData["UnidaDeMedida"] = _selectListService.SelectUnidadeMedida();
             return View();
         }
 
@@ -60,8 +59,8 @@ namespace Mercado.MVC.Controllers
             if (response.IsValid)
                 return RedirectToAction("Index", "Produto");
 
-            ViewData["IdCategoria"] = new SelectList(_categoriaService.GetContext(), "Id", "Descricao");
-            ViewData["UnidaDeMedida"] = new SelectList(Enum.GetValues(typeof(UnidadeMedidaEnum)));
+            ViewData["IdCategoria"] = _selectListService.SelectCategoriaModel("Id", "Descricao");
+            ViewData["UnidaDeMedida"] = _selectListService.SelectUnidadeMedida();
             return View(MostrarErros(response, produtoModel));
         }
 
@@ -78,8 +77,8 @@ namespace Mercado.MVC.Controllers
             {
                 return NotFound();
             }
-            ViewData["UnidaDeMedida"] = new SelectList(Enum.GetValues(typeof(UnidadeMedidaEnum)));
-            ViewData["IdCategoria"] = new SelectList(_categoriaService.GetContext(), "Id", "Descricao", produtoModel.IdCategoria);
+            ViewData["IdCategoria"] = _selectListService.SelectCategoriaModel("Id", "Descricao");
+            ViewData["UnidaDeMedida"] = _selectListService.SelectUnidadeMedida();
             return View(produtoModel);
         }
 
@@ -99,8 +98,8 @@ namespace Mercado.MVC.Controllers
             if (!response.IsValid)
                 return View(MostrarErros(response, produtoModel));
 
-            ViewData["UnidaDeMedida"] = new SelectList(Enum.GetValues(typeof(UnidadeMedidaEnum)));
-            ViewData["IdCategoria"] = new SelectList(_categoriaService.GetContext(), "Id", "Descricao", produtoModel.IdCategoria);
+            ViewData["IdCategoria"] = _selectListService.SelectCategoriaModel("Id", "Descricao");
+            ViewData["UnidaDeMedida"] = _selectListService.SelectUnidadeMedida();
             return RedirectToAction("Index", "Produto");
         }
 

@@ -1,7 +1,6 @@
 ﻿using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Mercado.MVC.Controllers
 {
@@ -9,11 +8,15 @@ namespace Mercado.MVC.Controllers
     {
         private readonly IVendaService _service;
         private readonly IProdutoService _serviceProd;
+        private readonly IClienteService _serviceClient;
+        private readonly ISelectListService _selectListService;
 
-        public VendaController(IVendaService service, IProdutoService serviceProd)
+        public VendaController(IVendaService service, IProdutoService serviceProd, IClienteService serviceClient, ISelectListService selectListService)
         {
             _service = service;
             _serviceProd = serviceProd;
+            _serviceClient = serviceClient;
+            _selectListService = selectListService;
         }
 
         // GET: Venda
@@ -42,7 +45,8 @@ namespace Mercado.MVC.Controllers
         // GET: Venda/Create
         public IActionResult Create()
         {
-            ViewData["IdProduto"] = new SelectList(_serviceProd.GetContext(), "Id", "Descricao");
+            ViewData["IdProduto"] = _selectListService.SelectProdutoModel("Id", "Descricao");
+            ViewData["IdCliente"] = _selectListService.SelectClienteModel("Id", "Razao_Social");
             return View();
         }
 
@@ -56,8 +60,8 @@ namespace Mercado.MVC.Controllers
             var response = _service.CreateVenda(vendaModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "Venda");
-            ViewData["IdProduto"] = new SelectList(_serviceProd.GetContext(), "Id", "Descricao");
-
+            ViewData["IdProduto"] = _selectListService.SelectProdutoModel("Id", "Descricao");
+            ViewData["IdCliente"] = _selectListService.SelectClienteModel("Id", "Razao_Social");
             return View(MostrarErros(response, vendaModel));
         }
 

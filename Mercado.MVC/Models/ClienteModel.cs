@@ -34,7 +34,9 @@ namespace Mercado.MVC.Models
         [MaxLength(100)]
         [Required(ErrorMessage = "O Campo é obrigatório!")]
         public string Endereco { get; set; }
-        public int NumeroCasa { get; set; }
+        [MaxLength(6)]
+        [Required(ErrorMessage = "O Campo é obrigatório!")]
+        public string NumeroCasa { get; set; }
         public UnidadeFederalEnum Uf { get; set; }
         [MaxLength(100)]
         public string Complemento { get; set; }
@@ -49,11 +51,11 @@ namespace Mercado.MVC.Models
         [MaxLength(100)]
         [Required(ErrorMessage = "O Campo é obrigatório!")]
         public string Email { get; set; }
-        public SexoEnum Sexo { get; set; }        
+        public SexoEnum Sexo { get; set; }
         [ScaffoldColumn(false)]
         public ICollection<VendaModel> Venda { get; set; }
         [ScaffoldColumn(false)]
-        public bool Ativo { get; set; }            
+        public bool Ativo { get; set; }
         [ScaffoldColumn(false)]
         public DateTime DataCadastro { get; set; }
         [ScaffoldColumn(false)]

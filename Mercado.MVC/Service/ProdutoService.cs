@@ -48,7 +48,11 @@ namespace Mercado.MVC.Service
 
         public ProdutoModel GetOneById(int? id)
         {
-            return _repository.GetOneById(id);
+            var produto = _repository.GetOneById(id);
+            if (produto == null)
+                return null;
+
+            return produto;
         }
 
         public ValidationResult PutProduct(ProdutoModel produto)

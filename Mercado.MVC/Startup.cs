@@ -1,8 +1,5 @@
 using Mercado.MVC.Data;
-using Mercado.MVC.Interfaces.Repository;
-using Mercado.MVC.Interfaces.Service;
-using Mercado.MVC.Repository;
-using Mercado.MVC.Service;
+using Mercado.MVC.StatrUpconfig;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -26,14 +23,7 @@ namespace Mercado.MVC
         {
             services.AddControllersWithViews();
 
-            services.AddScoped<ICategoriaService, CaregoriaService>();
-            services.AddScoped<ICategoriaRepository, CategoriaRepository>();
-
-            services.AddScoped<IProdutoService, ProdutoService>();
-            services.AddScoped<IProdutoRepository, ProdutoRepository>();
-
-            services.AddScoped<IVendaService, VendaService>();
-            services.AddScoped<IVendaRepository, VendaRepository>();
+            ConfigureStartUp.ConfigInterfaces(services);
 
             services.AddDbContext<MercadoMVCContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("MercadoMVCContext")));

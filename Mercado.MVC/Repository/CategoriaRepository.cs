@@ -19,20 +19,20 @@ namespace Mercado.MVC.Repository
         public void Create(CategoriaModel entity)
         {
             _context.CategoriaModel.Add(entity);
-            SaveChangesDb();
+            SaveDb();
         }
 
         public void Delete(CategoriaModel entity)
         {
             _context.CategoriaModel.Remove(entity);
-            SaveChangesDb();
+            SaveDb();
         }
 
         public void Update(CategoriaModel entity)
         {
             entity.DataAddCategoria = DateTime.UtcNow;
             _context.CategoriaModel.Update(entity).State = EntityState.Modified;
-            SaveChangesDb();
+            SaveDb();
         }
 
 
@@ -45,7 +45,7 @@ namespace Mercado.MVC.Repository
         {
             return _context.CategoriaModel.Where(x => x.Id == id).FirstOrDefault();
         }
-        public void SaveChangesDb()
+        public void SaveDb()
         {
             _context.SaveChanges();
         }

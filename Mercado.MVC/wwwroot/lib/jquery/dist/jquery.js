@@ -3486,7 +3486,7 @@ jQuery.Callbacks = function( options ) {
 			locked = locked || options.once;
 
 			// Execute callbacks for all pending executions,
-			// respecting firingIndex overrides and runtime changes
+			// respecting firingIndex overrides and runtime 
 			fired = firing = true;
 			for ( ; queue.length; firingIndex = -1 ) {
 				memory = queue.shift();
@@ -5247,7 +5247,7 @@ jQuery.event = {
 				continue;
 			}
 
-			// If event changes its type, use the special event handlers for the changed type
+			// If event  its type, use the special event handlers for the changed type
 			special = jQuery.event.special[ type ] || {};
 
 			// If selector defined, determine special event api type, otherwise given type
@@ -5607,7 +5607,7 @@ jQuery.event = {
 
 // Ensure the presence of an event listener that handles manually-triggered
 // synthetic events by interrupting progress until reinvoked in response to
-// *native* events that it fires directly, ensuring that state changes have
+// *native* events that it fires directly, ensuring that state  have
 // already occurred before other listeners are invoked.
 function leverageNative( el, type, expectSync ) {
 
@@ -6363,7 +6363,7 @@ jQuery.fn.extend( {
 	replaceWith: function() {
 		var ignored = [];
 
-		// Make the changes, replacing each non-ignored context element with the new content
+		// Make the , replacing each non-ignored context element with the new content
 		return domManip( this, arguments, function( elem ) {
 			var parent = this.parentNode;
 
@@ -10074,7 +10074,7 @@ jQuery.ajaxTransport( function( options ) {
 				} else {
 					xhr.onreadystatechange = function() {
 
-						// Check readyState before timeout as it changes
+						// Check readyState before timeout as it 
 						if ( xhr.readyState === 4 ) {
 
 							// Allow onerror to be called first,

@@ -53,7 +53,11 @@ namespace Mercado.MVC.Service
 
         public VendaModel GetOneById(int? id)
         {
-            return _repository.GetOneById(id);
+            var venda = _repository.GetOneById(id);
+            if (venda == null)
+                return null;
+
+            return venda;
         }
     }
 }

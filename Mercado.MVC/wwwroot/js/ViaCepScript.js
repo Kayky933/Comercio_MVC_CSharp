@@ -2,6 +2,7 @@
     //Limpa valores do formulário de cep.
     document.getElementById('cep').value = ("");
     document.getElementById('bairro').value = ("");
+    document.getElementById('complemento').value = ("");
     document.getElementById('endereco').value = ("");
     document.getElementById('uf').value = ("");
 }
@@ -10,6 +11,7 @@ function meu_callback(conteudo) {
         //Atualiza os campos com os valores.
         document.getElementById('bairro').value = (conteudo.bairro);
         document.getElementById('endereco').value = (conteudo.logradouro);
+        document.getElementById('complemento').value = (conteudo.complemento);
         document.getElementById('uf').value = (conteudo.uf);
     } //end if.
     else {
@@ -36,6 +38,7 @@ function pesquisacep() {
             //Preenche os campos com "..." enquanto consulta webservice.
             document.getElementById('bairro').value = "...";
             document.getElementById('endereco').value = "...";
+            document.getElementById('complemento').value = "...";
             document.getElementById('uf').value = "...";
 
             //Cria um elemento javascript.

@@ -17,13 +17,13 @@ namespace Mercado.MVC.Repository
         public void Create(VendaModel entity)
         {
             _context.VendaModel.Add(entity);
-            SaveChangesDb();
+            SaveDb();
         }
 
         public void Delete(VendaModel entity)
         {
             _context.VendaModel.Remove(entity);
-            SaveChangesDb();
+            SaveDb();
 
         }
 
@@ -44,7 +44,7 @@ namespace Mercado.MVC.Repository
                 .Include(x => x.Produto).FirstOrDefault();
         }
 
-        public void SaveChangesDb()
+        public void SaveDb()
         {
             _context.SaveChanges();
         }
