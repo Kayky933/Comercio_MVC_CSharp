@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Mercado.MVC.Validation.ErrorMessage
+﻿namespace Mercado.MVC.Validation.ErrorMessage
 {
     public static class ClienteErrorMessages
     {
@@ -20,7 +15,7 @@ namespace Mercado.MVC.Validation.ErrorMessage
         public static string DataNascimentoIdadeMinima = "É preciso ser maior de idade para se cadastrar!";
 
         public static string RGNulo = "O campo RG não pode ter nulo!";
-        public static string RGTamanho = "O campo RG tem um tamanho máximo e mínimo de 9 caracteres!";
+        public static string RGTamanho = "O campo RG tem um tamanho máximo e mínimo de 9 digitos!";
 
         public static string CPFNulo = "O campo CPF não pode ter nulo!";
         public static string CPFTamanho = "O campo RG tem um tamanho máximo e mínimo de 11 caracteres!";

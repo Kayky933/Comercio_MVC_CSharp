@@ -35,7 +35,7 @@ namespace Mercado.MVC.Models
         [Required(ErrorMessage = "O Campo é obrigatório!")]
         public string Endereco { get; set; }
         [MaxLength(6)]
-        [Required(ErrorMessage ="O Campo é obrigatório!")]
+        [Required(ErrorMessage = "O Campo é obrigatório!")]
         public string NumeroCasa { get; set; }
         public UnidadeFederalEnum Uf { get; set; }
         [MaxLength(100)]

@@ -2,10 +2,8 @@
 using Mercado.MVC.Interfaces.Repository;
 using Mercado.MVC.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Mercado.MVC.Repository
 {
@@ -20,13 +18,13 @@ namespace Mercado.MVC.Repository
         public void Create(ClienteModel entity)
         {
             _context.ClienteModel.Add(entity);
-            SaveChangesDb();
+            SaveDb();
         }
 
         public void Delete(ClienteModel entity)
         {
             _context.ClienteModel.Remove(entity);
-            SaveChangesDb();
+            SaveDb();
         }
 
         public IEnumerable<ClienteModel> GetAll()
@@ -44,7 +42,7 @@ namespace Mercado.MVC.Repository
             return _context.ClienteModel.Where(x => x.Id == id).FirstOrDefault();
         }
 
-        public void SaveChangesDb()
+        public void SaveDb()
         {
             _context.SaveChanges();
         }
@@ -52,7 +50,7 @@ namespace Mercado.MVC.Repository
         public void Update(ClienteModel entity)
         {
             _context.ClienteModel.Update(entity).State = EntityState.Modified;
-            SaveChangesDb();
+            SaveDb();
         }
     }
 }

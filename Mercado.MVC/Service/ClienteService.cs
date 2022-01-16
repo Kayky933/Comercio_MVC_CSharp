@@ -4,10 +4,7 @@ using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
 using Mercado.MVC.Validation.ValidateModels;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Mercado.MVC.Service
 {
@@ -50,7 +47,7 @@ namespace Mercado.MVC.Service
 
         public ClienteModel GetOneById(int? id)
         {
-            var cliente =  _repository.GetOneById(id);
+            var cliente = _repository.GetOneById(id);
             if (cliente == null)
                 return null;
 
@@ -62,7 +59,7 @@ namespace Mercado.MVC.Service
             var validation = new ClienteValidation().Validate(cliente);
             if (!validation.IsValid)
                 return validation;
-
+            _repository.Update(cliente);
             return validation;
         }
     }

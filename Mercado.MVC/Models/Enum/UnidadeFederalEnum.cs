@@ -5,7 +5,7 @@ namespace Mercado.MVC.Models.Enum
     public enum UnidadeFederalEnum
     {
         [Display(Name = "Selecione")]
-        Null,
+        Selecione,
         [Display(Name = "Acre")]
         AC = 12,
         [Display(Name = "Alagoas")]
