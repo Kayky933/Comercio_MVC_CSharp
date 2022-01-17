@@ -56,8 +56,7 @@ namespace Mercado.MVC.Validation.ValidateModels
               .NotNull().WithMessage(ClienteErrorMessages.UFNula)
               .Must(x => x.GetType() == typeof(UnidadeFederalEnum)).WithMessage(ClienteErrorMessages.UFFormatoInvalido);
 
-            RuleFor(x => x.Complemento).NotEmpty().WithMessage(ClienteErrorMessages.ComplementoNulo)
-                .NotNull().WithMessage(ClienteErrorMessages.ComplementoNulo)
+            RuleFor(x => x.Complemento)
                 .MaximumLength(100).WithMessage(ClienteErrorMessages.ComplementoTamanhoMaximo)
                 .MinimumLength(3).WithMessage(ClienteErrorMessages.ComplementoTamanhoMinimo);
 

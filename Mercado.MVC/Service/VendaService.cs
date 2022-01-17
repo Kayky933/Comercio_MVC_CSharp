@@ -17,17 +17,17 @@ namespace Mercado.MVC.Service
             _repository = repository;
             _prodRepository = prodRepository;
         }
-        public ValidationResult CreateVenda(VendaModel categoria)
+        public ValidationResult CreateVenda(VendaModel venda)
         {
-            var validation = new VendaValidation(_prodRepository, _repository, categoria.IdProduto).Validate(categoria);
+            var validation = new VendaValidation(_prodRepository, _repository, venda.IdProduto).Validate(venda);
             if (!validation.IsValid)
                 return validation;
 
-            var prod = _prodRepository.GetOneById(categoria.IdProduto);
-            prod.QuantidadeProduto -= categoria.Quantidade;
+            var prod = _prodRepository.GetOneById(venda.IdProduto);
+            prod.QuantidadeProduto -= venda.Quantidade;
             _prodRepository.Update(prod);
-            categoria.ValorVenda = prod.PrecoUnidade * categoria.Quantidade;
-            _repository.Create(categoria);
+            venda.ValorVenda = prod.PrecoUnidade * venda.Quantidade;
+            _repository.Create(venda);
             return validation;
         }
 

@@ -38,7 +38,6 @@
         public static string UFNula = "O campo UF não pode ter nulo!";
         public static string UFFormatoInvalido = "O campo UF esta em um formato desconhecido!";
 
-        public static string ComplementoNulo = "O campo Complemento não pode ter nulo!";
         public static string ComplementoTamanhoMaximo = "O campo Complemento não pode ter mais que 100 caracteres!";
         public static string ComplementoTamanhoMinimo = "O campo Complemento não pode ter menos que 5 carcateres!";
 
