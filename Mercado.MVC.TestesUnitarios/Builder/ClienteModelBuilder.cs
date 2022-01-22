@@ -2,10 +2,6 @@
 using Mercado.MVC.Models;
 using Mercado.MVC.Models.Enum;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mercado.MVC.TestesUnitarios.Builder
 {

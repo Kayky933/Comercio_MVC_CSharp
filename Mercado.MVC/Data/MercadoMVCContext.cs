@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Mercado.MVC.Models;
 
 namespace Mercado.MVC.Data
 {
