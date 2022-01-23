@@ -15,7 +15,7 @@ namespace Mercado.MVC.Service
         {
             _repository = repository;
         }
-        public ValidationResult CreateClient(ClienteModel cliente)
+        public ValidationResult Create(ClienteModel cliente)
         {
             var validation = new ClienteValidation().Validate(cliente);
             if (!validation.IsValid)

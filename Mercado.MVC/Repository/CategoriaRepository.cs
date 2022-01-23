@@ -3,56 +3,26 @@ using Mercado.MVC.Interfaces.Repository;
 using Mercado.MVC.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Mercado.MVC.Repository
 {
-    public class CategoriaRepository : ICategoriaRepository
+    public class CategoriaRepository : BaseRepository<CategoriaModel>, ICategoriaRepository
     {
-        private readonly MercadoMVCContext _context;
 
-        public CategoriaRepository(MercadoMVCContext context)
+        public CategoriaRepository(MercadoMVCContext context) : base(context)
         {
-            _context = context;
-        }
-        public void Create(CategoriaModel entity)
-        {
-            _context.CategoriaModel.Add(entity);
-            SaveDb();
         }
 
-        public void Delete(CategoriaModel entity)
-        {
-            _context.CategoriaModel.Remove(entity);
-            SaveDb();
-        }
-
-        public void Update(CategoriaModel entity)
+        public override void Update(CategoriaModel entity)
         {
             entity.DataAddCategoria = DateTime.UtcNow;
-            _context.CategoriaModel.Update(entity).State = EntityState.Modified;
+            GetContext().Update(entity).State = EntityState.Modified;
             SaveDb();
         }
-
-
-        public IEnumerable<CategoriaModel> GetAll()
+        public override CategoriaModel GetOneById(int? id)
         {
-            return _context.CategoriaModel.ToList();
-        }
-
-        public CategoriaModel GetOneById(int? id)
-        {
-            return _context.CategoriaModel.Where(x => x.Id == id).FirstOrDefault();
-        }
-        public void SaveDb()
-        {
-            _context.SaveChanges();
-        }
-
-        public DbSet<CategoriaModel> GetContext()
-        {
-            return _context.Set<CategoriaModel>();
+            return GetContext().Where(x => x.Id == id).FirstOrDefault();
         }
     }
 }

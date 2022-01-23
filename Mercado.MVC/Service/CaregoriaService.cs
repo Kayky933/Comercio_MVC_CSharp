@@ -15,7 +15,7 @@ namespace Mercado.MVC.Service
         {
             _repository = repository;
         }
-        public ValidationResult CreateCategory(CategoriaModel categoria)
+        public ValidationResult Create(CategoriaModel categoria)
         {
             var validation = new CategoriaValidation().Validate(categoria);
             if (!validation.IsValid)

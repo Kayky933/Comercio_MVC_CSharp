@@ -17,7 +17,7 @@ namespace Mercado.MVC.Service
             _repository = repository;
             _prodRepository = prodRepository;
         }
-        public ValidationResult CreateVenda(VendaModel venda)
+        public ValidationResult Create(VendaModel venda)
         {
             var validation = new VendaValidation(_prodRepository, _repository, venda.IdProduto).Validate(venda);
             if (!validation.IsValid)

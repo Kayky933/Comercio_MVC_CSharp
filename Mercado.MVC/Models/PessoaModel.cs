@@ -20,7 +20,7 @@ namespace Mercado.MVC.Models
         [MaxLength(13)]
         public string RG { get; set; }
         [Required(ErrorMessage = "O Campo é obrigatório!")]
-        [MaxLength(14)]
+        [MaxLength(13)]
         public string Telefone { get; set; }
         [Required(ErrorMessage = "O Campo é obrigatório!")]
         [MaxLength(14)]

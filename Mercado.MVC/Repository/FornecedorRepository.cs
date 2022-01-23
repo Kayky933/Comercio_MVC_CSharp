@@ -5,14 +5,12 @@ using System.Linq;
 
 namespace Mercado.MVC.Repository
 {
-    public class ClienteRepository : BaseRepository<ClienteModel>, IClienteRepository
+    public class FornecedorRepository : BaseRepository<FornecedorModel>, IFornecedorRepository
     {
-
-        public ClienteRepository(MercadoMVCContext context) : base(context)
+        public FornecedorRepository(MercadoMVCContext context) : base(context)
         {
         }
-
-        public override ClienteModel GetOneById(int? id)
+        public override FornecedorModel GetOneById(int? id)
         {
             return GetContext().Where(x => x.Id == id).FirstOrDefault();
         }

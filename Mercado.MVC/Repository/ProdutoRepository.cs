@@ -2,83 +2,48 @@
 using Mercado.MVC.Interfaces.Repository;
 using Mercado.MVC.Models;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
 namespace Mercado.MVC.Repository
 {
-    public class ProdutoRepository : IProdutoRepository
+    public class ProdutoRepository : BaseRepository<ProdutoModel>, IProdutoRepository
     {
-        private readonly MercadoMVCContext _context;
-        private readonly IConfiguration _configuration;
 
-        public ProdutoRepository(MercadoMVCContext context, IConfiguration configuration)
+        public ProdutoRepository(MercadoMVCContext context) : base(context)
         {
-            _context = context;
-            _configuration = configuration;
         }
 
-        public void Create(ProdutoModel entity)
+        public override void Update(ProdutoModel entity)
         {
-            _context.ProdutoModel.Add(entity);
-            SaveDb();
+            string connectionString = "Server=(localdb)\\mssqllocaldb;Database=MercadoMVCContext-650fb4fd-e2db-451a-8dd5-04bfe149e548;Trusted_Connection=True;MultipleActiveResultSets=true";
+
+            using SqlConnection connection = new(connectionString);
+            using SqlCommand command = connection.CreateCommand();
+
+            command.CommandText = "UPDATE Produtos " +
+                "SET Descricao = @Desc," +
+                " PrecoUnidade = @PrecoUni ," +
+                " UnidadeDeMedida = @UnidMed," +
+                " IdCategoria = @IdCat, " +
+                "DataAddProduto = @DataEdit Where Id = " + entity.Id;
+
+            command.Parameters.AddWithValue("@Desc", entity.Descricao);
+            command.Parameters.AddWithValue("@PrecoUni", entity.PrecoUnidade);
+            command.Parameters.AddWithValue("@UnidMed", entity.UnidadeDeMedida);
+            command.Parameters.AddWithValue("@IdCat", entity.IdCategoria);
+            command.Parameters.AddWithValue("@DataEdit", entity.DataAddProduto);
+
+            connection.Open();
+
+            command.ExecuteNonQuery();
+
+            connection.Close();
         }
 
-        public void Delete(ProdutoModel entity)
+        public override ProdutoModel GetOneById(int? id)
         {
-            _context.ProdutoModel.Remove(entity);
-            SaveDb();
-        }
-
-        public void Update(ProdutoModel entity)
-        {
-            string connectionString = _configuration.GetConnectionString("MercadoMVCContext");
-
-            using (SqlConnection connection = new(connectionString))
-            using (SqlCommand command = connection.CreateCommand())
-            {
-
-                command.CommandText = "UPDATE Produtos " +
-                    "SET Descricao = @Desc," +
-                    " PrecoUnidade = @PrecoUni ," +
-                    " UnidadeDeMedida = @UnidMed," +
-                    " IdCategoria = @IdCat, " +
-                    "DataAddProduto = @DataEdit Where Id = " + entity.Id;
-
-                command.Parameters.AddWithValue("@Desc", entity.Descricao);
-                command.Parameters.AddWithValue("@PrecoUni", entity.PrecoUnidade);
-                command.Parameters.AddWithValue("@UnidMed", entity.UnidadeDeMedida);
-                command.Parameters.AddWithValue("@IdCat", entity.IdCategoria);
-                command.Parameters.AddWithValue("@DataEdit", entity.DataAddProduto);
-
-                connection.Open();
-
-                command.ExecuteNonQuery();
-
-                connection.Close();
-            }
-        }
-
-        public IEnumerable<ProdutoModel> GetAll()
-        {
-            return _context.ProdutoModel.Include(x => x.Categoria).ToList();
-        }
-
-        public ProdutoModel GetOneById(int? id)
-        {
-            return _context.ProdutoModel.Where(x => x.Id == id).FirstOrDefault();
-        }
-        public void SaveDb()
-        {
-            _context.SaveChanges();
-        }
-
-        public DbSet<ProdutoModel> GetContext()
-        {
-            return _context.Set<ProdutoModel>();
+            return GetContext().Where(x => x.Id == id).FirstOrDefault();
         }
     }
 }
