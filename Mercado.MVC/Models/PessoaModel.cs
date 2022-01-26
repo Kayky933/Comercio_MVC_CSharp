@@ -37,6 +37,6 @@ namespace Mercado.MVC.Models
         [ScaffoldColumn(false)]
         public DateTime DataCadastro { get; set; }
         [ScaffoldColumn(false)]
-        public DateTime UltimaModificacao { get; set; } = DateTime.UtcNow;
+        public DateTime UltimaModificacao { get; set; } = DateTime.Now;
     }
 }

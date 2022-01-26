@@ -9,7 +9,7 @@ namespace Mercado.MVC.TestesUnitarios.Builder
         protected override void LoadDefault()
         {
             _builderInstance = Builder<CategoriaModel>.CreateNew()
-            .With(x => x.DataAddCategoria = DateTime.UtcNow)
+            .With(x => x.DataAddCategoria = DateTime.Now)
             .With(x => x.Descricao = "Enlatados");
         }
     }

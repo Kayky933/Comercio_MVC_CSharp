@@ -16,7 +16,7 @@ namespace Mercado.MVC.Repository
 
         public override void Update(CategoriaModel entity)
         {
-            entity.DataAddCategoria = DateTime.UtcNow;
+            entity.DataAddCategoria = DateTime.Now;
             GetContext().Update(entity).State = EntityState.Modified;
             SaveDb();
         }

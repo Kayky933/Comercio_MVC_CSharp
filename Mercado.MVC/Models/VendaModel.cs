@@ -22,6 +22,6 @@ namespace Mercado.MVC.Models
         [ForeignKey("Cliente")]
         public int IdCliente { get; set; }
         public ClienteModel Cliente { get; set; }
-        public DateTime DataVenda { get; set; } = DateTime.UtcNow;
+        public DateTime DataVenda { get; set; } = DateTime.Now;
     }
 }

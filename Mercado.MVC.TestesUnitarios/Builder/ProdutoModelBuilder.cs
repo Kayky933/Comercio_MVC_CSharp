@@ -10,7 +10,7 @@ namespace Mercado.MVC.TestesUnitarios.Builder
         protected override void LoadDefault()
         {
             _builderInstance = Builder<ProdutoModel>.CreateNew()
-               .With(x => x.DataAddProduto = DateTime.UtcNow)
+               .With(x => x.DataAddProduto = DateTime.Now)
                .With(x => x.Descricao = "Água")
                .With(x => x.IdCategoria = 1)
                .With(x => x.PrecoUnidade = 10.00M)

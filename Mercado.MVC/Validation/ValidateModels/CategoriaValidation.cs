@@ -9,6 +9,7 @@ namespace Mercado.MVC.Validation.ValidateModels
         public CategoriaValidation()
         {
             RuleFor(x => x.Descricao).NotEmpty().WithMessage(CategoriaErrorMessages.DescircaoCategoriaNula)
+                .NotNull().WithMessage(CategoriaErrorMessages.DescircaoCategoriaNula)
                 .MaximumLength(100).WithMessage(CategoriaErrorMessages.TamanhoMaximoDescricao)
                 .MinimumLength(3).WithMessage(CategoriaErrorMessages.TamanhiMinimoDescricao);
         }

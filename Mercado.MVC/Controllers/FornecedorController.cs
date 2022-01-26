@@ -1,37 +1,33 @@
-﻿using Mercado.MVC.Data;
+﻿using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Mercado.MVC.Controllers
 {
-    public class FornecedorController : Controller
+    public class FornecedorController : ControllerPai
     {
-        private readonly MercadoMVCContext _context;
+        private readonly IFornecedorService _service;
 
-        public FornecedorController(MercadoMVCContext context)
+        public FornecedorController(IFornecedorService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: Fornecedor
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.FornecedorModel.ToListAsync());
+            return View(_service.GetAll());
         }
 
         // GET: Fornecedor/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var fornecedorModel = await _context.FornecedorModel
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var fornecedorModel = _service.GetOneById(id);
             if (fornecedorModel == null)
             {
                 return NotFound();
@@ -51,26 +47,24 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(FornecedorModel fornecedorModel)
+        public IActionResult Create(FornecedorModel fornecedorModel)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(fornecedorModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(fornecedorModel);
+            var response = _service.Create(fornecedorModel);
+            if (response.IsValid)
+                return RedirectToAction("Index", "Fornecedor");
+
+            return View(MostrarErros(response, fornecedorModel));
         }
 
         // GET: Fornecedor/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var fornecedorModel = await _context.FornecedorModel.FindAsync(id);
+            var fornecedorModel = _service.GetOneById(id);
             if (fornecedorModel == null)
             {
                 return NotFound();
@@ -83,46 +77,29 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, FornecedorModel fornecedorModel)
+        public IActionResult Edit(int id, FornecedorModel fornecedorModel)
         {
             if (id != fornecedorModel.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(fornecedorModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!FornecedorModelExists(fornecedorModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(fornecedorModel);
+            var response = _service.PutFornecedor(fornecedorModel);
+            if (response.IsValid)
+                return RedirectToAction("Index", "Fornecedor");
+
+            return View(MostrarErros(response, fornecedorModel));
         }
 
         // GET: Fornecedor/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var fornecedorModel = await _context.FornecedorModel
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var fornecedorModel = _service.GetOneById(id);
             if (fornecedorModel == null)
             {
                 return NotFound();
@@ -134,17 +111,14 @@ namespace Mercado.MVC.Controllers
         // POST: Fornecedor/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var fornecedorModel = await _context.FornecedorModel.FindAsync(id);
-            _context.FornecedorModel.Remove(fornecedorModel);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            var response = _service.Delet(id);
+            if (response)
+                return RedirectToAction("Index", "Cliente");
 
-        private bool FornecedorModelExists(int id)
-        {
-            return _context.FornecedorModel.Any(e => e.Id == id);
+            ViewBag.ErroExcluir = "Não foi possível excluir esse Fornecedor, verifique se ele tem entregas pendentes!";
+            return View("Delete", "Fornecedor");
         }
     }
 }
