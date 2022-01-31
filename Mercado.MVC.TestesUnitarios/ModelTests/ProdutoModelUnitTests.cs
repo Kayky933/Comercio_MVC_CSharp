@@ -23,13 +23,16 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             _builder = new ProdutoModelBuilder();
             _validator = provider.GetService<ProdutoValidation>();
         }
-        [Fact(DisplayName ="Classe Válida")]
+
+        [Fact(DisplayName = "Classe Válida")]
         public async Task ClasseValida()
         {
             var instancia = _builder.Build();
             var validation = await _validator.ValidateAsync(instancia);
             Assert.True(validation.IsValid);
         }
+
+        #region Descrição
 
         [Fact(DisplayName = "Descrcição Nula")]
         public async Task DescricaoNula()
@@ -62,19 +65,20 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             Assert.False(validation.IsValid);
             Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(ProdutoErrorMessages.TamanhoMaximoDescricao));
         }
+        #endregion
 
+        #region Preço
         [Theory(DisplayName = "PrecoUnidade válido")]
-        [InlineData("12.00")]
-        [InlineData("13.00")]
-        [InlineData("14.00")]
-        [InlineData("1.00")]
-        [InlineData("00.99")]
-        [InlineData("400.00")]
-        [InlineData("300.00")]
-        [InlineData("57.00")]
-        public async Task PrecoUnidadeValido(string preco)
+        [InlineData(12.00)]
+        [InlineData(13.00)]
+        [InlineData(14.00)]
+        [InlineData(1.00)]
+        [InlineData(400.00)]
+        [InlineData(300.00)]
+        [InlineData(57.00)]
+        public async Task PrecoUnidadeValido(decimal preco)
         {
-            var instance = _builder.With(x => x.PrecoUnidade = Convert.ToDecimal(preco)).Build();
+            var instance = _builder.With(x => x.PrecoUnidade = preco).Build();
             var validation = await _validator.ValidateAsync(instance);
             Assert.True(validation.IsValid);
         }
@@ -95,7 +99,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             Assert.False(validation.IsValid);
             Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(ProdutoErrorMessages.PrecoMinimo));
         }
-        [Fact(DisplayName ="Preço Nula inválida")]
+        [Fact(DisplayName = "Preço Nula inválida")]
         public async Task PrecoUnidadeNula()
         {
             var instance = _builder.With(x => x.PrecoUnidade = Convert.ToDecimal(null)).Build();
@@ -103,7 +107,9 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             Assert.False(validation.IsValid);
             Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(ProdutoErrorMessages.PrecoNulo));
         }
+        #endregion
 
+        #region Quantidade
         [Theory(DisplayName = "Quantidade inválido")]
         [InlineData(0)]
         [InlineData(00.00)]
@@ -136,7 +142,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var validation = await _validator.ValidateAsync(instance);
             Assert.True(validation.IsValid);
         }
-        [Fact(DisplayName ="Quantidade Nula")]
+        [Fact(DisplayName = "Quantidade Nula")]
         public async Task QuantidadeNula()
         {
             var instancia = _builder.With(x => x.QuantidadeProduto = Convert.ToDouble(null)).Build();
@@ -144,8 +150,10 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             Assert.False(validation.IsValid);
             Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(ProdutoErrorMessages.QuantidadeProdNula));
         }
+        #endregion
 
-        [Theory(DisplayName ="Unidade de medida válida")]
+        #region Unidade de Medida
+        [Theory(DisplayName = "Unidade de medida válida")]
         [InlineData(UnidadeMedidaEnum.Unidade)]
         [InlineData(UnidadeMedidaEnum.Duzia)]
         [InlineData(UnidadeMedidaEnum.Gramas)]
@@ -160,7 +168,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             Assert.True(validation.IsValid);
         }
 
-        [Fact(DisplayName ="Unidade de Medida selecione")]
+        [Fact(DisplayName = "Unidade de Medida selecione")]
         public async Task UnidadeMedidaSelecione()
         {
             var instancia = _builder.With(x => x.UnidadeDeMedida = UnidadeMedidaEnum.Selecione).Build();
@@ -177,5 +185,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             Assert.False(validation.IsValid);
             Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(ProdutoErrorMessages.UnidadeMedidaNula));
         }
+        #endregion
+
     }
 }

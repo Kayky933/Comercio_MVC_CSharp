@@ -18,17 +18,17 @@ namespace Mercado.MVC.Service
             _repository = repository;
             _categoryRepository = categoryRepository;
         }
-        public ValidationResult Create(ProdutoModel produto)
+        public ValidationResult Create(ProdutoModel model)
         {
-            var validation = new ProdutoValidation(false).Validate(produto);
-            var validationBusiness = new ProdutoBusinessValidation(_categoryRepository).Validate(produto);
+            var validation = new ProdutoValidation(false).Validate(model);
+            var validationBusiness = new ProdutoBusinessValidation(_categoryRepository).Validate(model);
             if (!validation.IsValid)
                 return validation;
 
             if (!validationBusiness.IsValid)
                 return validationBusiness;
 
-            _repository.Create(produto);
+            _repository.Create(model);
             return validation;
         }
 
@@ -60,17 +60,17 @@ namespace Mercado.MVC.Service
             return produto;
         }
 
-        public ValidationResult PutProduct(ProdutoModel produto)
+        public ValidationResult PutProduct(ProdutoModel model)
         {
-            var validation = new ProdutoValidation(true).Validate(produto);
-            var validationBusiness = new ProdutoBusinessValidation(_categoryRepository).Validate(produto);
+            var validation = new ProdutoValidation(true).Validate(model);
+            var validationBusiness = new ProdutoBusinessValidation(_categoryRepository).Validate(model);
             if (!validation.IsValid)
                 return validation;
 
             if (!validationBusiness.IsValid)
                 return validationBusiness;
 
-            _repository.Update(produto);
+            _repository.Update(model);
             return validation;
         }
     }

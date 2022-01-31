@@ -1,9 +1,7 @@
 ﻿using FluentValidation;
-using Mercado.MVC.Interfaces.Repository;
 using Mercado.MVC.Models;
 using Mercado.MVC.Models.Enum;
 using Mercado.MVC.Validation.ErrorMessage;
-using System;
 
 namespace Mercado.MVC.Validation.ValidateModels
 {
@@ -18,7 +16,8 @@ namespace Mercado.MVC.Validation.ValidateModels
 
             RuleFor(x => x.PrecoUnidade).NotEmpty().WithMessage(ProdutoErrorMessages.PrecoNulo)
                 .NotNull().WithMessage(ProdutoErrorMessages.PrecoNulo)
-                .GreaterThanOrEqualTo(00.99M).WithMessage(ProdutoErrorMessages.PrecoMinimo)
+                .GreaterThan(00.99M).WithMessage(ProdutoErrorMessages.PrecoMinimo)
+                 .LessThanOrEqualTo(1000000000M).WithMessage(ProdutoErrorMessages.PrecoMaximo)
                 .Must(x => x.GetType() == typeof(decimal)).WithMessage(ProdutoErrorMessages.PrecoFormatoInvalido);
 
             RuleFor(x => x.UnidadeDeMedida).NotEmpty().WithMessage(ProdutoErrorMessages.UnidadeMedidaNula)
@@ -30,7 +29,8 @@ namespace Mercado.MVC.Validation.ValidateModels
                 RuleFor(x => x.QuantidadeProduto).NotEmpty().WithMessage(ProdutoErrorMessages.QuantidadeProdNula)
                     .NotNull().WithMessage(ProdutoErrorMessages.QuantidadeProdNula)
                     .Must(x => x.GetType() == typeof(double)).WithMessage(ProdutoErrorMessages.QuantidadeProdFormatoInvalido)
-                    .GreaterThanOrEqualTo(1).WithMessage(ProdutoErrorMessages.QuantidadeProdMinima);
+                    .GreaterThanOrEqualTo(1).WithMessage(ProdutoErrorMessages.QuantidadeProdMinima)
+                    .LessThanOrEqualTo(1000000000).WithMessage(ProdutoErrorMessages.QuantidadeMaxima);
         }
     }
 }

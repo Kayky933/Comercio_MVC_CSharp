@@ -15,13 +15,13 @@ namespace Mercado.MVC.Service
         {
             _repository = repository;
         }
-        public ValidationResult Create(CategoriaModel categoria)
+        public ValidationResult Create(CategoriaModel model)
         {
-            var validation = new CategoriaValidation().Validate(categoria);
+            var validation = new CategoriaValidation().Validate(model);
             if (!validation.IsValid)
                 return validation;
 
-            _repository.Create(categoria);
+            _repository.Create(model);
             return validation;
         }
 
@@ -53,13 +53,13 @@ namespace Mercado.MVC.Service
             return categoria;
         }
 
-        public ValidationResult PutCategory(CategoriaModel categoria)
+        public ValidationResult PutCategory(CategoriaModel model)
         {
-            var validation = new CategoriaValidation().Validate(categoria);
+            var validation = new CategoriaValidation().Validate(model);
             if (!validation.IsValid)
                 return validation;
 
-            _repository.Update(categoria);
+            _repository.Update(model);
             return validation;
 
         }

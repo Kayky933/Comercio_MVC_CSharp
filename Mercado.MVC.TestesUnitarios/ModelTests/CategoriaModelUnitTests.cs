@@ -31,13 +31,14 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             Assert.True(validation.IsValid);
         }
 
+        #region Descrição
         [Fact(DisplayName ="Descrcição Nula")]
         public async Task DescricaoNula()
         {
             var instancia = _builder.With(x => x.Descricao = "").Build();
             var validation = await _validator.ValidateAsync(instancia);
             Assert.False(validation.IsValid);
-            Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(CategoriaErrorMessages.DescircaoCategoriaNula));
+            Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(CategoriaErrorMessages.DescricaoCategoriaNula));
         }
         [Theory(DisplayName = "Descrição Tamanho mínimo")]
         [InlineData("GG")]
@@ -61,6 +62,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             Assert.False(validation.IsValid);
             Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(CategoriaErrorMessages.TamanhoMaximoDescricao));
         }
+        #endregion
 
     }
 }

@@ -14,7 +14,7 @@ namespace Mercado.MVC.Validation.ValidateModels.BusinessValidation
             RuleFor(x => x.IdCategoria).NotEmpty().WithMessage(ProdutoErrorMessages.IdCategoriaNulo)
                 .NotNull().WithMessage(ProdutoErrorMessages.IdCategoriaNulo)
                 .Must(x => _repository.GetOneById(x) != null).WithMessage(ProdutoErrorMessages.IdCategoriaInexistente);
-           
+
         }
     }
 }

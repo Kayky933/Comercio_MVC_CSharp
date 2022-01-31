@@ -115,7 +115,7 @@ namespace Mercado.MVC.Controllers
         {
             var response = _service.Delet(id);
             if (response)
-                return RedirectToAction("Index", "Cliente");
+                return RedirectToAction("Index", "Fornecedor");
 
             ViewBag.ErroExcluir = "Não foi possível excluir esse Fornecedor, verifique se ele tem entregas pendentes!";
             return View("Delete", "Fornecedor");
