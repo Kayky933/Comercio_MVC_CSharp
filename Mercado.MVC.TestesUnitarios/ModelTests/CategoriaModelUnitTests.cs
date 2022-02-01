@@ -2,10 +2,6 @@
 using Mercado.MVC.Validation.ErrorMessage;
 using Mercado.MVC.Validation.ValidateModels;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -32,7 +28,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
         }
 
         #region Descrição
-        [Fact(DisplayName ="Descrcição Nula")]
+        [Fact(DisplayName = "Descrcição Nula")]
         public async Task DescricaoNula()
         {
             var instancia = _builder.With(x => x.Descricao = "").Build();

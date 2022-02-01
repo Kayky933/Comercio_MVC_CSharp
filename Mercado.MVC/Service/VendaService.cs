@@ -37,7 +37,7 @@ namespace Mercado.MVC.Service
             prod.QuantidadeProduto -= model.Quantidade;
 
             _prodRepository.Update(prod);
-            
+
             _repository.Create(model);
             return validation;
         }

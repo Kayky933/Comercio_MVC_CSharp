@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Mercado.MVC.Interfaces.Repository;
 using Mercado.MVC.Models;
 using Mercado.MVC.Validation.ErrorMessage;
 
@@ -22,7 +21,7 @@ namespace Mercado.MVC.Validation.ValidateModels
 
             RuleFor(x => x.IdProduto).NotNull().WithMessage(VendaErrorMessages.IdProdutoNulo)
                 .NotEmpty().WithMessage(VendaErrorMessages.IdProdutoNulo);
-                
+
 
         }
     }

@@ -13,7 +13,7 @@ namespace Mercado.MVC.TestesUnitarios.Builder
                .With(x => x.IdCliente = 1)
                .With(x => x.IdProduto = 1)
                .With(x => x.Quantidade = 10)
-               .With(x => x.ValorVenda =10000000);
+               .With(x => x.ValorVenda = 10000000);
         }
     }
 }

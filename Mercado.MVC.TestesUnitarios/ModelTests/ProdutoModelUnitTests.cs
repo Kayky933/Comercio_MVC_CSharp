@@ -1,13 +1,9 @@
-﻿using Mercado.MVC.Interfaces.Repository;
-using Mercado.MVC.Models.Enum;
+﻿using Mercado.MVC.Models.Enum;
 using Mercado.MVC.TestesUnitarios.Builder;
 using Mercado.MVC.Validation.ErrorMessage;
 using Mercado.MVC.Validation.ValidateModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 

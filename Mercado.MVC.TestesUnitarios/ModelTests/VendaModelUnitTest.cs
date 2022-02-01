@@ -3,9 +3,6 @@ using Mercado.MVC.Validation.ErrorMessage;
 using Mercado.MVC.Validation.ValidateModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -21,7 +18,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             _builder = new VendaModelBuilder();
             _validator = provider.GetService<VendaValidation>();
         }
-       [Fact(DisplayName ="A classe deve ser válida")]
+        [Fact(DisplayName = "A classe deve ser válida")]
         public async Task ClasseValida()
         {
             var instancia = _builder.Build();
@@ -30,7 +27,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
         }
 
         #region Quantidade
-        [Theory(DisplayName ="Quantidade válida")]
+        [Theory(DisplayName = "Quantidade válida")]
         [InlineData(10)]
         [InlineData(11)]
         [InlineData(100)]
@@ -91,7 +88,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
         #endregion
 
         #region Valor
-        [Theory(DisplayName ="Valor venda válido")]
+        [Theory(DisplayName = "Valor venda válido")]
         [InlineData(1000000000)]
         [InlineData(334992.99)]
         [InlineData(33.44)]
@@ -104,11 +101,11 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
         public async Task ValorVendaValido(decimal valor)
         {
             var instancia = _builder.With(x => x.ValorVenda = valor).Build();
-            var validation =await _validator.ValidateAsync(instancia);
+            var validation = await _validator.ValidateAsync(instancia);
             Assert.True(validation.IsValid);
         }
 
-        
+
         [Theory(DisplayName = "ValorVenda Tamanho Máximo")]
         [InlineData(10000000000)]
         [InlineData(9999999999999)]
@@ -144,7 +141,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(VendaErrorMessages.ValorMinimo));
         }
 
-        [Fact(DisplayName ="Valor Venda Nulo")]
+        [Fact(DisplayName = "Valor Venda Nulo")]
         public async Task ValorVendaInvalidaNula()
         {
             var instancia = _builder.With(x => x.ValorVenda = Convert.ToDecimal(null)).Build();
