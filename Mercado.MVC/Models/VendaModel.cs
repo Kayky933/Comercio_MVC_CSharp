@@ -10,7 +10,7 @@ namespace Mercado.MVC.Models
         [Key]
         public int Id { get; set; }
         [Required(ErrorMessage = "O Campo é obrigatório!")]
-        public int Quantidade { get; set; }
+        public double Quantidade { get; set; }
         [Required(ErrorMessage = "O Campo é obrigatório!")]
         [ForeignKey("Produto")]
         public int IdProduto { get; set; }
@@ -22,6 +22,6 @@ namespace Mercado.MVC.Models
         [ForeignKey("Cliente")]
         public int IdCliente { get; set; }
         public ClienteModel Cliente { get; set; }
-        public DateTime DataVenda { get; set; } = DateTime.UtcNow;
+        public DateTime DataVenda { get; set; } = DateTime.Now;
     }
 }

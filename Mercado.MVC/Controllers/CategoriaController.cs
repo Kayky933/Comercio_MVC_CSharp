@@ -49,7 +49,7 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CategoriaModel categoriaModel)
         {
-            var response = _service.CreateCategory(categoriaModel);
+            var response = _service.Create(categoriaModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "Categoria");
 

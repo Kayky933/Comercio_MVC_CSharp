@@ -3,6 +3,7 @@ using Mercado.MVC.Interfaces.Repository;
 using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
 using Mercado.MVC.Validation.ValidateModels;
+using Mercado.MVC.Validation.ValidateModels.BusinessValidation;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
@@ -17,13 +18,17 @@ namespace Mercado.MVC.Service
             _repository = repository;
             _categoryRepository = categoryRepository;
         }
-        public ValidationResult CreateProduct(ProdutoModel produto)
+        public ValidationResult Create(ProdutoModel model)
         {
-            var validation = new ProdutoValidation(_categoryRepository, false).Validate(produto);
+            var validation = new ProdutoValidation(false).Validate(model);
+            var validationBusiness = new ProdutoBusinessValidation(_categoryRepository).Validate(model);
             if (!validation.IsValid)
                 return validation;
 
-            _repository.Create(produto);
+            if (!validationBusiness.IsValid)
+                return validationBusiness;
+
+            _repository.Create(model);
             return validation;
         }
 
@@ -55,13 +60,17 @@ namespace Mercado.MVC.Service
             return produto;
         }
 
-        public ValidationResult PutProduct(ProdutoModel produto)
+        public ValidationResult PutProduct(ProdutoModel model)
         {
-            var validation = new ProdutoValidation(_categoryRepository, true).Validate(produto);
+            var validation = new ProdutoValidation(true).Validate(model);
+            var validationBusiness = new ProdutoBusinessValidation(_categoryRepository).Validate(model);
             if (!validation.IsValid)
                 return validation;
 
-            _repository.Update(produto);
+            if (!validationBusiness.IsValid)
+                return validationBusiness;
+
+            _repository.Update(model);
             return validation;
         }
     }

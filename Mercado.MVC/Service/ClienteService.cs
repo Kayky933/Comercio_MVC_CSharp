@@ -15,13 +15,13 @@ namespace Mercado.MVC.Service
         {
             _repository = repository;
         }
-        public ValidationResult CreateClient(ClienteModel cliente)
+        public ValidationResult Create(ClienteModel model)
         {
-            var validation = new ClienteValidation().Validate(cliente);
+            var validation = new ClienteValidation().Validate(model);
             if (!validation.IsValid)
                 return validation;
 
-            _repository.Create(cliente);
+            _repository.Create(model);
             return validation;
         }
 
@@ -54,12 +54,12 @@ namespace Mercado.MVC.Service
             return cliente;
         }
 
-        public ValidationResult PutClient(ClienteModel cliente)
+        public ValidationResult PutClient(ClienteModel model)
         {
-            var validation = new ClienteValidation().Validate(cliente);
+            var validation = new ClienteValidation().Validate(model);
             if (!validation.IsValid)
                 return validation;
-            _repository.Update(cliente);
+            _repository.Update(model);
             return validation;
         }
     }

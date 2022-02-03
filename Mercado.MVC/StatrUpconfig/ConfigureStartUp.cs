@@ -22,6 +22,9 @@ namespace Mercado.MVC.StatrUpconfig
             services.AddScoped<IVendaService, VendaService>();
             services.AddScoped<IVendaRepository, VendaRepository>();
 
+            services.AddScoped<IFornecedorService, FornecedorService>();
+            services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+
             services.AddScoped<ISelectListService, SelectListService>();
         }
     }

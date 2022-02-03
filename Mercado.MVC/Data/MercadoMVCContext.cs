@@ -16,5 +16,9 @@ namespace Mercado.MVC.Data
         public DbSet<Mercado.MVC.Models.VendaModel> VendaModel { get; set; }
 
         public DbSet<Mercado.MVC.Models.ClienteModel> ClienteModel { get; set; }
+
+        public DbSet<Mercado.MVC.Models.FornecedorModel> FornecedorModel { get; set; }
+
+        public DbSet<Mercado.MVC.Models.EntregaFornecedorModel> EntregaFornecedorModel { get; set; }
     }
 }

@@ -49,15 +49,14 @@ namespace Mercado.MVC.Validation.ValidateModels
 
             RuleFor(x => x.NumeroCasa).NotEmpty().WithMessage(ClienteErrorMessages.NumeroNulo)
                 .NotNull().WithMessage(ClienteErrorMessages.NumeroNulo)
-                .MinimumLength(1).WithMessage(ClienteErrorMessages.NumeroTamanhoMaximo)
-                .MaximumLength(6).WithMessage(ClienteErrorMessages.NumeroTamanhoMinimo);
+                .MinimumLength(1).WithMessage(ClienteErrorMessages.NumeroTamanhoMinimo)
+                .MaximumLength(6).WithMessage(ClienteErrorMessages.NumeroTamanhoMaximo);
 
             RuleFor(x => x.Uf).NotEmpty().WithMessage(ClienteErrorMessages.UFNula)
               .NotNull().WithMessage(ClienteErrorMessages.UFNula)
               .Must(x => x.GetType() == typeof(UnidadeFederalEnum)).WithMessage(ClienteErrorMessages.UFFormatoInvalido);
 
-            RuleFor(x => x.Complemento).NotEmpty().WithMessage(ClienteErrorMessages.ComplementoNulo)
-                .NotNull().WithMessage(ClienteErrorMessages.ComplementoNulo)
+            RuleFor(x => x.Complemento)
                 .MaximumLength(100).WithMessage(ClienteErrorMessages.ComplementoTamanhoMaximo)
                 .MinimumLength(3).WithMessage(ClienteErrorMessages.ComplementoTamanhoMinimo);
 
@@ -75,7 +74,7 @@ namespace Mercado.MVC.Validation.ValidateModels
             RuleFor(x => x.Email).NotEmpty().WithMessage(ClienteErrorMessages.EmailNulo)
                 .NotNull().WithMessage(ClienteErrorMessages.EmailNulo)
                 .MaximumLength(100).WithMessage(ClienteErrorMessages.EmailTamanhoMaximo)
-                .MinimumLength(7).WithMessage(ClienteErrorMessages.EmailTamanhoMinimo)
+                .MinimumLength(13).WithMessage(ClienteErrorMessages.EmailTamanhoMinimo)
                 .EmailAddress().WithMessage(ClienteErrorMessages.EmailFormato);
 
             RuleFor(x => x.Sexo).NotEmpty().WithMessage(ClienteErrorMessages.SexoNulo)

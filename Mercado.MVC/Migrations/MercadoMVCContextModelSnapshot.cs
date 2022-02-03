@@ -113,8 +113,9 @@ namespace Mercado.MVC.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Telefone")
-                        .HasMaxLength(14)
-                        .HasColumnType("nvarchar(14)");
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
 
                     b.Property<int>("Uf")
                         .HasColumnType("int");
@@ -130,6 +131,130 @@ namespace Mercado.MVC.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Clientes");
+                });
+
+            modelBuilder.Entity("Mercado.MVC.Models.EntregaFornecedorModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DataEntrega")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdFornecedor")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IdProduto")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ValorUnidade")
+                        .HasColumnType("decimal(12,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IdFornecedor");
+
+                    b.HasIndex("IdProduto");
+
+                    b.ToTable("EntregaFornecedorModel");
+                });
+
+            modelBuilder.Entity("Mercado.MVC.Models.FornecedorModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Bairro")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("CEP")
+                        .IsRequired()
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
+
+                    b.Property<string>("CNPJ")
+                        .HasMaxLength(18)
+                        .HasColumnType("nvarchar(18)");
+
+                    b.Property<string>("Celular")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
+
+                    b.Property<string>("Complemento")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("Data_Nascimento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Endereco")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Nome_Fantasia")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("NumeroCasa")
+                        .IsRequired()
+                        .HasMaxLength(6)
+                        .HasColumnType("nvarchar(6)");
+
+                    b.Property<string>("RG")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<string>("Razao_Social")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("Sexo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("nvarchar(13)");
+
+                    b.Property<int>("Uf")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UltimaModificacao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Whatsapp")
+                        .IsRequired()
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FornecedorModel");
                 });
 
             modelBuilder.Entity("Mercado.MVC.Models.ProdutoModel", b =>
@@ -182,8 +307,8 @@ namespace Mercado.MVC.Migrations
                     b.Property<int>("IdProduto")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantidade")
-                        .HasColumnType("int");
+                    b.Property<double>("Quantidade")
+                        .HasColumnType("float");
 
                     b.Property<decimal>("ValorVenda")
                         .HasColumnType("decimal(12,2)");
@@ -195,6 +320,25 @@ namespace Mercado.MVC.Migrations
                     b.HasIndex("IdProduto");
 
                     b.ToTable("Vendas");
+                });
+
+            modelBuilder.Entity("Mercado.MVC.Models.EntregaFornecedorModel", b =>
+                {
+                    b.HasOne("Mercado.MVC.Models.FornecedorModel", "Fornecedor")
+                        .WithMany()
+                        .HasForeignKey("IdFornecedor")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Mercado.MVC.Models.ProdutoModel", "Produto")
+                        .WithMany()
+                        .HasForeignKey("IdProduto")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Fornecedor");
+
+                    b.Navigation("Produto");
                 });
 
             modelBuilder.Entity("Mercado.MVC.Models.ProdutoModel", b =>
