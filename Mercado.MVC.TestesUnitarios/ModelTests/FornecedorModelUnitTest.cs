@@ -9,16 +9,16 @@ using Xunit;
 
 namespace Mercado.MVC.TestesUnitarios.ModelTests
 {
-    public class ClienteModelUnitTests
+    public class FornecedorModelUnitTest
     {
-        private readonly ClienteModelBuilder _builder;
-        private readonly ClienteValidation _validator;
+        private readonly FornecedorModelBuilder _builder;
+        private readonly FornecedorValidation _validator;
 
-        public ClienteModelUnitTests()
+        public FornecedorModelUnitTest()
         {
-            var provider = new ServiceCollection().AddScoped<ClienteValidation>().BuildServiceProvider();
-            _builder = new ClienteModelBuilder();
-            _validator = provider.GetService<ClienteValidation>();
+            var provider = new ServiceCollection().AddScoped<FornecedorValidation>().BuildServiceProvider();
+            _builder = new FornecedorModelBuilder();
+            _validator = provider.GetService<FornecedorValidation>();
         }
 
         [Fact(DisplayName = "Classe válida")]
@@ -64,7 +64,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Razao_Social = razao).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.RazaoSocialTamanhoMinimo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.RazaoSocialTamanhoMinimo));
         }
 
 
@@ -74,7 +74,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Razao_Social = null).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.RazaoSocialNula));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.RazaoSocialNula));
         }
         [Fact(DisplayName = "Razão Social vazia")]
         public async Task RazaoSocialVazia()
@@ -82,7 +82,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Razao_Social = "").Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.RazaoSocialNula));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.RazaoSocialNula));
         }
 
         [Fact(DisplayName = "Razão Social Tamanho máximo")]
@@ -91,7 +91,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Razao_Social = "A".PadLeft(101)).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.RazaoSocialTamanhoMaximo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.RazaoSocialTamanhoMaximo));
         }
         #endregion
 
@@ -130,7 +130,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Nome_Fantasia = nome).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.NomeFantasiaTamanhoMinimo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.NomeFantasiaTamanhoMinimo));
         }
 
 
@@ -140,7 +140,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Nome_Fantasia = null).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.NomeFantasiaNulo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.NomeFantasiaNulo));
         }
         [Fact(DisplayName = "Razão Social vazia")]
         public async Task NomaFantasiaVazio()
@@ -148,7 +148,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Nome_Fantasia = "").Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.NomeFantasiaNulo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.NomeFantasiaNulo));
         }
 
         [Fact(DisplayName = "Nome Fantasia Tamanho máximo")]
@@ -157,7 +157,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Nome_Fantasia = "A".PadLeft(101)).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.NomeFantasiaTamanhoMaximo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.NomeFantasiaTamanhoMaximo));
         }
         #endregion
 
@@ -206,7 +206,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.RG = RG).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.RGTamanho));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.RGTamanho));
         }
 
         [Fact(DisplayName = "Rg Nulo")]
@@ -215,7 +215,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.RG = null).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.RGNulo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.RGNulo));
         }
 
         [Fact(DisplayName = "Rg Vazio")]
@@ -224,53 +224,53 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.RG = "").Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.RGNulo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.RGNulo));
         }
         #endregion
 
-        #region CPF        
-        [Theory(DisplayName = "CPF Inválido")]
-        [InlineData("11.000.55-00")]
-        [InlineData("55.12.000-00")]
-        [InlineData("88.234.000-00")]
-        [InlineData("4342.33.000-663")]
-        [InlineData("55555.44.000-345")]
-        [InlineData("4444.01100.543-00")]
-        [InlineData("566.44.000-3335")]
+        #region CNPJ        
+        [Theory(DisplayName = "CNPJ Inválido")]
+        [InlineData("11.000111111.55-'12'200")]
+        [InlineData("55.12.00222222222220-00")]
+        [InlineData("88.234.00121230-0")]
+        [InlineData("4342.33.000-22224663")]
+        [InlineData("55555.44.000-342425")]
+        [InlineData("4444.01100.543-00111")]
+        [InlineData("566.00-3335")]
         [InlineData("77.3453.3451-00")]
-        [InlineData("000.23.000-00")]
-        [InlineData("66.11.000-00")]
+        [InlineData("000.200-00")]
+        [InlineData("66.11.0-00")]
         [InlineData("45.000.233-00")]
-        public async Task CPFInvalido(string CPF)
+        public async Task CNPJInvalido(string cnpj)
         {
-            var instancia = _builder.With(x => x.CPF = CPF).Build();
+            var instancia = _builder.With(x => x.CNPJ = cnpj).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.CPFTamanho));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.CNPJTamanho));
         }
 
-        [Theory(DisplayName = "CPF Válido")]
-        [InlineData("244.123.999-33")]
-        [InlineData("332.444.888-22")]
-        [InlineData("555.455.777-34")]
-        [InlineData("666.336.666-23")]
-        [InlineData("554.999.444-11")]
-        [InlineData("223.445.333-55")]
-        [InlineData("553.333.222-66")]
-        [InlineData("678.442.111-33")]
-        public async Task CPFValido(string CPF)
+        [Theory(DisplayName = "CNPJ Válido")]
+        [InlineData("24.123.999/0001-12")]
+        [InlineData("34.987.123/0001-13")]
+        [InlineData("88.983.836/0001-14")]
+        [InlineData("88.987.353/0001-15")]
+        [InlineData("46.223.997/0001-16")]
+        [InlineData("84.115.998/0001-17")]
+        [InlineData("24.887.323/0001-18")]
+        [InlineData("99.556.865/0001-19")]
+        public async Task CNPJValido(string cnpj)
         {
-            var instancia = _builder.With(x => x.CPF = CPF).Build();
+            var instancia = _builder.With(x => x.CNPJ = cnpj).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.True(validacao.IsValid);
         }
-        [Fact(DisplayName = "CPF nulo")]
-        public async Task CPFNulo()
+        [Fact(DisplayName = "CNPJ nulo")]
+        public async Task CNPJNulo()
         {
-            var instancia = _builder.With(x => x.CPF = "").Build();
+            var instancia = _builder.With(x => x.CNPJ = "").Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.CPFNulo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.CNPJNulo));
         }
         #endregion
 
@@ -308,7 +308,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.CEP = CEP).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.CEPTamanho));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.CEPTamanho));
         }
 
         [Fact(DisplayName = "CEP nulo")]
@@ -317,7 +317,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.CEP = "").Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.CEPNulo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.CEPNulo));
         }
         #endregion
 
@@ -351,7 +351,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Bairro = bairro).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.BairroTamanhoMinimo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.BairroTamanhoMinimo));
         }
 
         [Fact(DisplayName = "Bairro Tamanho máximo")]
@@ -360,7 +360,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Bairro = "A".PadLeft(101)).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.BairroTamanhoMaximo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.BairroTamanhoMaximo));
         }
 
         [Fact(DisplayName = "Bairro nulo")]
@@ -369,7 +369,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Bairro = "").Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.BairroNulo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.BairroNulo));
         }
         #endregion
 
@@ -402,7 +402,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Endereco = endereco).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.EnderecoTamanhoMinimo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.EnderecoTamanhoMinimo));
         }
 
         [Fact(DisplayName = "Endereco Tamanho máximo")]
@@ -411,7 +411,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Endereco = "A".PadLeft(101)).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.EnderecoTamanhoMaximo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.EnderecoTamanhoMaximo));
         }
 
         [Fact(DisplayName = "Endereco nulo")]
@@ -420,7 +420,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Endereco = "").Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.EnderecoNulo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.EnderecoNulo));
         }
         #endregion
 
@@ -453,7 +453,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Complemento = complemento).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.ComplementoTamanhoMinimo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.ComplementoTamanhoMinimo));
         }
         [Fact(DisplayName = "Complemento tamanho máximo")]
         public async Task ComplementoTamanhoMaximo()
@@ -461,7 +461,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Complemento = "A".PadLeft(101)).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.ComplementoTamanhoMaximo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.ComplementoTamanhoMaximo));
         }
         #endregion
 
@@ -506,7 +506,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Uf = UnidadeFederalEnum.Selecione).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.UFNula));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.UFNula));
         }
         #endregion
 
@@ -553,7 +553,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.NumeroCasa = numero).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.NumeroTamanhoMaximo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.NumeroTamanhoMaximo));
         }
 
         [Fact(DisplayName = "Número da casa nulo")]
@@ -562,7 +562,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.NumeroCasa = "").Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.NumeroNulo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.NumeroNulo));
         }
         #endregion
 
@@ -597,7 +597,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Telefone = telefone).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.TelefoneTamanho));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.TelefoneTamanho));
         }
         #endregion
 
@@ -633,7 +633,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Celular = celular).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.CelularTamanho));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.CelularTamanho));
         }
         [Fact(DisplayName = "Celular nulo")]
         public async Task CelularNulo()
@@ -641,7 +641,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Celular = "").Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.CelularNulo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.CelularNulo));
         }
         #endregion
 
@@ -677,7 +677,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Whatsapp = whatsapp).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.WhatsappTamanho));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.WhatsappTamanho));
         }
         [Fact(DisplayName = "Celular nulo")]
         public async Task WhatsappNulo()
@@ -685,7 +685,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Whatsapp = "").Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.WhatsappNulo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.WhatsappNulo));
         }
         #endregion
 
@@ -722,7 +722,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Email = email).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.EmailTamanhoMinimo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.EmailTamanhoMinimo));
         }
         [Fact(DisplayName = "Email nulo")]
         public async Task EmailNulo()
@@ -730,7 +730,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Email = "").Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.EmailNulo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.EmailNulo));
         }
 
         [Fact(DisplayName = "Email Tamanho máximo")]
@@ -739,7 +739,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Email = "@gmail.com".PadLeft(101)).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.EmailTamanhoMaximo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.EmailTamanhoMaximo));
         }
         [Theory(DisplayName = "Email Formato Inválido")]
         [InlineData("agmail.com")]
@@ -756,7 +756,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Email = email).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.EmailFormato));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.EmailFormato));
         }
         #endregion
 
@@ -777,10 +777,9 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             var instancia = _builder.With(x => x.Sexo = SexoEnum.Selecione).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.SexoNulo));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.SexoNulo));
         }
 
         #endregion
-
     }
 }

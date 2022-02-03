@@ -17,7 +17,7 @@ namespace Mercado.MVC.TestesUnitarios.Builder
                .With(x => x.CEP = "13300-070")
                .With(x => x.CNPJ = "11.111.111/0001-11")
                .With(x => x.DataCadastro = DateTime.Now)
-               .With(x => x.Data_Nascimento = DateTime.Now.AddYears(-18))
+               .With(x => x.Data_Nascimento = DateTime.Today.AddYears(-20))
                .With(x => x.Email = "gmail@gmail.com")
                .With(x => x.RG = "11.111.111-1")
                .With(x => x.Sexo = SexoEnum.Masculino)
