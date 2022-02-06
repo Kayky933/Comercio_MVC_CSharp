@@ -6,5 +6,6 @@ namespace Mercado.MVC.Interfaces.Service
     public interface ICategoriaService : IBaseService<CategoriaModel>
     {
         public ValidationResult PutCategory(CategoriaModel categoria);
+        public bool Delet(int id);
     }
 }

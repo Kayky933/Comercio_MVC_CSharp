@@ -5,5 +5,6 @@ namespace Mercado.MVC.Interfaces.Repository
     public interface IFornecedorRepository : IBaseRepository<FornecedorModel>
     {
         public void Update(FornecedorModel fornecedorModel);
+        void Delete(FornecedorModel entity);
     }
 }

@@ -82,18 +82,5 @@ namespace Mercado.MVC.Controllers
 
             return View(vendaModel);
         }
-
-        // POST: Venda/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            var vendaModel = _service.Delet(id);
-            if (vendaModel)
-                return RedirectToAction("Index", "Venda");
-
-            ViewBag.ErroExcluir = "Não foi possivel excluir essa Venda!";
-            return View(_service.GetOneById(id));
-        }
     }
 }

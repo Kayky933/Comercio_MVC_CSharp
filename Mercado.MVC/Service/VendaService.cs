@@ -42,16 +42,6 @@ namespace Mercado.MVC.Service
             return validation;
         }
 
-        public bool Delet(int id)
-        {
-            var venda = _repository.GetOneById(id);
-            if (venda == null)
-                return false;
-
-            _repository.Delete(venda);
-            return true;
-        }
-
         public IEnumerable<VendaModel> GetAll()
         {
             return _repository.GetAll();

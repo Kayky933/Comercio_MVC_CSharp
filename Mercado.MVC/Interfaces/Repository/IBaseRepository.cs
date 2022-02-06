@@ -6,7 +6,6 @@ namespace Mercado.MVC.Interfaces.Repository
     public interface IBaseRepository<T> where T : class
     {
         void Create(T entity);
-        void Delete(T entity);
         void SaveDb();
         public T GetOneById(int? id);
         public IEnumerable<T> GetAll();

@@ -8,7 +8,7 @@ namespace Mercado.MVC.Models
     {
         [Key]
         public int Id { get; set; }
-        public int Quantidade { get; set; }
+        public double Quantidade { get; set; }
         [Column(TypeName = "decimal(12,2)")]
         public decimal ValorUnidade { get; set; }
         [ForeignKey("Produto")]
@@ -17,7 +17,7 @@ namespace Mercado.MVC.Models
         [ForeignKey("Fornecedor")]
         public int IdFornecedor { get; set; }
         public FornecedorModel Fornecedor { get; set; }
-        public DateTime DataEntrega { get; set; }
+        public DateTime DataEntrega { get; set; } = DateTime.Now;
 
     }
 }

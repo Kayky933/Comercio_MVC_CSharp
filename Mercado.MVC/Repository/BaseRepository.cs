@@ -23,11 +23,6 @@ namespace Mercado.MVC.Repository
             _context.Set<T>().Update(entity).State = EntityState.Modified;
             SaveDb();
         }
-        public virtual void Delete(T entity)
-        {
-            _context.Set<T>().Remove(entity);
-            SaveDb();
-        }
         public virtual IEnumerable<T> GetAll()
         {
             return _context.Set<T>().ToList();
