@@ -11,5 +11,6 @@ namespace Mercado.MVC.Models
         [MaxLength(14)]
         public string CPF { get; set; }
         public ICollection<VendaModel> Venda { get; set; }
+
     }
 }

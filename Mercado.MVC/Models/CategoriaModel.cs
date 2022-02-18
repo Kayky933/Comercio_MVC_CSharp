@@ -16,6 +16,8 @@ namespace Mercado.MVC.Models
         [MaxLength(100)]
         public string Descricao { get; set; }
         public ICollection<ProdutoModel> Produtos { get; set; }
+
+        [DataType(DataType.DateTime)]
         public DateTime DataAddCategoria { get; set; } = DateTime.Now;
     }
 }

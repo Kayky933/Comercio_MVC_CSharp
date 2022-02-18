@@ -17,7 +17,9 @@ namespace Mercado.MVC.Models
         [ForeignKey("Fornecedor")]
         public int IdFornecedor { get; set; }
         public FornecedorModel Fornecedor { get; set; }
+        [DataType(DataType.DateTime)]
         public DateTime DataEntrega { get; set; } = DateTime.Now;
+
 
     }
 }

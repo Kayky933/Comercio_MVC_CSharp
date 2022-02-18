@@ -27,5 +27,6 @@ namespace Mercado.MVC.Models
         public CategoriaModel Categoria { get; set; }
         public ICollection<VendaModel> Vendas { get; set; }
         public DateTime DataAddProduto { get; set; } = DateTime.Now;
+
     }
 }

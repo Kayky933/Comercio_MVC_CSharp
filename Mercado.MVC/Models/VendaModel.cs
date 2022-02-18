@@ -23,5 +23,6 @@ namespace Mercado.MVC.Models
         public int IdCliente { get; set; }
         public ClienteModel Cliente { get; set; }
         public DateTime DataVenda { get; set; } = DateTime.Now;
+
     }
 }

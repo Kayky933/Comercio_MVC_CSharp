@@ -6,5 +6,6 @@ namespace Mercado.MVC.Models
     {
         [MaxLength(19)]
         public string CNPJ { get; set; }
+
     }
 }
