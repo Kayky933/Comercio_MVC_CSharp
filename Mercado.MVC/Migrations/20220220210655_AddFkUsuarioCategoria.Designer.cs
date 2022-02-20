@@ -4,14 +4,16 @@ using Mercado.MVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mercado.MVC.Migrations
 {
     [DbContext(typeof(MercadoMVCContext))]
-    partial class MercadoMVCContextModelSnapshot : ModelSnapshot
+    [Migration("20220220210655_AddFkUsuarioCategoria")]
+    partial class AddFkUsuarioCategoria
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -295,9 +297,6 @@ namespace Mercado.MVC.Migrations
                     b.Property<int>("IdCategoria")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id_Usuario")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("PrecoUnidade")
                         .HasColumnType("decimal(12,2)");
 
@@ -310,8 +309,6 @@ namespace Mercado.MVC.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IdCategoria");
-
-                    b.HasIndex("Id_Usuario");
 
                     b.ToTable("Produtos");
                 });
@@ -420,9 +417,9 @@ namespace Mercado.MVC.Migrations
                         .IsRequired();
 
                     b.HasOne("Mercado.MVC.Models.ProdutoModel", "Produto")
-                        .WithMany("Entregas")
+                        .WithMany()
                         .HasForeignKey("IdProduto")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Mercado.MVC.Models.UsuarioModel", "Usuario")
@@ -457,15 +454,7 @@ namespace Mercado.MVC.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Mercado.MVC.Models.UsuarioModel", "Usuario")
-                        .WithMany()
-                        .HasForeignKey("Id_Usuario")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Categoria");
-
-                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Mercado.MVC.Models.VendaModel", b =>
@@ -512,8 +501,6 @@ namespace Mercado.MVC.Migrations
 
             modelBuilder.Entity("Mercado.MVC.Models.ProdutoModel", b =>
                 {
-                    b.Navigation("Entregas");
-
                     b.Navigation("Vendas");
                 });
 #pragma warning restore 612, 618

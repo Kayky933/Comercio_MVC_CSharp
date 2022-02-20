@@ -1,12 +1,13 @@
 ﻿using Mercado.MVC.Models.Enum;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mercado.MVC.Models
 {
+    [Table("Usuarios")]
     public class UsuarioModel
     {
-
         [Key]
         public int Id { get; set; }
 
@@ -31,7 +32,6 @@ namespace Mercado.MVC.Models
         public string Telefone { get; set; }
 
         [Required(ErrorMessage = "Escolha uma das opções")]
-
         public SexoEnum Sexo { get; set; }
     }
 }
