@@ -1,40 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Mercado.MVC.Data;
+﻿using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Mercado.MVC.Controllers
 {
-    public class UsuarioController : Controller
+    public class UsuarioController : ControllerPai
     {
-        private readonly MercadoMVCContext _context;
+        private readonly IUsuarioService _service;
+        private readonly ISelectListService _selectListService;
 
-        public UsuarioController(MercadoMVCContext context)
+        public UsuarioController(IUsuarioService service, ISelectListService selectListService)
         {
-            _context = context;
+            _service = service;
+            _selectListService = selectListService;
         }
 
         // GET: Usuario
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.UsuarioModel.ToListAsync());
+            return View(_service.GetAll());
         }
 
         // GET: Usuario/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var usuarioModel = await _context.UsuarioModel
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var usuarioModel = _service.GetOneById(id);
             if (usuarioModel == null)
             {
                 return NotFound();
@@ -46,6 +41,7 @@ namespace Mercado.MVC.Controllers
         // GET: Usuario/Create
         public IActionResult Create()
         {
+            ViewData["Sexo"] = _selectListService.SelectListSexo();
             return View();
         }
 
@@ -54,30 +50,30 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nome,Senha,DataNascimento,Email,Telefone,Sexo")] UsuarioModel usuarioModel)
+        public IActionResult Create(UsuarioModel usuarioModel)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(usuarioModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(usuarioModel);
+            var response = _service.Create(usuarioModel);
+            if (response.IsValid)
+                return RedirectToAction("Index", "Usuario");
+
+            ViewData["Sexo"] = _selectListService.SelectListSexo();
+            return View(MostrarErros(response, usuarioModel));
         }
 
         // GET: Usuario/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var usuarioModel = await _context.UsuarioModel.FindAsync(id);
+            var usuarioModel = _service.GetOneById(id);
             if (usuarioModel == null)
             {
                 return NotFound();
             }
+            ViewData["Sexo"] = _selectListService.SelectListSexo();
             return View(usuarioModel);
         }
 
@@ -86,46 +82,29 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nome,Senha,DataNascimento,Email,Telefone,Sexo")] UsuarioModel usuarioModel)
+        public IActionResult Edit(int id, UsuarioModel usuarioModel)
         {
             if (id != usuarioModel.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(usuarioModel);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!UsuarioModelExists(usuarioModel.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(usuarioModel);
+            var response = _service.PutEdicao(id, usuarioModel);
+            if (response.IsValid)
+                return RedirectToAction("Index", "Usuario");
+            ViewData["Sexo"] = _selectListService.SelectListSexo();
+            return View(MostrarErros(response, usuarioModel));
         }
 
         // GET: Usuario/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var usuarioModel = await _context.UsuarioModel
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var usuarioModel = _service.GetOneById(id);
             if (usuarioModel == null)
             {
                 return NotFound();
@@ -137,17 +116,12 @@ namespace Mercado.MVC.Controllers
         // POST: Usuario/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var usuarioModel = await _context.UsuarioModel.FindAsync(id);
-            _context.UsuarioModel.Remove(usuarioModel);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool UsuarioModelExists(int id)
-        {
-            return _context.UsuarioModel.Any(e => e.Id == id);
+            var excluir = _service.PostExclusao(id);
+            if (excluir)
+                return NoContent();
+            return BadRequest();
         }
     }
 }

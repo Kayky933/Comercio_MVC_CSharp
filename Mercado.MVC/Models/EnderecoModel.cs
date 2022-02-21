@@ -1,6 +1,5 @@
 ﻿using Mercado.MVC.Models.Enum;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Mercado.MVC.Models
 {

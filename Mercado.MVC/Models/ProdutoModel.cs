@@ -24,8 +24,8 @@ namespace Mercado.MVC.Models
         public double QuantidadeProduto { get; set; }
 
         [Required(ErrorMessage = "O Campo é obrigatório!")]
-        public UnidadeMedidaEnum UnidadeDeMedida { get; set; }  
-        
+        public UnidadeMedidaEnum UnidadeDeMedida { get; set; }
+
         public DateTime DataAddProduto { get; set; } = DateTime.Now;
 
         [Required(ErrorMessage = "O Campo é obrigatório!")]

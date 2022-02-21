@@ -87,7 +87,7 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("Id,Descricao,PrecoUnidade,UnidadeDeMedida,IdCategoria")] ProdutoModel produtoModel)
+        public IActionResult Edit(int id, ProdutoModel produtoModel)
         {
             if (id != produtoModel.Id)
             {
