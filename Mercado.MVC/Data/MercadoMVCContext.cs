@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Mercado.MVC.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Mercado.MVC.Data
 {
@@ -9,6 +10,66 @@ namespace Mercado.MVC.Data
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            #region Configuração DbDeletCascade EntregaFornecedorModel
+            //restringe a esclusão de FornecedorModel caso tenha alguma EntregaFornecedorModel vinculado
+            modelBuilder.Entity<EntregaFornecedorModel>()
+                .HasOne(p => p.Fornecedor)
+                .WithMany(c => c.Entregas)
+                .HasForeignKey(p => p.IdFornecedor)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            //restringe a esclusão de ProdutoModel caso tenha alguma EntregaFornecedorModel vinculado
+            modelBuilder.Entity<EntregaFornecedorModel>()
+               .HasOne(p => p.Produto)
+               .WithMany(c => c.Entregas)
+               .HasForeignKey(p => p.IdProduto)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            #endregion
+
+            #region Configuração DbDeletCascade VendaModel
+            //restringe a esclusão de ClienteModel caso tenha alguma VendaModel vinculada
+            modelBuilder.Entity<VendaModel>()
+               .HasOne(p => p.Cliente)
+               .WithMany(c => c.Vendas)
+               .HasForeignKey(p => p.IdCliente)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            //restringe a esclusão de ProdutoModel caso tenha alguma VendaModel vinculada
+            modelBuilder.Entity<VendaModel>()
+              .HasOne(p => p.Produto)
+              .WithMany(c => c.Vendas)
+              .HasForeignKey(p => p.IdProduto)
+              .OnDelete(DeleteBehavior.Restrict);
+
+            //restringe a esclusão de ProdutoModel caso tenha alguma VendaModel vinculada
+            modelBuilder.Entity<VendaModel>()
+             .HasOne(p => p.Produto)
+             .WithMany(c => c.Vendas)
+             .HasForeignKey(p => p.IdProduto)
+             .OnDelete(DeleteBehavior.Restrict);
+
+            //restringe a esclusão de ClienteModel caso tenha alguma VendaModel vinculada
+            modelBuilder.Entity<VendaModel>()
+            .HasOne(p => p.Cliente)
+            .WithMany(c => c.Vendas)
+            .HasForeignKey(p => p.IdCliente)
+            .OnDelete(DeleteBehavior.Restrict);
+            #endregion
+
+            #region  #region Configuração DbDeletCascade ProdutoModel
+            //restringe a esclusão de CategoriaModel caso tenha alguma ProtudoModel vinculada
+            modelBuilder.Entity<ProdutoModel>()
+             .HasOne(p => p.Categoria)
+             .WithMany(c => c.Produtos)
+             .HasForeignKey(p => p.IdCategoria)
+             .OnDelete(DeleteBehavior.Restrict);
+            #endregion
+        }
         public DbSet<Mercado.MVC.Models.CategoriaModel> CategoriaModel { get; set; }
 
         public DbSet<Mercado.MVC.Models.ProdutoModel> ProdutoModel { get; set; }
@@ -20,5 +81,7 @@ namespace Mercado.MVC.Data
         public DbSet<Mercado.MVC.Models.FornecedorModel> FornecedorModel { get; set; }
 
         public DbSet<Mercado.MVC.Models.EntregaFornecedorModel> EntregaFornecedorModel { get; set; }
+
+        public DbSet<Mercado.MVC.Models.UsuarioModel> UsuarioModel { get; set; }
     }
 }

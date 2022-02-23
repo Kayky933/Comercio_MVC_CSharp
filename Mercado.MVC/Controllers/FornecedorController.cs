@@ -7,10 +7,12 @@ namespace Mercado.MVC.Controllers
     public class FornecedorController : ControllerPai
     {
         private readonly IFornecedorService _service;
+        private readonly ISelectListService _selectListService;
 
-        public FornecedorController(IFornecedorService service)
+        public FornecedorController(IFornecedorService service, ISelectListService selectListService)
         {
             _service = service;
+            _selectListService = selectListService;
         }
 
         // GET: Fornecedor
@@ -39,6 +41,8 @@ namespace Mercado.MVC.Controllers
         // GET: Fornecedor/Create
         public IActionResult Create()
         {
+            ViewData["Sexo"] = _selectListService.SelectListSexo();
+            ViewData["Uf"] = _selectListService.SelecListUF();
             return View();
         }
 
@@ -52,7 +56,8 @@ namespace Mercado.MVC.Controllers
             var response = _service.Create(fornecedorModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "Fornecedor");
-
+            ViewData["Sexo"] = _selectListService.SelectListSexo();
+            ViewData["Uf"] = _selectListService.SelecListUF();
             return View(MostrarErros(response, fornecedorModel));
         }
 
@@ -69,6 +74,8 @@ namespace Mercado.MVC.Controllers
             {
                 return NotFound();
             }
+            ViewData["Sexo"] = _selectListService.SelectListSexo();
+            ViewData["Uf"] = _selectListService.SelecListUF();
             return View(fornecedorModel);
         }
 
@@ -87,7 +94,8 @@ namespace Mercado.MVC.Controllers
             var response = _service.PutFornecedor(fornecedorModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "Fornecedor");
-
+            ViewData["Sexo"] = _selectListService.SelectListSexo();
+            ViewData["Uf"] = _selectListService.SelecListUF();
             return View(MostrarErros(response, fornecedorModel));
         }
 

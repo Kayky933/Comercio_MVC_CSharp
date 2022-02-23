@@ -16,5 +16,10 @@ namespace Mercado.MVC.Repository
         {
             return GetContext().Where(x => x.Id == id).FirstOrDefault();
         }
+        public void Delete(ClienteModel entity)
+        {
+            GetContext().Remove(entity);
+            SaveDb();
+        }
     }
 }

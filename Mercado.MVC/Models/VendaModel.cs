@@ -9,19 +9,30 @@ namespace Mercado.MVC.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Required(ErrorMessage = "O Campo é obrigatório!")]
         public double Quantidade { get; set; }
+
         [Required(ErrorMessage = "O Campo é obrigatório!")]
         [ForeignKey("Produto")]
         public int IdProduto { get; set; }
         public ProdutoModel Produto { get; set; }
+
         [Required(ErrorMessage = "O Campo é obrigatório!")]
         [Column(TypeName = "decimal(12,2)")]
         public decimal ValorVenda { get; set; }
+
         [Required(ErrorMessage = "O Campo é obrigatório!")]
         [ForeignKey("Cliente")]
         public int IdCliente { get; set; }
+
         public ClienteModel Cliente { get; set; }
+
+        [ForeignKey("Usuario")]
+        public int Id_Usuario { get; set; }
+        [ScaffoldColumn(false)]
+        public UsuarioModel Usuario { get; set; }
+
         public DateTime DataVenda { get; set; } = DateTime.Now;
     }
 }

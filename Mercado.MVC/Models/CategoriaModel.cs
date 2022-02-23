@@ -12,10 +12,19 @@ namespace Mercado.MVC.Models
     {
         [Key]
         public int Id { get; set; }
+
         [Required(ErrorMessage = "O Campo é obrigatório!")]
         [MaxLength(100)]
         public string Descricao { get; set; }
-        public ICollection<ProdutoModel> Produtos { get; set; }
+
+        [ForeignKey("Usuario")]
+        public int Id_Usuario { get; set; }
+        [ScaffoldColumn(false)]
+        public UsuarioModel Usuario { get; set; }
+
+        [DataType(DataType.DateTime)]
         public DateTime DataAddCategoria { get; set; } = DateTime.Now;
+
+        public ICollection<ProdutoModel> Produtos { get; set; }
     }
 }

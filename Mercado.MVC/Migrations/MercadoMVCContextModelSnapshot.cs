@@ -34,7 +34,12 @@ namespace Mercado.MVC.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("Id_Usuario")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("Id_Usuario");
 
                     b.ToTable("Categorias");
                 });
@@ -89,6 +94,9 @@ namespace Mercado.MVC.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("Id_Usuario")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome_Fantasia")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -130,6 +138,8 @@ namespace Mercado.MVC.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Id_Usuario");
+
                     b.ToTable("Clientes");
                 });
 
@@ -149,8 +159,11 @@ namespace Mercado.MVC.Migrations
                     b.Property<int>("IdProduto")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantidade")
+                    b.Property<int>("Id_Usuario")
                         .HasColumnType("int");
+
+                    b.Property<double>("Quantidade")
+                        .HasColumnType("float");
 
                     b.Property<decimal>("ValorUnidade")
                         .HasColumnType("decimal(12,2)");
@@ -161,7 +174,9 @@ namespace Mercado.MVC.Migrations
 
                     b.HasIndex("IdProduto");
 
-                    b.ToTable("EntregaFornecedorModel");
+                    b.HasIndex("Id_Usuario");
+
+                    b.ToTable("EntregaFornecedor");
                 });
 
             modelBuilder.Entity("Mercado.MVC.Models.FornecedorModel", b =>
@@ -185,8 +200,8 @@ namespace Mercado.MVC.Migrations
                         .HasColumnType("nvarchar(9)");
 
                     b.Property<string>("CNPJ")
-                        .HasMaxLength(18)
-                        .HasColumnType("nvarchar(18)");
+                        .HasMaxLength(19)
+                        .HasColumnType("nvarchar(19)");
 
                     b.Property<string>("Celular")
                         .IsRequired()
@@ -213,6 +228,9 @@ namespace Mercado.MVC.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<int>("Id_Usuario")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nome_Fantasia")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -254,7 +272,9 @@ namespace Mercado.MVC.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("FornecedorModel");
+                    b.HasIndex("Id_Usuario");
+
+                    b.ToTable("Fornecedores");
                 });
 
             modelBuilder.Entity("Mercado.MVC.Models.ProdutoModel", b =>
@@ -275,6 +295,9 @@ namespace Mercado.MVC.Migrations
                     b.Property<int>("IdCategoria")
                         .HasColumnType("int");
 
+                    b.Property<int>("Id_Usuario")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("PrecoUnidade")
                         .HasColumnType("decimal(12,2)");
 
@@ -288,7 +311,39 @@ namespace Mercado.MVC.Migrations
 
                     b.HasIndex("IdCategoria");
 
+                    b.HasIndex("Id_Usuario");
+
                     b.ToTable("Produtos");
+                });
+
+            modelBuilder.Entity("Mercado.MVC.Models.UsuarioModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DataNascimento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usuarios");
                 });
 
             modelBuilder.Entity("Mercado.MVC.Models.VendaModel", b =>
@@ -307,6 +362,9 @@ namespace Mercado.MVC.Migrations
                     b.Property<int>("IdProduto")
                         .HasColumnType("int");
 
+                    b.Property<int>("Id_Usuario")
+                        .HasColumnType("int");
+
                     b.Property<double>("Quantidade")
                         .HasColumnType("float");
 
@@ -319,26 +377,69 @@ namespace Mercado.MVC.Migrations
 
                     b.HasIndex("IdProduto");
 
+                    b.HasIndex("Id_Usuario");
+
                     b.ToTable("Vendas");
+                });
+
+            modelBuilder.Entity("Mercado.MVC.Models.CategoriaModel", b =>
+                {
+                    b.HasOne("Mercado.MVC.Models.UsuarioModel", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("Id_Usuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Mercado.MVC.Models.ClienteModel", b =>
+                {
+                    b.HasOne("Mercado.MVC.Models.UsuarioModel", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("Id_Usuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Mercado.MVC.Models.EntregaFornecedorModel", b =>
                 {
                     b.HasOne("Mercado.MVC.Models.FornecedorModel", "Fornecedor")
-                        .WithMany()
+                        .WithMany("Entregas")
                         .HasForeignKey("IdFornecedor")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Mercado.MVC.Models.ProdutoModel", "Produto")
-                        .WithMany()
+                        .WithMany("Entregas")
                         .HasForeignKey("IdProduto")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Mercado.MVC.Models.UsuarioModel", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("Id_Usuario")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Fornecedor");
 
                     b.Navigation("Produto");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Mercado.MVC.Models.FornecedorModel", b =>
+                {
+                    b.HasOne("Mercado.MVC.Models.UsuarioModel", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("Id_Usuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Mercado.MVC.Models.ProdutoModel", b =>
@@ -346,29 +447,45 @@ namespace Mercado.MVC.Migrations
                     b.HasOne("Mercado.MVC.Models.CategoriaModel", "Categoria")
                         .WithMany("Produtos")
                         .HasForeignKey("IdCategoria")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Mercado.MVC.Models.UsuarioModel", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("Id_Usuario")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Categoria");
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Mercado.MVC.Models.VendaModel", b =>
                 {
                     b.HasOne("Mercado.MVC.Models.ClienteModel", "Cliente")
-                        .WithMany("Venda")
+                        .WithMany("Vendas")
                         .HasForeignKey("IdCliente")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Mercado.MVC.Models.ProdutoModel", "Produto")
                         .WithMany("Vendas")
                         .HasForeignKey("IdProduto")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Mercado.MVC.Models.UsuarioModel", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("Id_Usuario")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Cliente");
 
                     b.Navigation("Produto");
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Mercado.MVC.Models.CategoriaModel", b =>
@@ -378,11 +495,18 @@ namespace Mercado.MVC.Migrations
 
             modelBuilder.Entity("Mercado.MVC.Models.ClienteModel", b =>
                 {
-                    b.Navigation("Venda");
+                    b.Navigation("Vendas");
+                });
+
+            modelBuilder.Entity("Mercado.MVC.Models.FornecedorModel", b =>
+                {
+                    b.Navigation("Entregas");
                 });
 
             modelBuilder.Entity("Mercado.MVC.Models.ProdutoModel", b =>
                 {
+                    b.Navigation("Entregas");
+
                     b.Navigation("Vendas");
                 });
 #pragma warning restore 612, 618
