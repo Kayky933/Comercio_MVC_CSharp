@@ -7,12 +7,10 @@ namespace Mercado.MVC.Controllers
     public class UsuarioController : ControllerPai
     {
         private readonly IUsuarioService _service;
-        private readonly ISelectListService _selectListService;
 
-        public UsuarioController(IUsuarioService service, ISelectListService selectListService)
+        public UsuarioController(IUsuarioService service)
         {
             _service = service;
-            _selectListService = selectListService;
         }
 
         // GET: Usuario
@@ -41,7 +39,6 @@ namespace Mercado.MVC.Controllers
         // GET: Usuario/Create
         public IActionResult Create()
         {
-            ViewData["Sexo"] = _selectListService.SelectListSexo();
             return View();
         }
 
@@ -56,7 +53,6 @@ namespace Mercado.MVC.Controllers
             if (response.IsValid)
                 return RedirectToAction("Index", "Usuario");
 
-            ViewData["Sexo"] = _selectListService.SelectListSexo();
             return View(MostrarErros(response, usuarioModel));
         }
 
@@ -73,7 +69,6 @@ namespace Mercado.MVC.Controllers
             {
                 return NotFound();
             }
-            ViewData["Sexo"] = _selectListService.SelectListSexo();
             return View(usuarioModel);
         }
 
@@ -92,7 +87,6 @@ namespace Mercado.MVC.Controllers
             var response = _service.PutEdicao(id, usuarioModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "Usuario");
-            ViewData["Sexo"] = _selectListService.SelectListSexo();
             return View(MostrarErros(response, usuarioModel));
         }
 
@@ -118,7 +112,7 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
-            var excluir = _service.PostExclusao(id);
+            var excluir = _service.Delet(id);
             if (excluir)
                 return NoContent();
             return BadRequest();

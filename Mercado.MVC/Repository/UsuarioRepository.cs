@@ -13,6 +13,12 @@ namespace Mercado.MVC.Repository
         {
         }
 
+        public void Delete(UsuarioModel entity)
+        {
+            GetContext().Remove(entity);
+            SaveDb();
+        }
+
         public UsuarioModel GetByEmail(string email)
         {
             return GetContext().Where(x => x.Email == email).FirstOrDefault();
@@ -21,11 +27,6 @@ namespace Mercado.MVC.Repository
         public UsuarioModel GetBySenha(string senha, UsuarioModel usuario)
         {
             return GetContext().Where(x => x.Senha == senha && x.Id == usuario.Id).FirstOrDefault();
-        }
-
-        public UsuarioModel GetEdicao(int? id)
-        {
-            throw new NotImplementedException();
         }
 
         public ClaimsPrincipal PostLogin(UsuarioModel usuario)

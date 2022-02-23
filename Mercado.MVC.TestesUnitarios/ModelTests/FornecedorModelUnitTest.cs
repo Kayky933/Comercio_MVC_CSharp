@@ -142,7 +142,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
             Assert.False(validacao.IsValid);
             Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(FornecedorErrorMessages.NomeFantasiaNulo));
         }
-        [Fact(DisplayName = "Razão Social vazia")]
+        [Fact(DisplayName = "Nome Fantasia vazio")]
         public async Task NomaFantasiaVazio()
         {
             var instancia = _builder.With(x => x.Nome_Fantasia = "").Build();

@@ -1,5 +1,4 @@
-﻿using Mercado.MVC.Models.Enum;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,11 +10,15 @@ namespace Mercado.MVC.Models
         [Key]
         public int Id { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(100)]
         [Required(ErrorMessage = "Informe o nome de usuario", AllowEmptyStrings = false)]
         public string Nome { get; set; }
 
-        [MaxLength(70)]
+        [MaxLength(100)]
+        [Required(ErrorMessage = "Informe o Email")]
+        public string Email { get; set; }
+
+        [MaxLength(80)]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Informe a senha", AllowEmptyStrings = false)]
         public string Senha { get; set; }
@@ -23,15 +26,5 @@ namespace Mercado.MVC.Models
         [Required(ErrorMessage = "Informe a data de nascimento", AllowEmptyStrings = false)]
         [DataType(DataType.Date)]
         public DateTime DataNascimento { get; set; }
-
-        [MaxLength(80)]
-        [Required(ErrorMessage = "Informe o Email")]
-        public string Email { get; set; }
-
-        [MaxLength(14)]
-        public string Telefone { get; set; }
-
-        [Required(ErrorMessage = "Escolha uma das opções")]
-        public SexoEnum Sexo { get; set; }
     }
 }

@@ -4,14 +4,16 @@ using Mercado.MVC.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Mercado.MVC.Migrations
 {
     [DbContext(typeof(MercadoMVCContext))]
-    partial class MercadoMVCContextModelSnapshot : ModelSnapshot
+    [Migration("20220223104428_ModificacaoUsuario")]
+    partial class ModificacaoUsuario
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -340,6 +342,13 @@ namespace Mercado.MVC.Migrations
                         .IsRequired()
                         .HasMaxLength(80)
                         .HasColumnType("nvarchar(80)");
+
+                    b.Property<int>("Sexo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Telefone")
+                        .HasMaxLength(14)
+                        .HasColumnType("nvarchar(14)");
 
                     b.HasKey("Id");
 

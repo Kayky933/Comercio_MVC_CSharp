@@ -3,6 +3,7 @@ using Mercado.MVC.Interfaces.Repository;
 using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
 using Mercado.MVC.Validation.ValidateModels;
+using Mercado.MVC.Validation.ValidateModels.BusinessValidation;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -18,38 +19,42 @@ namespace Mercado.MVC.Service
         }
         public ValidationResult Create(UsuarioModel model)
         {
-            var validation = new UsuarioValidation().Validate(model);
 
-            if (!validation.IsValid)
-                return validation;
+            var validacao = ValidarUsuario(model);
+            if (!validacao.IsValid)
+                return validacao;
 
             _repository.Create(model);
-            return validation;
+            return validacao;
         }
 
         public IEnumerable<UsuarioModel> GetAll()
         {
             return _repository.GetAll();
         }
-
         public DbSet<UsuarioModel> GetContext()
         {
             return _repository.GetContext();
         }
-
-        public UsuarioModel GetEdicao(int? id)
-        {
-            return _repository.GetEdicao(id);
-        }
-
         public UsuarioModel GetOneById(int? id)
         {
             return _repository.GetOneById(id);
         }
 
-        public bool PostExclusao(int id)
+        public bool Delet(int id)
         {
-            throw new NotImplementedException();
+            var usuario = _repository.GetOneById(id);
+            if (usuario == null)
+                return false;
+            try
+            {
+                _repository.Delete(usuario);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return true;
         }
 
         public object PostLogin(UsuarioModel usuario)
@@ -59,13 +64,25 @@ namespace Mercado.MVC.Service
 
         public ValidationResult PutEdicao(int id, UsuarioModel usuario)
         {
-            var validation = new UsuarioValidation().Validate(usuario);
-
-            if (!validation.IsValid)
-                return validation;
+            var validacao = ValidarUsuario(usuario);
+            if (!validacao.IsValid)
+                return validacao;
 
             _repository.Update(usuario);
-            return validation;
+            return validacao;
+        }
+
+        private ValidationResult ValidarUsuario(UsuarioModel usuario)
+        {
+            var validacao = new UsuarioValidation().Validate(usuario);
+            if (!validacao.IsValid)
+                return validacao;
+
+            var validacaoBusiness = new UsuarioBusinessValidation(_repository).Validate(usuario);
+            if (!validacaoBusiness.IsValid)
+                return validacaoBusiness;
+
+            return validacao;
         }
     }
 }
