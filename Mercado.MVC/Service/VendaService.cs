@@ -42,9 +42,9 @@ namespace Mercado.MVC.Service
             return validation;
         }
 
-        public IEnumerable<VendaModel> GetAll()
+        public IEnumerable<VendaModel> GetAll(int? id)
         {
-            return _repository.GetAll();
+            return _repository.GetAll(id);
         }
 
         public DbSet<VendaModel> GetContext()

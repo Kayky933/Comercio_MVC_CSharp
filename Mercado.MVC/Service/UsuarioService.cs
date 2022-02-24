@@ -24,13 +24,14 @@ namespace Mercado.MVC.Service
             if (!validacao.IsValid)
                 return validacao;
 
+            model.Senha = SecurityService.Criptografar(model.Senha);
             _repository.Create(model);
             return validacao;
         }
 
-        public IEnumerable<UsuarioModel> GetAll()
+        public IEnumerable<UsuarioModel> GetAll(int? id)
         {
-            return _repository.GetAll();
+            return _repository.GetAll(id);
         }
         public DbSet<UsuarioModel> GetContext()
         {
@@ -59,7 +60,13 @@ namespace Mercado.MVC.Service
 
         public object PostLogin(UsuarioModel usuario)
         {
-            throw new NotImplementedException();
+            var getUsuario = _repository.GetByEmail(usuario.Email);
+            var senha = _repository.GetBySenha(usuario.Senha, usuario);
+
+            if (getUsuario.Email == null || senha == null)
+                return usuario;
+
+            return _repository.PostLogin(getUsuario);
         }
 
         public ValidationResult PutEdicao(int id, UsuarioModel usuario)

@@ -13,9 +13,9 @@ namespace Mercado.MVC.Repository
         {
         }
 
-        public override IEnumerable<EntregaFornecedorModel> GetAll()
+        public override IEnumerable<EntregaFornecedorModel> GetAll(int? id)
         {
-            return GetContext()
+            return GetContext().Where(x => x.Id_Usuario == id)
                 .Include(e => e.Fornecedor)
                 .Include(e => e.Produto).ToList();
         }

@@ -23,7 +23,7 @@ namespace Mercado.MVC.Repository
             _context.Set<T>().Update(entity).State = EntityState.Modified;
             SaveDb();
         }
-        public virtual IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll(int? id)
         {
             return _context.Set<T>().ToList();
         }

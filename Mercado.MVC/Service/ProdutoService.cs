@@ -41,9 +41,9 @@ namespace Mercado.MVC.Service
             return true;
         }
 
-        public IEnumerable<ProdutoModel> GetAll()
+        public IEnumerable<ProdutoModel> GetAll(int? id)
         {
-            return _repository.GetAll();
+            return _repository.GetAll(id);
         }
 
         public DbSet<ProdutoModel> GetContext()

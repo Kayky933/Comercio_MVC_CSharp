@@ -40,9 +40,9 @@ namespace Mercado.MVC.Repository
             return validation;
         }
 
-        public IEnumerable<EntregaFornecedorModel> GetAll()
+        public IEnumerable<EntregaFornecedorModel> GetAll(int? id)
         {
-            return _entrega.GetAll();
+            return _entrega.GetAll(id);
         }
 
         public DbSet<EntregaFornecedorModel> GetContext()

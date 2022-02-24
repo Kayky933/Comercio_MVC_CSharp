@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace Mercado.MVC.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ControllerPai
     {
         private readonly ILogger<HomeController> _logger;
 
@@ -16,11 +16,13 @@ namespace Mercado.MVC.Controllers
 
         public IActionResult Index()
         {
+            Autenticar();
             return View();
         }
 
         public IActionResult Privacy()
         {
+            Autenticar();
             return View();
         }
 

@@ -1,9 +1,11 @@
 ﻿using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mercado.MVC.Controllers
 {
+    [Authorize]
     public class ProdutoController : ControllerPai
     {
         private readonly IProdutoService _service;
@@ -20,12 +22,14 @@ namespace Mercado.MVC.Controllers
         // GET: Produto
         public IActionResult Index()
         {
-            return View(_service.GetAll());
+            Autenticar();
+            return View(_service.GetAll(ViewBag.usuarioId));
         }
 
         // GET: Produto/Details/5
         public IActionResult Details(int? id)
         {
+            Autenticar();
             if (id == null)
             {
                 return NotFound();
@@ -43,6 +47,7 @@ namespace Mercado.MVC.Controllers
         // GET: Produto/Create
         public IActionResult Create()
         {
+            Autenticar();
             ViewData["IdCategoria"] = _selectListService.SelectCategoriaModel("Id", "Descricao");
             ViewData["UnidaDeMedida"] = _selectListService.SelectUnidadeMedida();
             return View();
@@ -55,6 +60,7 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(ProdutoModel produtoModel)
         {
+            Autenticar();
             var response = _service.Create(produtoModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "Produto");
@@ -67,6 +73,7 @@ namespace Mercado.MVC.Controllers
         // GET: Produto/Edit/5
         public IActionResult Edit(int? id)
         {
+            Autenticar();
             if (id == null)
             {
                 return NotFound();
@@ -89,6 +96,7 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, ProdutoModel produtoModel)
         {
+            Autenticar();
             if (id != produtoModel.Id)
             {
                 return NotFound();
@@ -106,6 +114,7 @@ namespace Mercado.MVC.Controllers
         // GET: Produto/Delete/5
         public IActionResult Delete(int? id)
         {
+            Autenticar();
             if (id == null)
             {
                 return NotFound();
@@ -124,6 +133,7 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
+            Autenticar();
             var categoriaModel = _service.Delet(id);
             if (categoriaModel)
                 return RedirectToAction("Index", "Produto");

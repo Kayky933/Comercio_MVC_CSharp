@@ -83,5 +83,7 @@ namespace Mercado.MVC.Data
         public DbSet<Mercado.MVC.Models.EntregaFornecedorModel> EntregaFornecedorModel { get; set; }
 
         public DbSet<Mercado.MVC.Models.UsuarioModel> UsuarioModel { get; set; }
+
+        public DbSet<Mercado.MVC.POCO.LoginUsuarioModel> LoginUsuarioModel { get; set; }
     }
 }

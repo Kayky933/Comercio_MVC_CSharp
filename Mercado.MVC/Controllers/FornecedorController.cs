@@ -1,9 +1,11 @@
 ﻿using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mercado.MVC.Controllers
 {
+    [Authorize]
     public class FornecedorController : ControllerPai
     {
         private readonly IFornecedorService _service;
@@ -18,12 +20,14 @@ namespace Mercado.MVC.Controllers
         // GET: Fornecedor
         public IActionResult Index()
         {
-            return View(_service.GetAll());
+            Autenticar();
+            return View(_service.GetAll(ViewBag.usuarioId));
         }
 
         // GET: Fornecedor/Details/5
         public IActionResult Details(int? id)
         {
+            Autenticar();
             if (id == null)
             {
                 return NotFound();
@@ -41,6 +45,7 @@ namespace Mercado.MVC.Controllers
         // GET: Fornecedor/Create
         public IActionResult Create()
         {
+            Autenticar();
             ViewData["Sexo"] = _selectListService.SelectListSexo();
             ViewData["Uf"] = _selectListService.SelecListUF();
             return View();
@@ -53,6 +58,7 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(FornecedorModel fornecedorModel)
         {
+            Autenticar();
             var response = _service.Create(fornecedorModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "Fornecedor");
@@ -64,6 +70,7 @@ namespace Mercado.MVC.Controllers
         // GET: Fornecedor/Edit/5
         public IActionResult Edit(int? id)
         {
+            Autenticar();
             if (id == null)
             {
                 return NotFound();
@@ -86,6 +93,7 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, FornecedorModel fornecedorModel)
         {
+            Autenticar();
             if (id != fornecedorModel.Id)
             {
                 return NotFound();
@@ -102,6 +110,7 @@ namespace Mercado.MVC.Controllers
         // GET: Fornecedor/Delete/5
         public IActionResult Delete(int? id)
         {
+            Autenticar();
             if (id == null)
             {
                 return NotFound();
@@ -121,6 +130,7 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
+            Autenticar();
             var response = _service.Delet(id);
             if (response)
                 return RedirectToAction("Index", "Fornecedor");

@@ -1,9 +1,11 @@
 ﻿using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mercado.MVC.Controllers
 {
+    [Authorize]
     public class ClienteController : ControllerPai
     {
         private readonly IClienteService _service;
@@ -18,12 +20,14 @@ namespace Mercado.MVC.Controllers
         // GET: Cliente
         public IActionResult Index()
         {
-            return View(_service.GetAll());
+            Autenticar();
+            return View(_service.GetAll(ViewBag.usuarioId));
         }
 
         // GET: Cliente/Details/5
         public IActionResult Details(int? id)
         {
+            Autenticar();
             if (id == null)
             {
                 return NotFound();
@@ -41,6 +45,7 @@ namespace Mercado.MVC.Controllers
         // GET: Cliente/Create
         public IActionResult Create()
         {
+            Autenticar();
             ViewData["Sexo"] = _selectListService.SelectListSexo();
             ViewData["Uf"] = _selectListService.SelecListUF();
             return View();
@@ -53,6 +58,7 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(ClienteModel clienteModel)
         {
+            Autenticar();
             var response = _service.Create(clienteModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "Cliente");
@@ -65,6 +71,7 @@ namespace Mercado.MVC.Controllers
         // GET: Cliente/Edit/5
         public IActionResult Edit(int? id)
         {
+            Autenticar();
             if (id == null)
             {
                 return NotFound();
@@ -87,6 +94,7 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, ClienteModel clienteModel)
         {
+            Autenticar();
             var response = _service.PutClient(clienteModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "Cliente");
@@ -99,6 +107,7 @@ namespace Mercado.MVC.Controllers
         // GET: Cliente/Delete/5
         public IActionResult Delete(int? id)
         {
+            Autenticar();
             if (id == null)
             {
                 return NotFound();
@@ -118,6 +127,7 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
+            Autenticar();
             var response = _service.Delet(id);
             if (response)
                 return RedirectToAction("Index", "Cliente");
