@@ -10,7 +10,7 @@ namespace Mercado.MVC.Models
     public class ProdutoModel
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required(ErrorMessage = "O Campo é obrigatório!")]
         [MaxLength(100)]
@@ -18,23 +18,23 @@ namespace Mercado.MVC.Models
 
         [Required(ErrorMessage = "O Campo é obrigatório!")]
         [Column(TypeName = "decimal(12,2)")]
-        public decimal PrecoUnidade { get; set; }
+        public decimal Preco_Unidade { get; set; }
 
         [Required(ErrorMessage = "O Campo é obrigatório!")]
-        public double QuantidadeProduto { get; set; }
+        public double Quantidade_Produto { get; set; }
 
         [Required(ErrorMessage = "O Campo é obrigatório!")]
-        public UnidadeMedidaEnum UnidadeDeMedida { get; set; }
+        public UnidadeMedidaEnum Unidade_De_Medida { get; set; }
 
         public DateTime DataAddProduto { get; set; } = DateTime.Now;
 
         [Required(ErrorMessage = "O Campo é obrigatório!")]
         [ForeignKey("Categoria")]
-        public int IdCategoria { get; set; }
+        public Guid Id_Categoria { get; set; }
         public CategoriaModel Categoria { get; set; }
 
         [ForeignKey("Usuario")]
-        public int Id_Usuario { get; set; }
+        public Guid Id_Usuario { get; set; }
         [ScaffoldColumn(false)]
         public UsuarioModel Usuario { get; set; }
 

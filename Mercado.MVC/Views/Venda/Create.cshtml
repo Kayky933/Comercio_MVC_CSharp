@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout-Interno.cshtml";
 }
 
 <h1>Criar</h1>
@@ -12,20 +13,21 @@
     @ViewBag.ErroExcluir
     <div class="col-md-4">
         <form asp-action="Create">
+            <input type="hidden" asp-for="Id_Usuario" value="@ViewBag.usuarioId" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <span asp-validation-for="ValorVenda" class="text-danger"></span>
+            <span asp-validation-for="Valor_Venda" class="text-danger"></span>
             <div class="form-group">
                 <label asp-for="Quantidade" class="control-label"></label>
                 <input asp-for="Quantidade" class="form-control" />
                 <span asp-validation-for="Quantidade" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdProduto" class="control-label"></label>
-                <select asp-for="IdProduto" class="form-control" asp-items="ViewBag.IdProduto"></select>
+                <label asp-for="Id_Produto" class="control-label"></label>
+                <select asp-for="Id_Produto" class="form-control" asp-items="ViewBag.Id_Produto"></select>
             </div>
             <div class="form-group">
-                <label asp-for="IdCliente" class="control-label"></label>
-                <select asp-for="IdCliente" class="form-control" asp-items="ViewBag.IdCliente"></select>
+                <label asp-for="Id_Cliente" class="control-label"></label>
+                <select asp-for="Id_Cliente" class="form-control" asp-items="ViewBag.Id_Cliente"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Criar" class="btn btn-primary" />

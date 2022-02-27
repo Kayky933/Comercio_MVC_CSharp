@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -11,7 +12,7 @@ namespace Mercado.MVC.Models
         public string CNPJ { get; set; }
 
         [ForeignKey("Usuario")]
-        public int Id_Usuario { get; set; }
+        public Guid Id_Usuario { get; set; }
 
         [ScaffoldColumn(false)]
         public UsuarioModel Usuario { get; set; }

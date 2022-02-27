@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout-Interno.cshtml";
 }
 
 <h1>Details</h1>
@@ -17,10 +18,10 @@
             @Html.DisplayFor(model => model.Quantidade)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ValorUnidade)
+            @Html.DisplayNameFor(model => model.Valor_Unidade)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ValorUnidade)
+            @Html.DisplayFor(model => model.Valor_Unidade)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Produto)
@@ -35,10 +36,10 @@
             @Html.DisplayFor(model => model.Fornecedor.Razao_Social)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.DataEntrega)
+            @Html.DisplayNameFor(model => model.Data_Entrega)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.DataEntrega)
+            @Html.DisplayFor(model => model.Data_Entrega)
         </dd>
     </dl>
 </div>

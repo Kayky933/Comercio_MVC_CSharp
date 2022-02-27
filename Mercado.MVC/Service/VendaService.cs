@@ -21,12 +21,12 @@ namespace Mercado.MVC.Service
         }
         public ValidationResult Create(VendaModel model)
         {
-            var prod = _prodRepository.GetOneById(model.IdProduto);
+            var prod = _prodRepository.GetOneById(model.Id_Produto);
 
-            model.ValorVenda = prod.PrecoUnidade * Convert.ToDecimal(model.Quantidade);
+            model.Valor_Venda = prod.Preco_Unidade * Convert.ToDecimal(model.Quantidade);
 
             var validation = new VendaValidation().Validate(model);
-            var businessValidation = new VendaBusinessValidation(_prodRepository, model.IdProduto).Validate(model);
+            var businessValidation = new VendaBusinessValidation(_prodRepository, model.Id_Produto).Validate(model);
 
             if (!validation.IsValid)
                 return validation;
@@ -34,7 +34,7 @@ namespace Mercado.MVC.Service
             if (!businessValidation.IsValid)
                 return businessValidation;
 
-            prod.QuantidadeProduto -= model.Quantidade;
+            prod.Quantidade_Produto -= model.Quantidade;
 
             _prodRepository.Update(prod);
 
@@ -42,9 +42,9 @@ namespace Mercado.MVC.Service
             return validation;
         }
 
-        public IEnumerable<VendaModel> GetAll()
+        public IEnumerable<VendaModel> GetAll(Guid? id)
         {
-            return _repository.GetAll();
+            return _repository.GetAll(id);
         }
 
         public DbSet<VendaModel> GetContext()
@@ -52,7 +52,7 @@ namespace Mercado.MVC.Service
             return _repository.GetContext();
         }
 
-        public VendaModel GetOneById(int? id)
+        public VendaModel GetOneById(Guid? id)
         {
             var venda = _repository.GetOneById(id);
             if (venda == null)

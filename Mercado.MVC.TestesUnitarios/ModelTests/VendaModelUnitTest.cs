@@ -98,15 +98,15 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
         [InlineData(95763.33)]
         [InlineData(2874.98)]
         [InlineData(112.77)]
-        public async Task ValorVendaValido(decimal valor)
+        public async Task Valor_VendaValido(decimal valor)
         {
-            var instancia = _builder.With(x => x.ValorVenda = valor).Build();
+            var instancia = _builder.With(x => x.Valor_Venda = valor).Build();
             var validation = await _validator.ValidateAsync(instancia);
             Assert.True(validation.IsValid);
         }
 
 
-        [Theory(DisplayName = "ValorVenda Tamanho Máximo")]
+        [Theory(DisplayName = "Valor_Venda Tamanho Máximo")]
         [InlineData(10000000000)]
         [InlineData(9999999999999)]
         [InlineData(111112424638687)]
@@ -116,12 +116,12 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
         [InlineData(1000020099988)]
         [InlineData(646688727732)]
         [InlineData(11223444444444444)]
-        public async Task ValorVendaInvalidaTamanhoMaximo(decimal valor)
+        public async Task Valor_VendaInvalidaTamanhoMaximo(decimal valor)
         {
-            var instancia = _builder.With(x => x.ValorVenda = valor).Build();
+            var instancia = _builder.With(x => x.Valor_Venda = valor).Build();
             var validation = await _validator.ValidateAsync(instancia);
             Assert.False(validation.IsValid);
-            Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(VendaErrorMessages.ValorVendaMaximo));
+            Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(VendaErrorMessages.Valor_VendaMaximo));
         }
 
         [Theory(DisplayName = "valor Venda Tamanho Minimo")]
@@ -133,21 +133,21 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
         [InlineData(-5)]
         [InlineData(-6)]
         [InlineData(-7)]
-        public async Task ValorVendaInvalidaTamanhoMinimo(decimal valor)
+        public async Task Valor_VendaInvalidaTamanhoMinimo(decimal valor)
         {
-            var instancia = _builder.With(x => x.ValorVenda = valor).Build();
+            var instancia = _builder.With(x => x.Valor_Venda = valor).Build();
             var validation = await _validator.ValidateAsync(instancia);
             Assert.False(validation.IsValid);
             Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(VendaErrorMessages.ValorMinimo));
         }
 
         [Fact(DisplayName = "Valor Venda Nulo")]
-        public async Task ValorVendaInvalidaNula()
+        public async Task Valor_VendaInvalidaNula()
         {
-            var instancia = _builder.With(x => x.ValorVenda = Convert.ToDecimal(null)).Build();
+            var instancia = _builder.With(x => x.Valor_Venda = Convert.ToDecimal(null)).Build();
             var validation = await _validator.ValidateAsync(instancia);
             Assert.False(validation.IsValid);
-            Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(VendaErrorMessages.ValorVendaNulo));
+            Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(VendaErrorMessages.Valor_VendaNulo));
         }
         #endregion
 

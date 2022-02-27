@@ -1,10 +1,13 @@
 ﻿using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Mercado.MVC.Controllers
 {
-    public class EntregaFornecedorController : Controller
+    [Authorize]
+    public class EntregaFornecedorController : ControllerPai
     {
         private readonly IEntregaFornecedorService _service;
         private readonly ISelectListService _selectListService;
@@ -18,12 +21,14 @@ namespace Mercado.MVC.Controllers
         // GET: EntregaFornecedor
         public IActionResult Index()
         {
-            return View(_service.GetAll());
+            Autenticar();
+            return View(_service.GetAll(ViewBag.usuarioId));
         }
 
         // GET: EntregaFornecedor/Details/5
-        public IActionResult Details(int? id)
+        public IActionResult Details(Guid? id)
         {
+            Autenticar();
             if (id == null)
             {
                 return NotFound();
@@ -41,8 +46,9 @@ namespace Mercado.MVC.Controllers
         // GET: EntregaFornecedor/Create
         public IActionResult Create()
         {
-            ViewData["IdFornecedor"] = _selectListService.SelectFornecedorModel("Id", "Razao_Social");
-            ViewData["IdProduto"] = _selectListService.SelectProdutoModel("Id", "Descricao");
+            Autenticar();
+            ViewData["Id_Fornecedor"] = _selectListService.SelectFornecedorModel(ViewBag.usuarioId, "Id", "Razao_Social");
+            ViewData["Id_Produto"] = _selectListService.SelectProdutoModel(ViewBag.usuarioId, "Id", "Descricao");
             return View();
         }
 
@@ -53,12 +59,13 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(EntregaFornecedorModel entregaFornecedorModel)
         {
+            Autenticar();
             var response = _service.Create(entregaFornecedorModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "EntregaFornecedor");
 
-            ViewData["IdFornecedor"] = _selectListService.SelectFornecedorModel("Id", "Razao_Social");
-            ViewData["IdProduto"] = _selectListService.SelectProdutoModel("Id", "Descricao");
+            ViewData["Id_Fornecedor"] = _selectListService.SelectFornecedorModel(ViewBag.usuarioId, "Id", "Razao_Social");
+            ViewData["Id_Produto"] = _selectListService.SelectProdutoModel(ViewBag.usuarioId, "Id", "Descricao");
             return View(entregaFornecedorModel);
         }
 

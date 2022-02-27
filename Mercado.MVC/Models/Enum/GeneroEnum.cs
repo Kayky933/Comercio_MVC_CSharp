@@ -2,7 +2,7 @@
 
 namespace Mercado.MVC.Models.Enum
 {
-    public enum SexoEnum
+    public enum GeneroEnum
     {
         Selecione = 0,
         Masculino = 1,

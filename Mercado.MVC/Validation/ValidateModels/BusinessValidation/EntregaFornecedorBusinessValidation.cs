@@ -9,9 +9,9 @@ namespace Mercado.MVC.Validation.ValidateModels.BusinessValidation
     {
         public EntregaFornecedorBusinessValidation(IFornecedorRepository _fornecedorRepository, IProdutoRepository _produtoRepository)
         {
-            RuleFor(x => x.IdFornecedor).Must(x => _fornecedorRepository.GetOneById(x) != null).WithMessage(EntregaFornecedorErrorMessages.IdFornecedorNaoEncontrado);
+            RuleFor(x => x.Id_Fornecedor).Must(x => _fornecedorRepository.GetOneById(x) != null).WithMessage(EntregaFornecedorErrorMessages.Id_FornecedorNaoEncontrado);
 
-            RuleFor(x => x.IdProduto).Must(x => _produtoRepository.GetOneById(x) != null).WithMessage(EntregaFornecedorErrorMessages.IdProdutoNaoEncontrado);
+            RuleFor(x => x.Id_Produto).Must(x => _produtoRepository.GetOneById(x) != null).WithMessage(EntregaFornecedorErrorMessages.Id_ProdutoNaoEncontrado);
         }
     }
 }

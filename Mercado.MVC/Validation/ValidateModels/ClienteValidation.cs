@@ -20,10 +20,10 @@ namespace Mercado.MVC.Validation.ValidateModels
                 .MaximumLength(100).WithMessage(ClienteErrorMessages.NomeFantasiaTamanhoMaximo)
                 .MinimumLength(3).WithMessage(ClienteErrorMessages.NomeFantasiaTamanhoMinimo);
 
-            RuleFor(x => x.Data_Nascimento).NotEmpty().WithMessage(ClienteErrorMessages.DataNascimentoNula)
-                .NotNull().WithMessage(ClienteErrorMessages.DataNascimentoNula)
-                .Must(x => x.GetType() == typeof(DateTime)).WithMessage(ClienteErrorMessages.DataNascimentoFormatoInvalido)
-                .Must(IdadeMinima).WithMessage(ClienteErrorMessages.DataNascimentoIdadeMinima);
+            RuleFor(x => x.Data_Nascimento).NotEmpty().WithMessage(ClienteErrorMessages.Data_NascimentoNula)
+                .NotNull().WithMessage(ClienteErrorMessages.Data_NascimentoNula)
+                .Must(x => x.GetType() == typeof(DateTime)).WithMessage(ClienteErrorMessages.Data_NascimentoFormatoInvalido)
+                .Must(IdadeMinima).WithMessage(ClienteErrorMessages.Data_NascimentoIdadeMinima);
 
             RuleFor(x => x.RG).NotEmpty().WithMessage(ClienteErrorMessages.RGNulo)
                 .NotNull().WithMessage(ClienteErrorMessages.RGNulo)
@@ -47,7 +47,7 @@ namespace Mercado.MVC.Validation.ValidateModels
                .MaximumLength(100).WithMessage(ClienteErrorMessages.EnderecoTamanhoMaximo)
                .MinimumLength(5).WithMessage(ClienteErrorMessages.EnderecoTamanhoMinimo);
 
-            RuleFor(x => x.NumeroCasa).NotEmpty().WithMessage(ClienteErrorMessages.NumeroNulo)
+            RuleFor(x => x.Numero_Casa).NotEmpty().WithMessage(ClienteErrorMessages.NumeroNulo)
                 .NotNull().WithMessage(ClienteErrorMessages.NumeroNulo)
                 .MinimumLength(1).WithMessage(ClienteErrorMessages.NumeroTamanhoMinimo)
                 .MaximumLength(6).WithMessage(ClienteErrorMessages.NumeroTamanhoMaximo);
@@ -79,7 +79,7 @@ namespace Mercado.MVC.Validation.ValidateModels
 
             RuleFor(x => x.Sexo).NotEmpty().WithMessage(ClienteErrorMessages.SexoNulo)
                 .NotNull().WithMessage(ClienteErrorMessages.SexoNulo)
-                .Must(x => x.GetType() == typeof(SexoEnum)).WithMessage(ClienteErrorMessages.SexoFormatoInvalido);
+                .Must(x => x.GetType() == typeof(GeneroEnum)).WithMessage(ClienteErrorMessages.SexoFormatoInvalido);
 
         }
         private static bool IdadeMinima(DateTime data)

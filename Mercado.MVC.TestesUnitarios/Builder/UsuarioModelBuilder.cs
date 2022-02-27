@@ -12,7 +12,7 @@ namespace Mercado.MVC.TestesUnitarios.Builder
                 .With(x => x.Nome = "João")
                 .With(x => x.Email = "joao@gmail.com")
                 .With(x => x.Senha = "12345678")
-                .With(x => x.DataNascimento = DateTime.Today.AddYears(-18));
+                .With(x => x.Data_Nascimento = DateTime.Today.AddYears(-18));
         }
     }
 }

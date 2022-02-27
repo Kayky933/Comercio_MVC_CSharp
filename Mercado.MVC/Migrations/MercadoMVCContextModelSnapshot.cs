@@ -21,10 +21,9 @@ namespace Mercado.MVC.Migrations
 
             modelBuilder.Entity("Mercado.MVC.Models.CategoriaModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DataAddCategoria")
                         .HasColumnType("datetime2");
@@ -34,8 +33,8 @@ namespace Mercado.MVC.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("Id_Usuario")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_Usuario")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -46,10 +45,9 @@ namespace Mercado.MVC.Migrations
 
             modelBuilder.Entity("Mercado.MVC.Models.ClienteModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
@@ -78,7 +76,7 @@ namespace Mercado.MVC.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime>("DataCadastro")
+                    b.Property<DateTime>("Data_Cadastro")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Data_Nascimento")
@@ -94,15 +92,15 @@ namespace Mercado.MVC.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("Id_Usuario")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_Usuario")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nome_Fantasia")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("NumeroCasa")
+                    b.Property<string>("Numero_Casa")
                         .IsRequired()
                         .HasMaxLength(6)
                         .HasColumnType("nvarchar(6)");
@@ -128,7 +126,7 @@ namespace Mercado.MVC.Migrations
                     b.Property<int>("Uf")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UltimaModificacao")
+                    b.Property<DateTime>("Ultima_Modificacao")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Whatsapp")
@@ -145,34 +143,33 @@ namespace Mercado.MVC.Migrations
 
             modelBuilder.Entity("Mercado.MVC.Models.EntregaFornecedorModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DataEntrega")
+                    b.Property<DateTime>("Data_Entrega")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdFornecedor")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_Fornecedor")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("IdProduto")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_Produto")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Id_Usuario")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_Usuario")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("Quantidade")
                         .HasColumnType("float");
 
-                    b.Property<decimal>("ValorUnidade")
+                    b.Property<decimal>("Valor_Unidade")
                         .HasColumnType("decimal(12,2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdFornecedor");
+                    b.HasIndex("Id_Fornecedor");
 
-                    b.HasIndex("IdProduto");
+                    b.HasIndex("Id_Produto");
 
                     b.HasIndex("Id_Usuario");
 
@@ -181,10 +178,9 @@ namespace Mercado.MVC.Migrations
 
             modelBuilder.Entity("Mercado.MVC.Models.FornecedorModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Ativo")
                         .HasColumnType("bit");
@@ -212,7 +208,7 @@ namespace Mercado.MVC.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime>("DataCadastro")
+                    b.Property<DateTime>("Data_Cadastro")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Data_Nascimento")
@@ -228,15 +224,15 @@ namespace Mercado.MVC.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("Id_Usuario")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_Usuario")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Nome_Fantasia")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("NumeroCasa")
+                    b.Property<string>("Numero_Casa")
                         .IsRequired()
                         .HasMaxLength(6)
                         .HasColumnType("nvarchar(6)");
@@ -262,7 +258,7 @@ namespace Mercado.MVC.Migrations
                     b.Property<int>("Uf")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UltimaModificacao")
+                    b.Property<DateTime>("Ultima_Modificacao")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Whatsapp")
@@ -279,10 +275,9 @@ namespace Mercado.MVC.Migrations
 
             modelBuilder.Entity("Mercado.MVC.Models.ProdutoModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DataAddProduto")
                         .HasColumnType("datetime2");
@@ -292,24 +287,24 @@ namespace Mercado.MVC.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("IdCategoria")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_Categoria")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Id_Usuario")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_Usuario")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<decimal>("PrecoUnidade")
+                    b.Property<decimal>("Preco_Unidade")
                         .HasColumnType("decimal(12,2)");
 
-                    b.Property<double>("QuantidadeProduto")
+                    b.Property<double>("Quantidade_Produto")
                         .HasColumnType("float");
 
-                    b.Property<int>("UnidadeDeMedida")
+                    b.Property<int>("Unidade_De_Medida")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdCategoria");
+                    b.HasIndex("Id_Categoria");
 
                     b.HasIndex("Id_Usuario");
 
@@ -318,12 +313,11 @@ namespace Mercado.MVC.Migrations
 
             modelBuilder.Entity("Mercado.MVC.Models.UsuarioModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DataNascimento")
+                    b.Property<DateTime>("Data_Nascimento")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
@@ -348,34 +342,33 @@ namespace Mercado.MVC.Migrations
 
             modelBuilder.Entity("Mercado.MVC.Models.VendaModel", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("DataVenda")
+                    b.Property<DateTime>("Data_Venda")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdCliente")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_Cliente")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("IdProduto")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_Produto")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Id_Usuario")
-                        .HasColumnType("int");
+                    b.Property<Guid>("Id_Usuario")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("Quantidade")
                         .HasColumnType("float");
 
-                    b.Property<decimal>("ValorVenda")
+                    b.Property<decimal>("Valor_Venda")
                         .HasColumnType("decimal(12,2)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdCliente");
+                    b.HasIndex("Id_Cliente");
 
-                    b.HasIndex("IdProduto");
+                    b.HasIndex("Id_Produto");
 
                     b.HasIndex("Id_Usuario");
 
@@ -408,13 +401,13 @@ namespace Mercado.MVC.Migrations
                 {
                     b.HasOne("Mercado.MVC.Models.FornecedorModel", "Fornecedor")
                         .WithMany("Entregas")
-                        .HasForeignKey("IdFornecedor")
+                        .HasForeignKey("Id_Fornecedor")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Mercado.MVC.Models.ProdutoModel", "Produto")
                         .WithMany("Entregas")
-                        .HasForeignKey("IdProduto")
+                        .HasForeignKey("Id_Produto")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -446,7 +439,7 @@ namespace Mercado.MVC.Migrations
                 {
                     b.HasOne("Mercado.MVC.Models.CategoriaModel", "Categoria")
                         .WithMany("Produtos")
-                        .HasForeignKey("IdCategoria")
+                        .HasForeignKey("Id_Categoria")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -465,13 +458,13 @@ namespace Mercado.MVC.Migrations
                 {
                     b.HasOne("Mercado.MVC.Models.ClienteModel", "Cliente")
                         .WithMany("Vendas")
-                        .HasForeignKey("IdCliente")
+                        .HasForeignKey("Id_Cliente")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Mercado.MVC.Models.ProdutoModel", "Produto")
                         .WithMany("Vendas")
-                        .HasForeignKey("IdProduto")
+                        .HasForeignKey("Id_Produto")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

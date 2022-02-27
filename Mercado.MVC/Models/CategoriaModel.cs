@@ -11,14 +11,14 @@ namespace Mercado.MVC.Models
     public class CategoriaModel
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Required(ErrorMessage = "O Campo é obrigatório!")]
         [MaxLength(100)]
         public string Descricao { get; set; }
 
         [ForeignKey("Usuario")]
-        public int Id_Usuario { get; set; }
+        public Guid Id_Usuario { get; set; }
         [ScaffoldColumn(false)]
         public UsuarioModel Usuario { get; set; }
 

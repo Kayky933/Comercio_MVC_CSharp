@@ -1,5 +1,6 @@
 ﻿using Mercado.MVC.Data;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,12 +24,12 @@ namespace Mercado.MVC.Repository
             _context.Set<T>().Update(entity).State = EntityState.Modified;
             SaveDb();
         }
-        public virtual IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll(Guid? id)
         {
             return _context.Set<T>().ToList();
         }
 
-        public virtual T GetOneById(int? id)
+        public virtual T GetOneById(Guid? id)
         {
             return _context.Set<T>().FirstOrDefault();
         }

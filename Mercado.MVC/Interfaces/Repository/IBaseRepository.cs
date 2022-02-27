@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 
 namespace Mercado.MVC.Interfaces.Repository
@@ -7,8 +8,8 @@ namespace Mercado.MVC.Interfaces.Repository
     {
         void Create(T entity);
         void SaveDb();
-        public T GetOneById(int? id);
-        public IEnumerable<T> GetAll();
+        public T GetOneById(Guid? id);
+        public IEnumerable<T> GetAll(Guid? id);
         public DbSet<T> GetContext();
     }
 }

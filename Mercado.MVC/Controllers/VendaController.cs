@@ -1,33 +1,34 @@
 ﻿using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Mercado.MVC.Controllers
 {
+    [Authorize]
     public class VendaController : ControllerPai
     {
         private readonly IVendaService _service;
-        private readonly IProdutoService _serviceProd;
-        private readonly IClienteService _serviceClient;
         private readonly ISelectListService _selectListService;
 
-        public VendaController(IVendaService service, IProdutoService serviceProd, IClienteService serviceClient, ISelectListService selectListService)
+        public VendaController(IVendaService service, ISelectListService selectListService)
         {
             _service = service;
-            _serviceProd = serviceProd;
-            _serviceClient = serviceClient;
             _selectListService = selectListService;
         }
 
         // GET: Venda
         public IActionResult Index()
         {
-            return View(_service.GetAll());
+            Autenticar();
+            return View(_service.GetAll(ViewBag.usuarioId));
         }
 
         // GET: Venda/Details/5
-        public IActionResult Details(int? id)
+        public IActionResult Details(Guid? id)
         {
+            Autenticar();
             if (id == null)
             {
                 return NotFound();
@@ -45,8 +46,9 @@ namespace Mercado.MVC.Controllers
         // GET: Venda/Create
         public IActionResult Create()
         {
-            ViewData["IdProduto"] = _selectListService.SelectProdutoModel("Id", "Descricao");
-            ViewData["IdCliente"] = _selectListService.SelectClienteModel("Id", "Razao_Social");
+            Autenticar();
+            ViewData["Id_Produto"] = _selectListService.SelectProdutoModel(ViewBag.usuarioId, "Id", "Descricao");
+            ViewData["Id_Cliente"] = _selectListService.SelectClienteModel(ViewBag.usuarioId, "Id", "Razao_Social");
             return View();
         }
 
@@ -57,18 +59,20 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(VendaModel vendaModel)
         {
+            Autenticar();
             var response = _service.Create(vendaModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "Venda");
-            ViewData["IdProduto"] = _selectListService.SelectProdutoModel("Id", "Descricao");
-            ViewData["IdCliente"] = _selectListService.SelectClienteModel("Id", "Razao_Social");
+            ViewData["Id_Produto"] = _selectListService.SelectProdutoModel(ViewBag.usuarioId, "Id", "Descricao");
+            ViewData["Id_Cliente"] = _selectListService.SelectClienteModel(ViewBag.usuarioId, "Id", "Razao_Social");
             return View(MostrarErros(response, vendaModel));
         }
 
 
         // GET: Venda/Delete/5
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(Guid? id)
         {
+            Autenticar();
             if (id == null)
             {
                 return NotFound();

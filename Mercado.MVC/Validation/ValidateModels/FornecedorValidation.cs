@@ -20,10 +20,10 @@ namespace Mercado.MVC.Validation.ValidateModels
                 .MaximumLength(100).WithMessage(FornecedorErrorMessages.NomeFantasiaTamanhoMaximo)
                 .MinimumLength(3).WithMessage(FornecedorErrorMessages.NomeFantasiaTamanhoMinimo);
 
-            RuleFor(x => x.Data_Nascimento).NotEmpty().WithMessage(FornecedorErrorMessages.DataNascimentoNula)
-                .NotNull().WithMessage(FornecedorErrorMessages.DataNascimentoNula)
-                .Must(x => x.GetType() == typeof(DateTime)).WithMessage(FornecedorErrorMessages.DataNascimentoFormatoInvalido)
-                .Must(IdadeMinima).WithMessage(FornecedorErrorMessages.DataNascimentoIdadeMinima);
+            RuleFor(x => x.Data_Nascimento).NotEmpty().WithMessage(FornecedorErrorMessages.Data_NascimentoNula)
+                .NotNull().WithMessage(FornecedorErrorMessages.Data_NascimentoNula)
+                .Must(x => x.GetType() == typeof(DateTime)).WithMessage(FornecedorErrorMessages.Data_NascimentoFormatoInvalido)
+                .Must(IdadeMinima).WithMessage(FornecedorErrorMessages.Data_NascimentoIdadeMinima);
 
             RuleFor(x => x.RG).NotEmpty().WithMessage(FornecedorErrorMessages.RGNulo)
                 .NotNull().WithMessage(FornecedorErrorMessages.RGNulo)
@@ -31,7 +31,7 @@ namespace Mercado.MVC.Validation.ValidateModels
 
             RuleFor(x => x.CNPJ).NotEmpty().WithMessage(FornecedorErrorMessages.CNPJNulo)
                .NotNull().WithMessage(FornecedorErrorMessages.CNPJNulo)
-               .Length(18).WithMessage(FornecedorErrorMessages.CNPJTamanho);
+               .Length(19).WithMessage(FornecedorErrorMessages.CNPJTamanho);
 
             RuleFor(x => x.CEP).NotEmpty().WithMessage(FornecedorErrorMessages.CEPNulo)
                .NotNull().WithMessage(FornecedorErrorMessages.CEPNulo)
@@ -47,7 +47,7 @@ namespace Mercado.MVC.Validation.ValidateModels
                .MaximumLength(100).WithMessage(FornecedorErrorMessages.EnderecoTamanhoMaximo)
                .MinimumLength(5).WithMessage(FornecedorErrorMessages.EnderecoTamanhoMinimo);
 
-            RuleFor(x => x.NumeroCasa).NotEmpty().WithMessage(FornecedorErrorMessages.NumeroNulo)
+            RuleFor(x => x.Numero_Casa).NotEmpty().WithMessage(FornecedorErrorMessages.NumeroNulo)
                 .NotNull().WithMessage(FornecedorErrorMessages.NumeroNulo)
                 .MinimumLength(1).WithMessage(FornecedorErrorMessages.NumeroTamanhoMinimo)
                 .MaximumLength(6).WithMessage(FornecedorErrorMessages.NumeroTamanhoMaximo);
@@ -79,7 +79,7 @@ namespace Mercado.MVC.Validation.ValidateModels
 
             RuleFor(x => x.Sexo).NotEmpty().WithMessage(FornecedorErrorMessages.SexoNulo)
                 .NotNull().WithMessage(FornecedorErrorMessages.SexoNulo)
-                .Must(x => x.GetType() == typeof(SexoEnum)).WithMessage(FornecedorErrorMessages.SexoFormatoInvalido);
+                .Must(x => x.GetType() == typeof(GeneroEnum)).WithMessage(FornecedorErrorMessages.SexoFormatoInvalido);
         }
         private static bool IdadeMinima(DateTime data)
         {

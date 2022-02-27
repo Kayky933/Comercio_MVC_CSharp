@@ -1,9 +1,12 @@
 ﻿using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Mercado.MVC.Controllers
 {
+    [Authorize]
     public class ProdutoController : ControllerPai
     {
         private readonly IProdutoService _service;
@@ -20,12 +23,14 @@ namespace Mercado.MVC.Controllers
         // GET: Produto
         public IActionResult Index()
         {
-            return View(_service.GetAll());
+            Autenticar();
+            return View(_service.GetAll(ViewBag.usuarioId));
         }
 
         // GET: Produto/Details/5
-        public IActionResult Details(int? id)
+        public IActionResult Details(Guid? id)
         {
+            Autenticar();
             if (id == null)
             {
                 return NotFound();
@@ -43,7 +48,8 @@ namespace Mercado.MVC.Controllers
         // GET: Produto/Create
         public IActionResult Create()
         {
-            ViewData["IdCategoria"] = _selectListService.SelectCategoriaModel("Id", "Descricao");
+            Autenticar();
+            ViewData["Id_Categoria"] = _selectListService.SelectCategoriaModel(ViewBag.usuarioId, "Id", "Descricao");
             ViewData["UnidaDeMedida"] = _selectListService.SelectUnidadeMedida();
             return View();
         }
@@ -55,18 +61,20 @@ namespace Mercado.MVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(ProdutoModel produtoModel)
         {
+            Autenticar();
             var response = _service.Create(produtoModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "Produto");
 
-            ViewData["IdCategoria"] = _selectListService.SelectCategoriaModel("Id", "Descricao");
+            ViewData["Id_Categoria"] = _selectListService.SelectCategoriaModel(ViewBag.usuarioId, "Id", "Descricao");
             ViewData["UnidaDeMedida"] = _selectListService.SelectUnidadeMedida();
             return View(MostrarErros(response, produtoModel));
         }
 
         // GET: Produto/Edit/5
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(Guid? id)
         {
+            Autenticar();
             if (id == null)
             {
                 return NotFound();
@@ -77,7 +85,7 @@ namespace Mercado.MVC.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdCategoria"] = _selectListService.SelectCategoriaModel("Id", "Descricao");
+            ViewData["Id_Categoria"] = _selectListService.SelectCategoriaModel(ViewBag.usuarioId, "Id", "Descricao");
             ViewData["UnidaDeMedida"] = _selectListService.SelectUnidadeMedida();
             return View(produtoModel);
         }
@@ -87,8 +95,9 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, ProdutoModel produtoModel)
+        public IActionResult Edit(Guid id, ProdutoModel produtoModel)
         {
+            Autenticar();
             if (id != produtoModel.Id)
             {
                 return NotFound();
@@ -98,14 +107,15 @@ namespace Mercado.MVC.Controllers
             if (!response.IsValid)
                 return View(MostrarErros(response, produtoModel));
 
-            ViewData["IdCategoria"] = _selectListService.SelectCategoriaModel("Id", "Descricao");
+            ViewData["Id_Categoria"] = _selectListService.SelectCategoriaModel(ViewBag.usuarioId, "Id", "Descricao");
             ViewData["UnidaDeMedida"] = _selectListService.SelectUnidadeMedida();
             return RedirectToAction("Index", "Produto");
         }
 
         // GET: Produto/Delete/5
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(Guid? id)
         {
+            Autenticar();
             if (id == null)
             {
                 return NotFound();
@@ -122,8 +132,9 @@ namespace Mercado.MVC.Controllers
         // POST: Produto/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(Guid id)
         {
+            Autenticar();
             var categoriaModel = _service.Delet(id);
             if (categoriaModel)
                 return RedirectToAction("Index", "Produto");

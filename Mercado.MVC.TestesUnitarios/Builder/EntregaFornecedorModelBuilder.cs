@@ -9,11 +9,11 @@ namespace Mercado.MVC.TestesUnitarios.Builder
         protected override void LoadDefault()
         {
             _builderInstance = Builder<EntregaFornecedorModel>.CreateNew()
-               .With(x => x.DataEntrega = DateTime.Now)
-               .With(x => x.IdFornecedor = 1)
-               .With(x => x.IdProduto = 1)
+               .With(x => x.Data_Entrega = DateTime.Now)
+               .With(x => x.Id_Fornecedor = Guid.NewGuid())
+               .With(x => x.Id_Produto = Guid.NewGuid())
                .With(x => x.Quantidade = 10)
-               .With(x => x.ValorUnidade = 10);
+               .With(x => x.Valor_Unidade = 10);
         }
     }
 }

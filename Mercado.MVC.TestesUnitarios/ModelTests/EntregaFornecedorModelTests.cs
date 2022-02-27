@@ -38,7 +38,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
         [InlineData("10/06/2000")]
         public async Task DataValida(string data)
         {
-            var instancia = _builder.With(x => x.DataEntrega = Convert.ToDateTime(data)).Build();
+            var instancia = _builder.With(x => x.Data_Entrega = Convert.ToDateTime(data)).Build();
             var validation = await _validator.ValidateAsync(instancia);
             Assert.True(validation.IsValid);
         }
@@ -53,7 +53,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
         [InlineData("10/06/4023")]
         public async Task DataFutura(string data)
         {
-            var instancia = _builder.With(x => x.DataEntrega = Convert.ToDateTime(data)).Build();
+            var instancia = _builder.With(x => x.Data_Entrega = Convert.ToDateTime(data)).Build();
             var validation = await _validator.ValidateAsync(instancia);
             Assert.False(validation.IsValid);
             Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(EntregaFornecedorErrorMessages.DataFutura));
@@ -62,35 +62,10 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
         [Fact(DisplayName = "Data não pode ser nula")]
         public async Task DataNula()
         {
-            var instancia = _builder.With(x => x.DataEntrega = Convert.ToDateTime(null)).Build();
+            var instancia = _builder.With(x => x.Data_Entrega = Convert.ToDateTime(null)).Build();
             var validation = await _validator.ValidateAsync(instancia);
             Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(EntregaFornecedorErrorMessages.DataNula));
 
-        }
-        #endregion
-
-        #region Id Fornecedor
-        [Theory(DisplayName = "Id fornecedor válido")]
-        [InlineData(1)]
-        [InlineData(2)]
-        [InlineData(3)]
-        [InlineData(4)]
-        [InlineData(5)]
-        [InlineData(6)]
-        [InlineData(7)]
-        public async Task IdFornecedorValido(int idForn)
-        {
-            var instancia = _builder.With(x => x.IdFornecedor = idForn).Build();
-            var validation = await _validator.ValidateAsync(instancia);
-            Assert.True(validation.IsValid);
-        }
-        [Fact(DisplayName = "Id Fornecedor não pode ser nulo!")]
-        public async Task IdFornecedorNulo()
-        {
-            var instancia = _builder.With(x => x.IdFornecedor = Convert.ToInt32(null)).Build();
-            var validation = await _validator.ValidateAsync(instancia);
-            Assert.False(validation.IsValid);
-            Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(EntregaFornecedorErrorMessages.IdFornecedorNulo));
         }
         #endregion
 
@@ -145,17 +120,17 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
         [InlineData(465)]
         public async Task ValorValido(decimal valor)
         {
-            var instancia = _builder.With(x => x.ValorUnidade = valor).Build();
+            var instancia = _builder.With(x => x.Valor_Unidade = valor).Build();
             var validation = await _validator.ValidateAsync(instancia);
             Assert.True(validation.IsValid);
         }
         [Fact(DisplayName = "Valor não deve ser nulo!")]
         public async Task ValorNulo()
         {
-            var instancia = _builder.With(x => x.ValorUnidade = Convert.ToDecimal(null)).Build();
+            var instancia = _builder.With(x => x.Valor_Unidade = Convert.ToDecimal(null)).Build();
             var validation = await _validator.ValidateAsync(instancia);
             Assert.False(validation.IsValid);
-            Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(EntregaFornecedorErrorMessages.ValorUnidadeNulo));
+            Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(EntregaFornecedorErrorMessages.Valor_UnidadeNulo));
         }
         [Theory(DisplayName = "Valor negativo inválido!!")]
         [InlineData(0)]
@@ -166,10 +141,10 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
         [InlineData(-5)]
         public async Task QuantidadeNegativa(decimal valor)
         {
-            var instancia = _builder.With(x => x.ValorUnidade = valor).Build();
+            var instancia = _builder.With(x => x.Valor_Unidade = valor).Build();
             var validation = await _validator.ValidateAsync(instancia);
             Assert.False(validation.IsValid);
-            Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(EntregaFornecedorErrorMessages.ValorUnidadeMinimo));
+            Assert.Contains(validation.Errors, x => x.ErrorMessage.Contains(EntregaFornecedorErrorMessages.Valor_UnidadeMinimo));
         }
         #endregion
     }

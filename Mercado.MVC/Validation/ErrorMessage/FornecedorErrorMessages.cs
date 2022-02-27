@@ -10,9 +10,9 @@
         public static string NomeFantasiaTamanhoMaximo = "O campo Nome Fantasia não pode ter mais que 100 caracteres!";
         public static string NomeFantasiaTamanhoMinimo = "O campo Nome Fantasia não pode ter menos que 3 carcateres!";
 
-        public static string DataNascimentoNula = "O campo Data de Nascimento não pode ter nulo!";
-        public static string DataNascimentoFormatoInvalido = "O campo Data de Nascimento Esta em um formato desconhecido!";
-        public static string DataNascimentoIdadeMinima = "É preciso ser maior de idade para se cadastrar!";
+        public static string Data_NascimentoNula = "O campo Data de Nascimento não pode ter nulo!";
+        public static string Data_NascimentoFormatoInvalido = "O campo Data de Nascimento Esta em um formato desconhecido!";
+        public static string Data_NascimentoIdadeMinima = "É preciso ser maior de idade para se cadastrar!";
 
         public static string RGNulo = "O campo RG não pode ter nulo!";
         public static string RGTamanho = "O campo RG tem um tamanho máximo e mínimo de 9 digitos!";

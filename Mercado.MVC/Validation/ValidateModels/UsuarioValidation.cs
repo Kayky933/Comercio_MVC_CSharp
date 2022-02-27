@@ -25,10 +25,10 @@ namespace Mercado.MVC.Validation.ValidateModels
                 .MinimumLength(8).WithMessage(UsuarioErrorMessages.SenhaTamanhoMinimo)
                 .MaximumLength(80).WithMessage(UsuarioErrorMessages.SenhaTamanhoMaximo);
 
-            RuleFor(x => x.DataNascimento).NotEmpty().WithMessage(UsuarioErrorMessages.DataNascimentoNula)
-               .NotNull().WithMessage(UsuarioErrorMessages.DataNascimentoNula)
-               .Must(x => x.GetType() == typeof(DateTime)).WithMessage(UsuarioErrorMessages.DataNascimentoFormatoInvalido)
-               .Must(IdadeMinima).WithMessage(UsuarioErrorMessages.DataNascimentoIdadeMinima);
+            RuleFor(x => x.Data_Nascimento).NotEmpty().WithMessage(UsuarioErrorMessages.Data_NascimentoNula)
+               .NotNull().WithMessage(UsuarioErrorMessages.Data_NascimentoNula)
+               .Must(x => x.GetType() == typeof(DateTime)).WithMessage(UsuarioErrorMessages.Data_NascimentoFormatoInvalido)
+               .Must(IdadeMinima).WithMessage(UsuarioErrorMessages.Data_NascimentoIdadeMinima);
 
         }
         private static bool IdadeMinima(DateTime data)

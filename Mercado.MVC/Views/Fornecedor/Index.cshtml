@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout-Interno.cshtml";
 }
 
 <h1>Index</h1>
@@ -52,7 +53,7 @@
                 @Html.DisplayNameFor(model => model.Endereco)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NumeroCasa)
+                @Html.DisplayNameFor(model => model.Numero_Casa)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Uf)
@@ -106,7 +107,7 @@
                 @Html.DisplayFor(modelItem => item.Endereco)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NumeroCasa)
+                @Html.DisplayFor(modelItem => item.Numero_Casa)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Uf)

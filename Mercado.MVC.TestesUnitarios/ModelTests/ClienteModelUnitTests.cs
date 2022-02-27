@@ -163,7 +163,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
 
         #region Data de Nascimento
         [Fact(DisplayName = "Data de nascimento Válida")]
-        public async Task DataNascimentoValida()
+        public async Task Data_NascimentoValida()
         {
             var instancia = _builder.With(x => x.Data_Nascimento = DateTime.Today.AddYears(-18)).Build();
             var validacao = await _validator.ValidateAsync(instancia);
@@ -526,9 +526,9 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
         [InlineData("2888")]
         [InlineData("111111")]
         [InlineData("2846")]
-        public async Task NumeroCasaValido(string numero)
+        public async Task Numero_CasaValido(string numero)
         {
-            var instancia = _builder.With(x => x.NumeroCasa = numero).Build();
+            var instancia = _builder.With(x => x.Numero_Casa = numero).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.True(validacao.IsValid);
         }
@@ -548,18 +548,18 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
         [InlineData("28881231")]
         [InlineData("11111144977")]
         [InlineData("2846112332")]
-        public async Task NumeroCasaTamanhoMaximo(string numero)
+        public async Task Numero_CasaTamanhoMaximo(string numero)
         {
-            var instancia = _builder.With(x => x.NumeroCasa = numero).Build();
+            var instancia = _builder.With(x => x.Numero_Casa = numero).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
             Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.NumeroTamanhoMaximo));
         }
 
         [Fact(DisplayName = "Número da casa nulo")]
-        public async Task NumeroCasaNulo()
+        public async Task Numero_CasaNulo()
         {
-            var instancia = _builder.With(x => x.NumeroCasa = "").Build();
+            var instancia = _builder.With(x => x.Numero_Casa = "").Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
             Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.NumeroNulo));
@@ -762,10 +762,10 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
 
         #region Sexo
         [Theory(DisplayName = "Sexo deve ser válido")]
-        [InlineData(SexoEnum.Feminino)]
-        [InlineData(SexoEnum.Masculino)]
-        [InlineData(SexoEnum.Outros)]
-        public async Task SexoValido(SexoEnum sexo)
+        [InlineData(GeneroEnum.Feminino)]
+        [InlineData(GeneroEnum.Masculino)]
+        [InlineData(GeneroEnum.Outros)]
+        public async Task SexoValido(GeneroEnum sexo)
         {
             var instancia = _builder.With(x => x.Sexo = sexo).Build();
             var validacao = await _validator.ValidateAsync(instancia);
@@ -774,7 +774,7 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
         [Fact(DisplayName = "Sexo não informado")]
         public async Task SexoNulo()
         {
-            var instancia = _builder.With(x => x.Sexo = SexoEnum.Selecione).Build();
+            var instancia = _builder.With(x => x.Sexo = GeneroEnum.Selecione).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
             Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(ClienteErrorMessages.SexoNulo));
