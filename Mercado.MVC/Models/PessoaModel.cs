@@ -7,7 +7,7 @@ namespace Mercado.MVC.Models
     public class PessoaModel : EnderecoModel
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [MaxLength(100)]
         [Required(ErrorMessage = "O Campo é obrigatório!")]
@@ -45,17 +45,17 @@ namespace Mercado.MVC.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
-        public SexoEnum Sexo { get; set; }
+        public GeneroEnum Sexo { get; set; }
 
         [ScaffoldColumn(false)]
         public bool Ativo { get; set; }
 
         [ScaffoldColumn(false)]
         [DataType(DataType.DateTime)]
-        public DateTime DataCadastro { get; set; }
+        public DateTime Data_Cadastro { get; set; }
 
         [ScaffoldColumn(false)]
         [DataType(DataType.DateTime)]
-        public DateTime UltimaModificacao { get; set; } = DateTime.Now;
+        public DateTime Ultima_Modificacao { get; set; } = DateTime.Now;
     }
 }

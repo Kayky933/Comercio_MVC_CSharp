@@ -5,6 +5,7 @@ using Mercado.MVC.Models;
 using Mercado.MVC.Validation.ValidateModels;
 using Mercado.MVC.Validation.ValidateModels.BusinessValidation;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 
 namespace Mercado.MVC.Service
@@ -32,7 +33,7 @@ namespace Mercado.MVC.Service
             return validation;
         }
 
-        public bool Delet(int id)
+        public bool Delet(Guid id)
         {
             var produto = _repository.GetOneById(id);
             if (produto == null)
@@ -41,7 +42,7 @@ namespace Mercado.MVC.Service
             return true;
         }
 
-        public IEnumerable<ProdutoModel> GetAll(int? id)
+        public IEnumerable<ProdutoModel> GetAll(Guid? id)
         {
             return _repository.GetAll(id);
         }
@@ -51,7 +52,7 @@ namespace Mercado.MVC.Service
             return _repository.GetContext();
         }
 
-        public ProdutoModel GetOneById(int? id)
+        public ProdutoModel GetOneById(Guid? id)
         {
             var produto = _repository.GetOneById(id);
             if (produto == null)

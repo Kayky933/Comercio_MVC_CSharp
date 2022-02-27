@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout-Interno.cshtml";
 }
 
 <h1>Index Produto</h1>
@@ -16,13 +17,13 @@
                 @Html.DisplayNameFor(model => model.Descricao)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PrecoUnidade)
+                @Html.DisplayNameFor(model => model.Preco_Unidade)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QuantidadeProduto)
+                @Html.DisplayNameFor(model => model.Quantidade_Produto)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.UnidadeDeMedida)
+                @Html.DisplayNameFor(model => model.Unidade_De_Medida)
             </th>
             <th>
                 Descrição Categoria
@@ -40,13 +41,13 @@
                 @Html.DisplayFor(modelItem => item.Descricao)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PrecoUnidade)
+                @Html.DisplayFor(modelItem => item.Preco_Unidade)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.QuantidadeProduto)
+                @Html.DisplayFor(modelItem => item.Quantidade_Produto)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.UnidadeDeMedida)
+                @Html.DisplayFor(modelItem => item.Unidade_De_Medida)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Categoria.Descricao)

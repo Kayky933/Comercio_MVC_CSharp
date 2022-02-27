@@ -14,7 +14,10 @@ namespace Mercado.MVC.Repository
         public UsuarioRepository(MercadoMVCContext context) : base(context)
         {
         }
-
+        public override IEnumerable<UsuarioModel> GetAll(Guid? id)
+        {
+            return GetContext().Where(x => x.Id == id).ToList();
+        }
         public void Delete(UsuarioModel entity)
         {
             GetContext().Remove(entity);

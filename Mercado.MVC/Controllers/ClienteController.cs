@@ -2,6 +2,7 @@
 using Mercado.MVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Mercado.MVC.Controllers
 {
@@ -25,7 +26,7 @@ namespace Mercado.MVC.Controllers
         }
 
         // GET: Cliente/Details/5
-        public IActionResult Details(int? id)
+        public IActionResult Details(Guid? id)
         {
             Autenticar();
             if (id == null)
@@ -69,7 +70,7 @@ namespace Mercado.MVC.Controllers
         }
 
         // GET: Cliente/Edit/5
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(Guid? id)
         {
             Autenticar();
             if (id == null)
@@ -92,7 +93,7 @@ namespace Mercado.MVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, ClienteModel clienteModel)
+        public IActionResult Edit(Guid id, ClienteModel clienteModel)
         {
             Autenticar();
             var response = _service.PutClient(clienteModel);
@@ -105,7 +106,7 @@ namespace Mercado.MVC.Controllers
         }
 
         // GET: Cliente/Delete/5
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(Guid? id)
         {
             Autenticar();
             if (id == null)
@@ -125,7 +126,7 @@ namespace Mercado.MVC.Controllers
         // POST: Cliente/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(Guid id)
         {
             Autenticar();
             var response = _service.Delet(id);

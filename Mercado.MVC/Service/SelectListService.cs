@@ -2,7 +2,7 @@
 using Mercado.MVC.Models.Enum;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
-
+using System.Linq;
 namespace Mercado.MVC.Service
 {
     public class SelectListService : ISelectListService
@@ -19,21 +19,21 @@ namespace Mercado.MVC.Service
             _produtoService = produtoService;
             _fornecedorService = fornecedorService;
         }
-        public SelectList SelectCategoriaModel(string idModelString, string selectValue)
+        public SelectList SelectCategoriaModel(Guid idUsuario, string idModelString, string selectValue)
         {
-            return new SelectList(_categoriaService.GetContext(), idModelString, selectValue);
+            return new SelectList(_categoriaService.GetContext().Where(x => x.Id_Usuario == idUsuario).ToList(), idModelString, selectValue);
         }
 
-        public SelectList SelectClienteModel(string idModelString, string selectValue)
+        public SelectList SelectClienteModel(Guid idUsuario, string idModelString, string selectValue)
         {
-            return new SelectList(_clienteService.GetContext(), idModelString, selectValue);
+            return new SelectList(_clienteService.GetContext().Where(x => x.Id_Usuario == idUsuario).ToList(), idModelString, selectValue);
         }
 
-        public SelectList SelectProdutoModel(string idModelString, string selectValue)
+        public SelectList SelectProdutoModel(Guid idUsuario, string idModelString, string selectValue)
         {
-            return new SelectList(_produtoService.GetContext(), idModelString, selectValue);
+            return new SelectList(_produtoService.GetContext().Where(x => x.Id_Usuario == idUsuario).ToList(), idModelString, selectValue);
         }
-        public SelectList SelectFornecedorModel(string idModelString, string selectValue)
+        public SelectList SelectFornecedorModel(Guid idUsuario, string idModelString, string selectValue)
         {
             return new SelectList(_fornecedorService.GetContext(), idModelString, selectValue);
         }
@@ -49,7 +49,7 @@ namespace Mercado.MVC.Service
 
         public SelectList SelectListSexo()
         {
-            return new SelectList(Enum.GetValues(typeof(SexoEnum)));
+            return new SelectList(Enum.GetValues(typeof(GeneroEnum)));
         }
     }
 }

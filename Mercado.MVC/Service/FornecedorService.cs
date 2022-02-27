@@ -4,6 +4,7 @@ using Mercado.MVC.Interfaces.Service;
 using Mercado.MVC.Models;
 using Mercado.MVC.Validation.ValidateModels;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 
 namespace Mercado.MVC.Service
@@ -25,7 +26,7 @@ namespace Mercado.MVC.Service
             return validation;
         }
 
-        public bool Delet(int id)
+        public bool Delet(Guid id)
         {
             var fornecedor = _repository.GetOneById(id);
             if (fornecedor == null)
@@ -35,7 +36,7 @@ namespace Mercado.MVC.Service
             return true;
         }
 
-        public IEnumerable<FornecedorModel> GetAll(int? id)
+        public IEnumerable<FornecedorModel> GetAll(Guid? id)
         {
             return _repository.GetAll(id);
         }
@@ -45,7 +46,7 @@ namespace Mercado.MVC.Service
             return _repository.GetContext();
         }
 
-        public FornecedorModel GetOneById(int? id)
+        public FornecedorModel GetOneById(Guid? id)
         {
             return _repository.GetOneById(id);
         }

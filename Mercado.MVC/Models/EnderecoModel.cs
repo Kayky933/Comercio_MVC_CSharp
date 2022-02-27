@@ -20,7 +20,7 @@ namespace Mercado.MVC.Models
 
         [MaxLength(6)]
         [Required(ErrorMessage = "O Campo é obrigatório!")]
-        public string NumeroCasa { get; set; }
+        public string Numero_Casa { get; set; }
 
         public UnidadeFederalEnum Uf { get; set; }
 

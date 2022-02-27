@@ -2,8 +2,10 @@
 using Mercado.MVC.Interfaces.Repository;
 using Mercado.MVC.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+
 
 namespace Mercado.MVC.Repository
 {
@@ -13,13 +15,13 @@ namespace Mercado.MVC.Repository
         {
         }
 
-        public override IEnumerable<EntregaFornecedorModel> GetAll(int? id)
+        public override IEnumerable<EntregaFornecedorModel> GetAll(Guid? id)
         {
             return GetContext().Where(x => x.Id_Usuario == id)
                 .Include(e => e.Fornecedor)
                 .Include(e => e.Produto).ToList();
         }
-        public override EntregaFornecedorModel GetOneById(int? id)
+        public override EntregaFornecedorModel GetOneById(Guid? id)
         {
             return GetContext()
                 .Include(e => e.Fornecedor)

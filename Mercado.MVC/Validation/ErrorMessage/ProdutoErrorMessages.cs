@@ -16,8 +16,8 @@
         public static string QuantidadeMaxima = "O Campo Quantidade suporte no máximo o valor 10000000000000000!";
         public static string QuantidadeProdFormatoInvalido = "O campo Quantidade esta em um formato desconhecido!"!;
 
-        public static string IdCategoriaNulo = "O campo Categoria não pode ser nulo"!;
-        public static string IdCategoriaInexistente = "O campo Categoria selecionado não exsite, verifique as categorias criadas"!;
+        public static string Id_CategoriaNulo = "O campo Categoria não pode ser nulo"!;
+        public static string Id_CategoriaInexistente = "O campo Categoria selecionado não exsite, verifique as categorias criadas"!;
 
         public static string UnidadeMedidaNula = "O campo Unidade de Medida não pode ser nulo"!;
         public static string UnidadeMedidaFormatoInvalido = "O campo Unidade de Medida esta em um formato inválido"!;

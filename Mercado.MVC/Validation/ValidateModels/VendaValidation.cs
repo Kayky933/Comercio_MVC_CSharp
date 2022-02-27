@@ -8,9 +8,9 @@ namespace Mercado.MVC.Validation.ValidateModels
     {
         public VendaValidation()
         {
-            RuleFor(x => x.ValorVenda).NotEmpty().WithMessage(VendaErrorMessages.ValorVendaNulo)
-                .NotNull().WithMessage(VendaErrorMessages.ValorVendaNulo)
-                .LessThanOrEqualTo(1000000000).WithMessage(VendaErrorMessages.ValorVendaMaximo)
+            RuleFor(x => x.Valor_Venda).NotEmpty().WithMessage(VendaErrorMessages.Valor_VendaNulo)
+                .NotNull().WithMessage(VendaErrorMessages.Valor_VendaNulo)
+                .LessThanOrEqualTo(1000000000).WithMessage(VendaErrorMessages.Valor_VendaMaximo)
                 .GreaterThanOrEqualTo(1).WithMessage(VendaErrorMessages.ValorMinimo);
 
             RuleFor(x => x.Quantidade).NotEmpty().WithMessage(VendaErrorMessages.QuantidadeNula)
@@ -19,8 +19,8 @@ namespace Mercado.MVC.Validation.ValidateModels
                 .LessThanOrEqualTo(1000000000).WithMessage(VendaErrorMessages.QuantidadeMaxima)
                 .Must(x => x.GetType() == typeof(double)).WithMessage(VendaErrorMessages.QuantidadeTipoInvalido);
 
-            RuleFor(x => x.IdProduto).NotNull().WithMessage(VendaErrorMessages.IdProdutoNulo)
-                .NotEmpty().WithMessage(VendaErrorMessages.IdProdutoNulo);
+            RuleFor(x => x.Id_Produto).NotNull().WithMessage(VendaErrorMessages.Id_ProdutoNulo)
+                .NotEmpty().WithMessage(VendaErrorMessages.Id_ProdutoNulo);
 
 
         }

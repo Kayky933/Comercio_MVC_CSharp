@@ -2,6 +2,7 @@
 using Mercado.MVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Mercado.MVC.Controllers
 {
@@ -25,7 +26,7 @@ namespace Mercado.MVC.Controllers
         }
 
         // GET: EntregaFornecedor/Details/5
-        public IActionResult Details(int? id)
+        public IActionResult Details(Guid? id)
         {
             Autenticar();
             if (id == null)
@@ -46,8 +47,8 @@ namespace Mercado.MVC.Controllers
         public IActionResult Create()
         {
             Autenticar();
-            ViewData["IdFornecedor"] = _selectListService.SelectFornecedorModel("Id", "Razao_Social");
-            ViewData["IdProduto"] = _selectListService.SelectProdutoModel("Id", "Descricao");
+            ViewData["Id_Fornecedor"] = _selectListService.SelectFornecedorModel(ViewBag.usuarioId, "Id", "Razao_Social");
+            ViewData["Id_Produto"] = _selectListService.SelectProdutoModel(ViewBag.usuarioId, "Id", "Descricao");
             return View();
         }
 
@@ -63,8 +64,8 @@ namespace Mercado.MVC.Controllers
             if (response.IsValid)
                 return RedirectToAction("Index", "EntregaFornecedor");
 
-            ViewData["IdFornecedor"] = _selectListService.SelectFornecedorModel("Id", "Razao_Social");
-            ViewData["IdProduto"] = _selectListService.SelectProdutoModel("Id", "Descricao");
+            ViewData["Id_Fornecedor"] = _selectListService.SelectFornecedorModel(ViewBag.usuarioId, "Id", "Razao_Social");
+            ViewData["Id_Produto"] = _selectListService.SelectProdutoModel(ViewBag.usuarioId, "Id", "Descricao");
             return View(entregaFornecedorModel);
         }
 

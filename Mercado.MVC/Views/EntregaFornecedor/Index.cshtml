@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout-Interno.cshtml";
 }
 
 <h1>Index</h1>
@@ -16,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.Quantidade)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ValorUnidade)
+                @Html.DisplayNameFor(model => model.Valor_Unidade)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Produto)
@@ -25,7 +26,7 @@
                 @Html.DisplayNameFor(model => model.Fornecedor)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DataEntrega)
+                @Html.DisplayNameFor(model => model.Data_Entrega)
             </th>
             <th></th>
         </tr>
@@ -37,7 +38,7 @@
                 @Html.DisplayFor(modelItem => item.Quantidade)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ValorUnidade)
+                @Html.DisplayFor(modelItem => item.Valor_Unidade)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Produto.Descricao)
@@ -46,7 +47,7 @@
                 @Html.DisplayFor(modelItem => item.Fornecedor.Razao_Social)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DataEntrega)
+                @Html.DisplayFor(modelItem => item.Data_Entrega)
             </td>
             <td>
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a>

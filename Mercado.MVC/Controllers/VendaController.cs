@@ -2,6 +2,7 @@
 using Mercado.MVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Mercado.MVC.Controllers
 {
@@ -25,7 +26,7 @@ namespace Mercado.MVC.Controllers
         }
 
         // GET: Venda/Details/5
-        public IActionResult Details(int? id)
+        public IActionResult Details(Guid? id)
         {
             Autenticar();
             if (id == null)
@@ -46,8 +47,8 @@ namespace Mercado.MVC.Controllers
         public IActionResult Create()
         {
             Autenticar();
-            ViewData["IdProduto"] = _selectListService.SelectProdutoModel("Id", "Descricao");
-            ViewData["IdCliente"] = _selectListService.SelectClienteModel("Id", "Razao_Social");
+            ViewData["Id_Produto"] = _selectListService.SelectProdutoModel(ViewBag.usuarioId, "Id", "Descricao");
+            ViewData["Id_Cliente"] = _selectListService.SelectClienteModel(ViewBag.usuarioId, "Id", "Razao_Social");
             return View();
         }
 
@@ -62,14 +63,14 @@ namespace Mercado.MVC.Controllers
             var response = _service.Create(vendaModel);
             if (response.IsValid)
                 return RedirectToAction("Index", "Venda");
-            ViewData["IdProduto"] = _selectListService.SelectProdutoModel("Id", "Descricao");
-            ViewData["IdCliente"] = _selectListService.SelectClienteModel("Id", "Razao_Social");
+            ViewData["Id_Produto"] = _selectListService.SelectProdutoModel(ViewBag.usuarioId, "Id", "Descricao");
+            ViewData["Id_Cliente"] = _selectListService.SelectClienteModel(ViewBag.usuarioId, "Id", "Razao_Social");
             return View(MostrarErros(response, vendaModel));
         }
 
 
         // GET: Venda/Delete/5
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(Guid? id)
         {
             Autenticar();
             if (id == null)

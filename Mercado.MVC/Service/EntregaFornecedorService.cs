@@ -5,6 +5,7 @@ using Mercado.MVC.Models;
 using Mercado.MVC.Validation.ValidateModels;
 using Mercado.MVC.Validation.ValidateModels.BusinessValidation;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 
 namespace Mercado.MVC.Repository
@@ -31,16 +32,16 @@ namespace Mercado.MVC.Repository
             if (!businessValidation.IsValid)
                 return businessValidation;
 
-            var produto = _produtoRepository.GetOneById(model.IdProduto);
+            var produto = _produtoRepository.GetOneById(model.Id_Produto);
 
-            produto.QuantidadeProduto += model.Quantidade;
+            produto.Quantidade_Produto += model.Quantidade;
             _produtoRepository.Update(produto);
 
             _entrega.Create(model);
             return validation;
         }
 
-        public IEnumerable<EntregaFornecedorModel> GetAll(int? id)
+        public IEnumerable<EntregaFornecedorModel> GetAll(Guid? id)
         {
             return _entrega.GetAll(id);
         }
@@ -50,7 +51,7 @@ namespace Mercado.MVC.Repository
             return _entrega.GetContext();
         }
 
-        public EntregaFornecedorModel GetOneById(int? id)
+        public EntregaFornecedorModel GetOneById(Guid? id)
         {
             return _entrega.GetOneById(id);
         }

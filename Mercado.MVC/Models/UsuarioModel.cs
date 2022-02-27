@@ -8,7 +8,7 @@ namespace Mercado.MVC.Models
     public class UsuarioModel
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [MaxLength(100)]
         [Required(ErrorMessage = "Informe o nome de usuario", AllowEmptyStrings = false)]
@@ -25,6 +25,6 @@ namespace Mercado.MVC.Models
 
         [Required(ErrorMessage = "Informe a data de nascimento", AllowEmptyStrings = false)]
         [DataType(DataType.Date)]
-        public DateTime DataNascimento { get; set; }
+        public DateTime Data_Nascimento { get; set; }
     }
 }

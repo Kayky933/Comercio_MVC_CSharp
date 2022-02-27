@@ -16,8 +16,8 @@
         public static string SenhaTamanhoMinimo = "A Senha deve ter no mínimo 8 caracteres!";
         public static string SenhaNula = "A Senha não pode ser nula!";
 
-        public static string DataNascimentoNula = "O campo Data de Nascimento não pode ter nulo!";
-        public static string DataNascimentoFormatoInvalido = "O campo Data de Nascimento Esta em um formato desconhecido!";
-        public static string DataNascimentoIdadeMinima = "É preciso ser maior de idade para se cadastrar!";
+        public static string Data_NascimentoNula = "O campo Data de Nascimento não pode ter nulo!";
+        public static string Data_NascimentoFormatoInvalido = "O campo Data de Nascimento Esta em um formato desconhecido!";
+        public static string Data_NascimentoIdadeMinima = "É preciso ser maior de idade para se cadastrar!";
     }
 }

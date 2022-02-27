@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout-Interno.cshtml";
 }
 
 <h1>Edit</h1>
@@ -14,6 +14,7 @@
     <div class="col-md-10">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id_Usuario" value="@ViewBag.usuarioId" />
             <div class="row">
                 <div class="form-group col-md-6">
                     <label asp-for="Razao_Social" class="control-label"></label>
@@ -106,9 +107,9 @@
                     <span asp-validation-for="Complemento" class="text-danger"></span>
                 </div>
                 <div class="form-group col-md-6">
-                    <label asp-for="NumeroCasa" class="control-label"></label>
-                    <input asp-for="NumeroCasa" type="text" class="form-control" />
-                    <span asp-validation-for="NumeroCasa" class="text-danger"></span>
+                    <label asp-for="Numero_Casa" class="control-label"></label>
+                    <input asp-for="Numero_Casa" type="text" class="form-control" />
+                    <span asp-validation-for="Numero_Casa" class="text-danger"></span>
                 </div>
 
             </div>

@@ -29,7 +29,7 @@ namespace Mercado.MVC.Service
             return validacao;
         }
 
-        public IEnumerable<UsuarioModel> GetAll(int? id)
+        public IEnumerable<UsuarioModel> GetAll(Guid? id)
         {
             return _repository.GetAll(id);
         }
@@ -37,12 +37,12 @@ namespace Mercado.MVC.Service
         {
             return _repository.GetContext();
         }
-        public UsuarioModel GetOneById(int? id)
+        public UsuarioModel GetOneById(Guid? id)
         {
             return _repository.GetOneById(id);
         }
 
-        public bool Delet(int id)
+        public bool Delet(Guid id)
         {
             var usuario = _repository.GetOneById(id);
             if (usuario == null)
@@ -69,7 +69,7 @@ namespace Mercado.MVC.Service
             return _repository.PostLogin(getUsuario);
         }
 
-        public ValidationResult PutEdicao(int id, UsuarioModel usuario)
+        public ValidationResult PutEdicao(Guid id, UsuarioModel usuario)
         {
             var validacao = ValidarUsuario(usuario);
             if (!validacao.IsValid)

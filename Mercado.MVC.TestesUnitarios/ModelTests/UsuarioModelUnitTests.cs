@@ -216,29 +216,29 @@ namespace Mercado.MVC.TestesUnitarios.ModelTests
 
         #region Data de Nascimento
         [Fact(DisplayName = "Data de nascimento Válida")]
-        public async Task DataNascimentoValida()
+        public async Task Data_NascimentoValida()
         {
-            var instancia = _builder.With(x => x.DataNascimento = DateTime.Today.AddYears(-18)).Build();
+            var instancia = _builder.With(x => x.Data_Nascimento = DateTime.Today.AddYears(-18)).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.True(validacao.IsValid);
         }
 
         [Fact(DisplayName = "Data de nascimento inválida")]
-        public async Task DataNascimentoInvalida()
+        public async Task Data_NascimentoInvalida()
         {
-            var instancia = _builder.With(x => x.DataNascimento = DateTime.Today.AddYears(-17)).Build();
+            var instancia = _builder.With(x => x.Data_Nascimento = DateTime.Today.AddYears(-17)).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(UsuarioErrorMessages.DataNascimentoIdadeMinima));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(UsuarioErrorMessages.Data_NascimentoIdadeMinima));
         }
 
         [Fact(DisplayName = "Data de nascimento nula")]
-        public async Task DataNascimentoNula()
+        public async Task Data_NascimentoNula()
         {
-            var instancia = _builder.With(x => x.DataNascimento = Convert.ToDateTime(null)).Build();
+            var instancia = _builder.With(x => x.Data_Nascimento = Convert.ToDateTime(null)).Build();
             var validacao = await _validator.ValidateAsync(instancia);
             Assert.False(validacao.IsValid);
-            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(UsuarioErrorMessages.DataNascimentoNula));
+            Assert.Contains(validacao.Errors, x => x.ErrorMessage.Contains(UsuarioErrorMessages.Data_NascimentoNula));
         }
         #endregion
     }

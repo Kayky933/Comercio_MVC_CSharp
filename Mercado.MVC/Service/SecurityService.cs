@@ -12,7 +12,7 @@ namespace Mercado.MVC.Service
         public static LoginUsuarioModel Autenticado(HttpContext context)
         {
             string email = "";
-            int usuarioId = Convert.ToInt32(null);
+            var usuarioId = Guid.Empty;
             LoginUsuarioModel res;
             if (context.User.Identity.IsAuthenticated)
             {
@@ -24,7 +24,7 @@ namespace Mercado.MVC.Service
                         email = item.Value;
 
                     if (item.Type == ClaimTypes.SerialNumber)
-                        usuarioId = int.Parse(item.Value);
+                        usuarioId = Guid.Parse(item.Value);
                 }
 
                 res = new LoginUsuarioModel()

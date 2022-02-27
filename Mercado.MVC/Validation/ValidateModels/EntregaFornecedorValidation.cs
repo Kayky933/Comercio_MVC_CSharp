@@ -9,17 +9,17 @@ namespace Mercado.MVC.Validation.ValidateModels
     {
         public EntregaFornecedorValidation()
         {
-            RuleFor(x => x.DataEntrega).NotEmpty().WithMessage(EntregaFornecedorErrorMessages.DataNula)
+            RuleFor(x => x.Data_Entrega).NotEmpty().WithMessage(EntregaFornecedorErrorMessages.DataNula)
                 .NotNull().WithMessage(EntregaFornecedorErrorMessages.DataNula)
                 .Must(DataFutura).WithMessage(EntregaFornecedorErrorMessages.DataFutura);
 
-            RuleFor(x => x.IdFornecedor).NotEmpty().WithMessage(EntregaFornecedorErrorMessages.IdFornecedorNulo)
-                .NotNull().WithMessage(EntregaFornecedorErrorMessages.IdFornecedorNulo)
-                .Must(x => x.GetType() == typeof(int)).WithMessage(EntregaFornecedorErrorMessages.IdFornecedorTipoInvalido);
+            RuleFor(x => x.Id_Fornecedor).NotEmpty().WithMessage(EntregaFornecedorErrorMessages.Id_FornecedorNulo)
+                .NotNull().WithMessage(EntregaFornecedorErrorMessages.Id_FornecedorNulo)
+                .Must(x => x.GetType() == typeof(Guid)).WithMessage(EntregaFornecedorErrorMessages.Id_FornecedorTipoInvalido);
 
-            RuleFor(x => x.IdProduto).NotEmpty().WithMessage(EntregaFornecedorErrorMessages.IdProdutoNulo)
-                .NotNull().WithMessage(EntregaFornecedorErrorMessages.IdProdutoNulo)
-                .Must(x => x.GetType() == typeof(int)).WithMessage(EntregaFornecedorErrorMessages.IdProdutoTipoInvalido);
+            RuleFor(x => x.Id_Produto).NotEmpty().WithMessage(EntregaFornecedorErrorMessages.Id_ProdutoNulo)
+                .NotNull().WithMessage(EntregaFornecedorErrorMessages.Id_ProdutoNulo)
+                .Must(x => x.GetType() == typeof(Guid)).WithMessage(EntregaFornecedorErrorMessages.Id_ProdutoTipoInvalido);
 
             RuleFor(x => x.Quantidade).NotEmpty().WithMessage(EntregaFornecedorErrorMessages.QuantidadeNula)
                 .NotNull().WithMessage(EntregaFornecedorErrorMessages.QuantidadeNula)
@@ -27,11 +27,11 @@ namespace Mercado.MVC.Validation.ValidateModels
                 .LessThanOrEqualTo(1000000000).WithMessage(EntregaFornecedorErrorMessages.QuantidadeMaxima)
                 .Must(x => x.GetType() == typeof(double)).WithMessage(EntregaFornecedorErrorMessages.QuantidadeTipoInvalido);
 
-            RuleFor(x => x.ValorUnidade).NotEmpty().WithMessage(EntregaFornecedorErrorMessages.ValorUnidadeNulo)
-                .NotNull().WithMessage(EntregaFornecedorErrorMessages.ValorUnidadeNulo)
-                .GreaterThanOrEqualTo(1).WithMessage(EntregaFornecedorErrorMessages.ValorUnidadeMinimo)
-                .LessThanOrEqualTo(1000000000).WithMessage(EntregaFornecedorErrorMessages.ValorUnidadeMaximo)
-                .Must(x => x.GetType() == typeof(decimal)).WithMessage(EntregaFornecedorErrorMessages.ValorUnidadeTipoInvalido);
+            RuleFor(x => x.Valor_Unidade).NotEmpty().WithMessage(EntregaFornecedorErrorMessages.Valor_UnidadeNulo)
+                .NotNull().WithMessage(EntregaFornecedorErrorMessages.Valor_UnidadeNulo)
+                .GreaterThanOrEqualTo(1).WithMessage(EntregaFornecedorErrorMessages.Valor_UnidadeMinimo)
+                .LessThanOrEqualTo(1000000000).WithMessage(EntregaFornecedorErrorMessages.Valor_UnidadeMaximo)
+                .Must(x => x.GetType() == typeof(decimal)).WithMessage(EntregaFornecedorErrorMessages.Valor_UnidadeTipoInvalido);
         }
         private static bool DataFutura(DateTime data)
         {

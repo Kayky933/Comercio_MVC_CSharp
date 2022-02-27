@@ -3,6 +3,7 @@ using Mercado.MVC.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -27,7 +28,7 @@ namespace Mercado.MVC.Controllers
 
         // GET: Usuario/Details/5
         [Authorize]
-        public IActionResult Details(int? id)
+        public IActionResult Details(Guid? id)
         {
             Autenticar();
             if (id == null)
@@ -68,7 +69,7 @@ namespace Mercado.MVC.Controllers
 
         // GET: Usuario/Edit/5
         [Authorize]
-        public IActionResult Edit(int? id)
+        public IActionResult Edit(Guid? id)
         {
             Autenticar();
             if (id == null)
@@ -90,7 +91,7 @@ namespace Mercado.MVC.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, UsuarioModel usuarioModel)
+        public IActionResult Edit(Guid id, UsuarioModel usuarioModel)
         {
             Autenticar();
             if (id != usuarioModel.Id)
@@ -106,7 +107,7 @@ namespace Mercado.MVC.Controllers
 
         // GET: Usuario/Delete/5
         [Authorize]
-        public IActionResult Delete(int? id)
+        public IActionResult Delete(Guid? id)
         {
             Autenticar();
             if (id == null)
@@ -127,7 +128,7 @@ namespace Mercado.MVC.Controllers
         [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(Guid id)
         {
             Autenticar();
             var excluir = _service.Delet(id);
